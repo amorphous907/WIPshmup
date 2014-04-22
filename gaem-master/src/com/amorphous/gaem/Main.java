@@ -12,10 +12,11 @@ public class Main {
 		cfg.title = "StarShmup Alpha"+gaemMain.version;
 		cfg.useGL20 = true;
 		//res, obviously
+		//test comment
 		cfg.width = 1000; //1000
 		cfg.height = 900; //900
 		cfg.resizable = true;
-		cfg.vSyncEnabled = true;
+		cfg.vSyncEnabled = false;
 		cfg.foregroundFPS = 0;
 		cfg.fullscreen = false;
 		
