@@ -12,7 +12,7 @@ public class Star extends MoveableEntity{
 			float hitY, Vector2 speed) {
 		super(position, width, height, hitX, hitY);
 		velocity = speed;
-		actorID = 13;
+		actorID = 14;
 		texture = "star";
 	}
 	
