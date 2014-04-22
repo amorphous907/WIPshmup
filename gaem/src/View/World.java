@@ -185,6 +185,7 @@ public class World {
 		Arrays.fill(controllerButtons, Boolean.FALSE);
 		Arrays.fill(controllerAxis, 0.0f);
 		this.level = levels.get(currentLevel);
+		System.out.println("GIT TEST");
 	}
 
 	public void update(){
