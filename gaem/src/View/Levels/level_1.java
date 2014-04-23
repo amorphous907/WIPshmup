@@ -41,7 +41,7 @@ public class level_1
 	public void update(final World world)
 	{
 		if(star)
-		{/*
+		{
 			float size = rnd.nextFloat()*50; 
 			if(rnd.nextInt(50)<10 && size > 12.5f && size <= 40)//10
 				world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
@@ -49,7 +49,7 @@ public class level_1
 				world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
 			if(rnd.nextInt(25)<25 && size <= 12.5) //25
 				world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
-				*/
+				
 			
 			
 			if(musicstart)
@@ -146,7 +146,7 @@ public class level_1
 					@Override
 					public void run()
 					{
-						timeLimit = timeLimit + 3.2f;
+						timeLimit += 3.2f;
 						done = true;
 					}
 				} , 3.2f);
