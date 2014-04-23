@@ -13,8 +13,8 @@ public class Main {
 		cfg.useGL20 = true;
 		//res, obviously
 		//blams
-		cfg.width = 1000; //1000
-		cfg.height = 900; //900
+		cfg.width = 500; //1000
+		cfg.height = 450; //900
 		cfg.resizable = true;
 		cfg.vSyncEnabled = false;
 		cfg.foregroundFPS = 0;
