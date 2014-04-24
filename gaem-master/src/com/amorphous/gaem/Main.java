@@ -14,7 +14,7 @@ public class Main {
 		//res, obviously
 		//blams
 		cfg.width = 750; //1000
-		cfg.height = (int) (900*0.8); //900
+		cfg.height = (int) (900*0.75); //900
 		cfg.resizable = true;
 		cfg.vSyncEnabled = false;
 		cfg.foregroundFPS = 0;
