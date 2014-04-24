@@ -32,7 +32,7 @@ public class EnemyBullet extends MoveableEntity{
 			this.velocity = velocity;
 			}
 	@Override
-	public void animate(WorldRender world){
+	public void animate(WorldRender render, World world){
 	    /*world.animate(animationNum, currentFrame, this);
 		currentFrame++;
 		if(currentFrame == world.getAnimation(animationNum).numFrames){
@@ -42,7 +42,7 @@ public class EnemyBullet extends MoveableEntity{
 			rotation+=18*Gdx.graphics.getDeltaTime()*60;
 			else
 				rotation = 0;
-		render(world);
+		render(render);
 	}
 
 	

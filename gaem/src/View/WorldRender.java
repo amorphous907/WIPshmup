@@ -7,6 +7,7 @@ import java.util.Iterator;
 import Models.Entity;
 import Models.MoveableEntity;
 import Models.Players.Player;
+import View.Levels.level;
 import View.Levels.level_1;
 
 import com.amorphous.gaem.gaemMain;
@@ -39,7 +40,6 @@ public class WorldRender {
 	BitmapFont Wintermute, Belly, Zero;
 	Array<BitmapFont> fonts;
 	Texture UEFHealth, blue_background, none;
-	Array<animation> animations;
 	
 	Iterator<MoveableEntity> eIter;
 	MoveableEntity entity;
@@ -53,6 +53,7 @@ public class WorldRender {
 	
 	//public Array<Texture> textures;
 	private HashMap<String, Texture> textures;
+	private HashMap<String, animation> animations;
 	
 	Sprite particleSprite;
 	
@@ -86,9 +87,9 @@ public class WorldRender {
 		
 		shapeRender = new ShapeRenderer();
 		
-		animations = new Array<animation>();
-		animations.add(new animation("boom", 89));
-		animations.add(new animation("eb", 3));
+		animations = new HashMap<String, animation>();
+		animations.put("boom", new animation("boom", 89));
+		animations.put("eb", new animation("eb", 3));
 		
 		textures = new HashMap<String, Texture>();
 		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));
@@ -217,12 +218,12 @@ public class WorldRender {
 				width*player.spawnTic/player.spawnTime, thickness, 1, 1, 0, 0, 0, 
 				textures.get(index1).getWidth(), textures.get(index1).getHeight(), false, false);
 	}
-	public void renderProgressBar(level_1 level, float width, float height, float x, float y, String index1, String index2){
+	public void renderProgressBar(level level, float width, float height, float x, float y, String index1, String index2){
 		batch.draw(textures.get(index2), x, y, width/2, height/2, 
 				width, height, 1, 1, 0, 0, 0, 
 				textures.get(index2).getWidth(), textures.get(index2).getHeight(), false, false);
 		batch.draw(textures.get(index1), x, y+height, width/2, height/2, 
-				width, height*level.currentTime/level.timeLimit*-1, 1, 1, 0, 0, 0, 
+				width, height*level.getCurrentTime()/level.getTimeLimit()*-1, 1, 1, 0, 0, 0, 
 				textures.get(index1).getWidth(), textures.get(index1).getHeight(), false, false);
 	}
 
@@ -298,7 +299,7 @@ public class WorldRender {
 		while(eIter.hasNext()){
 			entity = eIter.next();
 			if(entity.animate)
-				entity.animate(this);
+				entity.animate(this, world);
 		}
 	}
 
@@ -350,11 +351,11 @@ public class WorldRender {
 		return cam;
 	}
 
-	public void animate(int animationNum, int currentFrame, Entity entity) {
+	public void animate(String animationNum, int currentFrame, Entity entity) {
 		draw(entity, animations.get(animationNum).getFrame(currentFrame));
 	}
 
-	public animation getAnimation(int animationNum) {
+	public animation getAnimation(String animationNum) {
 		return animations.get(animationNum);
 	}
 	

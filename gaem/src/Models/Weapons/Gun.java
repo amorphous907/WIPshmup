@@ -1,6 +1,7 @@
 package Models.Weapons;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer.Task;
 
 import Models.MoveableEntity;
@@ -13,12 +14,14 @@ public class Gun {
 	protected float maxSpread;
 	protected int damage;
 	protected World world;
+	protected Array<MoveableEntity> projectiles = new Array<MoveableEntity>();
 
 	protected int ammo;
 	protected int fireTick = 0;
 	public String name = "NONE";
 	public boolean fire;
 	private boolean loaded = true;
+	protected boolean slingable = false;
 	
 	public Gun(float fireRate, int damage, int ammo){
 		this.fireRate = fireRate;
@@ -56,7 +59,17 @@ public class Gun {
 	}
 	
 	protected void fire(World world, MoveableEntity entity){
-		
+		if(slingable){
+			applyVelocity(entity);
+		}
+		world.actors.addAll(projectiles);
+		projectiles.clear();
+	}
+	
+	protected void applyVelocity(MoveableEntity player){
+		for(MoveableEntity entity : projectiles){
+			entity.getVelocity().add(player.getVelocity());
+		}
 	}
 	
 }

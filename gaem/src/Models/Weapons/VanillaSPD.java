@@ -32,7 +32,8 @@ public class VanillaSPD extends Gun {
 	@Override
 	protected void fire(World world, MoveableEntity entity)
 	{
-		world.actors.add(new Bullet(new Vector2(entity.centerLocation.x, entity.centerLocation.y-10), new Vector2(0,-900).rotate(spread))); //.rotate(spread) is the bullet spread parameter
+		projectiles.add(new Bullet(new Vector2(entity.centerLocation.x, entity.centerLocation.y-10), new Vector2(0,-900).rotate(spread))); //.rotate(spread) is the bullet spread parameter
+		applyVelocity(entity);
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x, entity.centerLocation.y-10));
 		if(slow && fireRate > 0.04f){
 			fireRate -= 0.009;
@@ -50,5 +51,6 @@ public class VanillaSPD extends Gun {
 		}
 		int x = com.badlogic.gdx.math.MathUtils.random(0, 3);
 		world.game.audio.playSound("PlayerLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
+		super.fire(world, entity);
 	}
 }

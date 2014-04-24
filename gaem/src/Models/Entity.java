@@ -30,6 +30,9 @@ public class Entity {
 	public Color color;
 	public Color damageColor;
 	public boolean fadeToWhite = false;
+	protected String animationID;
+	protected boolean animationAdvance = true;
+	protected float animationDelay;
 	
 	public boolean animate = false;
 	public int animationNum;
@@ -116,20 +119,6 @@ public class Entity {
 		world.draw(this, texture, color);
 	}
 
-	public void animate(final WorldRender world) {
-		world.animate(animationNum, currentFrame, this);
-		this.world.timer.scheduleTask(new Task(){
-
-			@Override
-			public void run() {
-				currentFrame++;
-				if(currentFrame == world.getAnimation(animationNum).numFrames){
-					currentFrame = 0;
-				}
-			}
-			
-		}, frameDelay);
-	}
 
 	public float getRotation() {
 		return rotation;

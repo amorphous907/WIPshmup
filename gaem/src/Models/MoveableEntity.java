@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class MoveableEntity extends Entity{
 	protected Vector2 velocity;
@@ -109,8 +110,27 @@ public class MoveableEntity extends Entity{
 	}
 
 	public void collidesWith(MoveableEntity e, World world) {
-
 		
+	}
+	
+	public void animate(WorldRender render, World world){
+		render.animate(animationID, currentFrame, this);
+		if(animationAdvance){
+			currentFrame++;
+			
+			world.timer.scheduleTask(new Task(){
+
+				@Override
+				public void run() {
+					animationAdvance = true;
+				}
+				
+			}, animationDelay);
+			animationAdvance = false;
+		}
+		if(currentFrame == render.getAnimation(animationID).numFrames){
+			currentFrame = 0;
+		}
 	}
 
 	public void damage(int i) 

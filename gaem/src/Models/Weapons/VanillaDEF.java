@@ -26,15 +26,17 @@ public class VanillaDEF extends Gun{
 		damage = 1;
 		ammo = -1;
 		name = "DUAL MACHINEGUNS";
+		slingable = true;
 	}
 	
 	@Override
 	protected void fire(World world, MoveableEntity entity){
-		world.actors.add(new Bullet(new Vector2(entity.centerLocation.x-12, entity.centerLocation.y), new Vector2(0,-900)));
-		world.actors.add(new Bullet(new Vector2(entity.centerLocation.x+12, entity.centerLocation.y), new Vector2(0,-900)));
+		projectiles.add(new Bullet(new Vector2(entity.centerLocation.x-12, entity.centerLocation.y), new Vector2(0,-900)));
+		projectiles.add(new Bullet(new Vector2(entity.centerLocation.x+12, entity.centerLocation.y), new Vector2(0,-900)));
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x-10, entity.centerLocation.y-10));
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x+10, entity.centerLocation.y-10));
 		int x = com.badlogic.gdx.math.MathUtils.random(0, 3);
 		world.game.audio.playSound("PlayerLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
+		super.fire(world, entity);
 	}
 }

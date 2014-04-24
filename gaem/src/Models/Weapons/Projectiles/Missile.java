@@ -54,6 +54,20 @@ public class Missile extends MoveableEntity
 		this.velocity = velocity;//how to change its velocity(pixels per second), add this for every bullet for specific velocities
 		rotation = 180;//you dont need to add this every new bullet, leave it at 180 for proper rendering
 		actorID = 41;
+		texture = "missile";
+		fumes = new ParticleEmitter();
+		try {
+            fumes.load(Gdx.files.internal("data/particle/Player1Fumes").reader(2024));
+		} catch (IOException e) {
+            e.printStackTrace();
+		}
+		
+		fumes.setPosition(position.x, position.y);
+		Texture particle = new Texture("data/particle/particle.png");
+		Sprite particleSprite = new Sprite(particle);
+		fumes.setSprite(particleSprite);
+		fumes.getScale().setHigh(8f);
+		fumes.start();
 	}
 	
 	public Missile(Vector2 position, Vector2 velocity){
@@ -66,8 +80,10 @@ public class Missile extends MoveableEntity
 	@Override
 	public void update(World world){
 		super.update(world);
-		velocity = new Vector2(0,vel);
-		vel = vel - 2;
+		 velocity.y -= 4;
+		 if(velocity.x > 0) velocity.x -= 1;
+		 if(velocity.x < 0) velocity.x += 1;
+		rotation = velocity.angle()-90;
 		if(position.y <= 0)
 			remove = true;
 		fumes.setPosition(centerLocation.x, centerLocation.y);
@@ -105,7 +121,7 @@ public class Missile extends MoveableEntity
 	public void render(WorldRender render)
 	{
 			//render.BulletImpact(new Vector2((this.getPosition().x+this.getWidth()/2), (this.getPosition().y+this.getHeight()/2)));
-		render.addParticles(2, 0, -3f, new Vector2(centerLocation.x, centerLocation.y+15));
+		//render.addParticles(2, 0, -3f, new Vector2(centerLocation.x, centerLocation.y+15));
 		fumes.draw(render.batch, Gdx.graphics.getDeltaTime());
 		super.render(render);
 	}

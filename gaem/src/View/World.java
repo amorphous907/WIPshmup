@@ -85,8 +85,8 @@ public class World {
 	level_1 level1;
 	level_2 level2;
 	level_3 level3;
-	Array<level_1> levels;
-	public level_1 level;
+	Array<View.Levels.level> levels;
+	public View.Levels.level level;
 	int currentLevel;
 
 	public int lives;
@@ -94,16 +94,16 @@ public class World {
 	public World(gaemMain game, int level){
 		this.game = game;
 		timer = new Timer();
-		levelT = new level_TEST();//0
-		level1 = new level_1();//1
-		level2 = new level_2();//2
-		level3 = new level_3();//3
+		//levelT = new level_TEST();//0
+		level1 = new level_1(this);//1
+		//level2 = new level_2();//2
+		//level3 = new level_3();//3
 		currentLevel = level;
 
-		levels = new Array<level_1>();
-		levels.add(levelT); //0
+		levels = new Array<View.Levels.level>();
+		levels.add(level1); //0
 		levels.add(level1); //1
-		levels.add(level2); //2
+		//levels.add(level2); //2
 
 		lives = 110;
 		players = 1;
@@ -194,11 +194,10 @@ public class World {
 		{
 			game.audio.stopMusic();
 			currentLevel++;
-			level.update(this);
-			level.bossDead = false;
+			level.update();
 			level = levels.get(currentLevel);
 		}
-		level.update(this);
+		level.update();
 	}
 
 	//updates everything
