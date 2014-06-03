@@ -10,7 +10,7 @@ import Models.Enemies.HeavyBasic;
 import Models.Enemies.HeavySpread;
 import Models.Enemies.LightLaser;
 import Models.Enemies.HeavyLaser;
-import Models.Enemies.HeavyGunship;
+import Models.Enemies.GunshipBasic;
 import Models.Enemies.Bosses.BOSS2;
 import View.World;
 
@@ -649,7 +649,7 @@ public class level_2 extends level_1
 		{
 			if(tic == 0)
             {
-            	world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+            	world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
             }
             if(tic == 100)
             {
@@ -673,7 +673,7 @@ public class level_2 extends level_1
 		{
 			if(tic == 0)
             {
-            	world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+            	world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
             }
 			tic++;  
 			currentTime++;

@@ -12,7 +12,7 @@ import Models.Enemies.HeavyBasic;
 import Models.Enemies.HeavySpread;
 import Models.Enemies.LightLaser;
 import Models.Enemies.HeavyLaser;
-import Models.Enemies.HeavyGunship;
+import Models.Enemies.GunshipBasic;
 import Models.Enemies.EnemyMines;
 import Models.Enemies.Bosses.BOSS3;
 import View.World;
@@ -60,7 +60,7 @@ public class level_3 extends level_1
     }
     if(tic == 700)
     {
-    	world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+    	world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
     }
     if(tic == 800)
     {
@@ -266,7 +266,7 @@ public class level_3 extends level_1
     if(tic == 4450)
     {
     	world.actors.add(new HeavySpread(new Vector2(150,-100), 90,60,80,50));
-        world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+        world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
         world.actors.add(new HeavySpread(new Vector2(550,-100), 90,60,80,50));
     }
     if(tic == 4450)
@@ -410,7 +410,7 @@ public class level_3 extends level_1
     {
     	world.actors.add(new EnemyMines(new Vector2(250,-100), 60,60,50,50));
         world.actors.add(new EnemyMines(new Vector2(300,-100), 60,60,50,50));
-        world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+        world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
         world.actors.add(new EnemyMines(new Vector2(400,-100), 60,60,50,50));
         world.actors.add(new EnemyMines(new Vector2(450,-100), 60,60,50,50));
     }
@@ -479,7 +479,7 @@ public class level_3 extends level_1
     }
     if(tic == 8300)
     {
-    	world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+    	world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
     }
     if(tic == 8400)
     {
@@ -560,7 +560,7 @@ public class level_3 extends level_1
     if(tic == 9600)
     {
     	world.actors.add(new EnemyMines(new Vector2(100,-100), 60,60,50,50));
-        world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+        world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
         world.actors.add(new EnemyMines(new Vector2(600,-100), 60,60,50,50));
     }
     if(tic == 9700)
@@ -655,7 +655,7 @@ public class level_3 extends level_1
     if(tic == 11200)
     {
     	world.actors.add(new EnemyMines(new Vector2(300,-100), 60,60,50,50));
-        world.actors.add(new HeavyGunship(new Vector2(350,-100), 90,60,80,50));
+        world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
         world.actors.add(new EnemyMines(new Vector2(400,-100), 60,60,50,50));
     }
     if(tic == 11350)

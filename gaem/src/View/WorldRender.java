@@ -92,43 +92,54 @@ public class WorldRender {
 		animations.put("eb", new animation("eb", 3));
 		
 		textures = new HashMap<String, Texture>();
-		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));
-		textures.put("player1", new Texture(Gdx.files.internal("data/texture/player1.png"))); //0
-		textures.put("player2", new Texture(Gdx.files.internal("data/texture/player2.png"))); //1
-		textures.put("player3", new Texture(Gdx.files.internal("data/texture/player3.png"))); //2
-		textures.put("player4", new Texture(Gdx.files.internal("data/texture/player4.png"))); //3
-		textures.put("enemyA", new Texture(Gdx.files.internal("data/texture/enemyA.png"))); //4
-		textures.put("enemyB", new Texture(Gdx.files.internal("data/texture/enemyB.png"))); //5
-		textures.put("enemyC", new Texture(Gdx.files.internal("data/texture/enemyC.png"))); //6
-		textures.put("enemyD", new Texture(Gdx.files.internal("data/texture/enemyD.png"))); //7
-		textures.put("enemyE", new Texture(Gdx.files.internal("data/texture/enemyE.png"))); //8
-		textures.put("enemyF", new Texture(Gdx.files.internal("data/texture/enemyF.png"))); //9
-		textures.put("enemyG", new Texture(Gdx.files.internal("data/texture/enemyG.png"))); //10
-		textures.put("enemyLaser", new Texture(Gdx.files.internal("data/texture/enemylaser.png"))); //11
-		textures.put("eTurret1", new Texture(Gdx.files.internal("data/texture/eTurret1.png"))); //12
-		textures.put("star", new Texture(Gdx.files.internal("data/texture/star.png"))); //13
-		textures.put("yellow", new Texture(Gdx.files.internal("data/texture/yellow.png"))); //14
-		textures.put("a1", new Texture(Gdx.files.internal("data/texture/a1.png"))); //15
-		textures.put("a2", new Texture(Gdx.files.internal("data/texture/a2.png"))); //16
-		textures.put("a3", new Texture(Gdx.files.internal("data/texture/a3.png"))); //17
-		textures.put("a5", new Texture(Gdx.files.internal("data/texture/a5.png"))); //18
-		textures.put("a6", new Texture(Gdx.files.internal("data/texture/a6.png"))); //19
-		textures.put("a7", new Texture(Gdx.files.internal("data/texture/a7.png"))); //20
-		textures.put("a8", new Texture(Gdx.files.internal("data/texture/a8.png"))); //21
-		textures.put("boss1", new Texture(Gdx.files.internal("data/texture/BOSS1.png"))); //22
-		textures.put("boss1armL", new Texture(Gdx.files.internal("data/texture/BOSS1armL.png"))); //23
-		textures.put("boss1armR", new Texture(Gdx.files.internal("data/texture/BOSS1armR.png"))); //24
-		textures.put("boss1shield", new Texture(Gdx.files.internal("data/texture/BOSS1shield.png"))); //25
-		textures.put("boss1turret", new Texture(Gdx.files.internal("data/texture/BOSS1turret.png"))); //26
-		textures.put("boss1turretB", new Texture(Gdx.files.internal("data/texture/BOSS1turretB.png"))); //27
-		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png"))); //28
-		textures.put("enemyBullet", new Texture(Gdx.files.internal("data/texture/enemyBullet.png"))); //29
-		textures.put("boss2", new Texture(Gdx.files.internal("data/texture/BOSS2.png"))); //30
-		textures.put("a4", new Texture(Gdx.files.internal("data/texture/a4.png"))); //31
-		textures.put("UEFHealth", new Texture(Gdx.files.internal("data/texture/UEFHealth.png"))); //32
+		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));//RED SUN OVER PARADICE
+		textures.put("player1", new Texture(Gdx.files.internal("data/texture/player1.png"))); //player textures
+		textures.put("player2", new Texture(Gdx.files.internal("data/texture/player2.png")));
+		textures.put("player3", new Texture(Gdx.files.internal("data/texture/player3.png")));
+		textures.put("player4", new Texture(Gdx.files.internal("data/texture/player4.png")));
+		
+		textures.put("powerupSTR", new Texture(Gdx.files.internal("data/texture/PowerupSTR.png"))); //Power ups
+		textures.put("powerupSPD", new Texture(Gdx.files.internal("data/texture/PowerupSPD.png")));
+		
+		textures.put("lightBasic", new Texture(Gdx.files.internal("data/texture/lightBasic.png"))); //enemy textures, starting with light
+		textures.put("lightSpread", new Texture(Gdx.files.internal("data/texture/lightSpread.png")));
+		textures.put("lightLaser", new Texture(Gdx.files.internal("data/texture/lightLaser.png")));
+		textures.put("heavyBasic", new Texture(Gdx.files.internal("data/texture/heavyBasic.png"))); //heavy enemies
+		textures.put("heavySpread", new Texture(Gdx.files.internal("data/texture/heavySpread.png"))); 
+		textures.put("heavyLaser", new Texture(Gdx.files.internal("data/texture/heavyLaser.png")));
+		textures.put("gunshipBasic", new Texture(Gdx.files.internal("data/texture/gunshipBasic.png")));//gunship & unique enemies enemies, starting with gunships
+		textures.put("spaceMine1", new Texture(Gdx.files.internal("data/texture/spaceMine1.png")));
+		textures.put("eTurret1", new Texture(Gdx.files.internal("data/texture/eTurret1.png"))); //turrets
+		
+		textures.put("boss1", new Texture(Gdx.files.internal("data/texture/BOSS1.png"))); //BOSSES, THE BEST PART OF THE GAME, starting with boss1
+		textures.put("boss1armL", new Texture(Gdx.files.internal("data/texture/BOSS1armL.png")));
+		textures.put("boss1armR", new Texture(Gdx.files.internal("data/texture/BOSS1armR.png")));
+		textures.put("boss1shield", new Texture(Gdx.files.internal("data/texture/BOSS1shield.png")));
+		textures.put("boss1turret", new Texture(Gdx.files.internal("data/texture/BOSS1turret.png")));
+		textures.put("boss1turretB", new Texture(Gdx.files.internal("data/texture/BOSS1turretB.png")));
+		textures.put("boss2", new Texture(Gdx.files.internal("data/texture/BOSS2.png"))); //BOSS2
+		
+		textures.put("enemyBullet", new Texture(Gdx.files.internal("data/texture/enemyBullet.png"))); //projectiles and stuff, starting with enemy bullet
+		textures.put("enemyLaser", new Texture(Gdx.files.internal("data/texture/enemylaser.png"))); 
+		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png")));
+		
+		textures.put("star", new Texture(Gdx.files.internal("data/texture/star.png"))); //scenery and other background stuff, starting with everyone's favorite ball of death, a star
+		textures.put("yellow", new Texture(Gdx.files.internal("data/texture/yellow.png")));
+		textures.put("a1", new Texture(Gdx.files.internal("data/texture/a1.png"))); 
+		textures.put("a2", new Texture(Gdx.files.internal("data/texture/a2.png")));
+		textures.put("a3", new Texture(Gdx.files.internal("data/texture/a3.png")));
+		textures.put("a4", new Texture(Gdx.files.internal("data/texture/a4.png")));
+		textures.put("a5", new Texture(Gdx.files.internal("data/texture/a5.png")));
+		textures.put("a6", new Texture(Gdx.files.internal("data/texture/a6.png")));
+		textures.put("a7", new Texture(Gdx.files.internal("data/texture/a7.png")));
+		textures.put("a8", new Texture(Gdx.files.internal("data/texture/a8.png")));
+		
+		
+		
+		
+		textures.put("UEFHealth", new Texture(Gdx.files.internal("data/texture/UEFHealth.png"))); //Other things, like UI bits and shit
 		textures.put("blue background", new Texture(Gdx.files.internal("data/texture/blue_background.png"))); //33
-		textures.put("powerupSTR", new Texture(Gdx.files.internal("data/texture/PowerupSTR.png"))); //35
-		textures.put("powerupSPD", new Texture(Gdx.files.internal("data/texture/PowerupSPD.png"))); //36
+		
 
 		textures.put("missile", new Texture(Gdx.files.internal("data/texture/missile.png"))); //41
 		

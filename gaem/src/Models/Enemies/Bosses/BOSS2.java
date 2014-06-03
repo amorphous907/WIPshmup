@@ -102,7 +102,7 @@ public class BOSS2 extends Enemy
             {
             	if(fired>firerate)
                 {
-            	//	world.actors.add(new LightBasic(new Vector2(y,-100), 60,60,50,50));
+            		world.actors.add(new LightBasic(new Vector2(y,-100), 0));
                     fired=0;
                     pingA++;
                 }
@@ -120,8 +120,8 @@ public class BOSS2 extends Enemy
             {
             	if(fired>firerate)
                 {
-            		world.actors.add(new enemyAR(new Vector2(y,-100), 60,60,50,50));
-            		world.actors.add(new enemyAL(new Vector2(y,-100), 60,60,50,50));
+            		world.actors.add(new LightBasic(new Vector2(y,-100), 1));
+            		world.actors.add(new LightBasic(new Vector2(y,-100), 1));
                     fired=0;
                     pingB++;
                 }
@@ -155,7 +155,7 @@ public class BOSS2 extends Enemy
         {
         	if(fired>firerate)
             {
-        		world.actors.add(new HeavyBasic(new Vector2(y,-100), 90,60,80,50));
+        		world.actors.add(new HeavyBasic(new Vector2(y,-100), 0));
                 fired=0;
                 pingB++;
             }
@@ -172,7 +172,7 @@ public class BOSS2 extends Enemy
         {
         	if(fired>firerate)
             {
-        		world.actors.add(new HeavyBasic(new Vector2(y,-100), 90,60,80,50));
+        		world.actors.add(new HeavyBasic(new Vector2(y,-100), 0));
                 fired=0;
                 pingB++;
             }

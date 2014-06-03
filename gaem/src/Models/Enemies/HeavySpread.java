@@ -18,7 +18,7 @@ public class HeavySpread extends Enemy
 		health = 600;
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
 		actorID = 6;
-		texture = "enemyC";
+		texture = "heavySpread";
 		score = 600;
 	}
 	@Override

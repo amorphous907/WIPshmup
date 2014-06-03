@@ -19,7 +19,7 @@ public class LightLaser extends Enemy
 		actorID = 7;
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
 		score = 300;
-		texture = "enemyD";
+		texture = "lightLaser";
 	}
 	
 	@Override

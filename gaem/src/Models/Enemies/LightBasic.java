@@ -1,7 +1,5 @@
 package Models.Enemies;
 
-
-
 import Models.Weapons.Projectiles.EnemyBullet;
 import View.World;
 
@@ -16,10 +14,11 @@ public class LightBasic extends Enemy
 	Vector2 aim;
 	private boolean wait;
 	
-	public LightBasic(Vector2 position, int AI){
+	public LightBasic(Vector2 position, int AI)
+	{
 		super(position, 60, 60, 50, 50);
 		actorID = 4;
-		texture = "enemyA";
+		texture = "lightBasic";
 		health = 200;
 		score = 200;
 		this.AI = AI;

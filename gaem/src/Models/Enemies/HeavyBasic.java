@@ -10,17 +10,21 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 public class HeavyBasic extends Enemy
 {
-
-	public HeavyBasic(Vector2 position, float width, float height, float hitX,
-			float hitY) 
+	
+	Vector2 aim;
+	private boolean wait;
+	
+	public HeavyBasic(Vector2 position, int AI)
 	{
-		super(position, width, height, hitX, hitY);
-		health = 600;
-		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
+		super(position, 60, 60, 50, 50);
 		actorID = 5;
-		texture = "enemyB";
-		score = 600;
+		texture = "heavyBasic";
+		health = 500;
+		score = 500;
+		this.AI = AI;
+		wait = true;
 	}
+	
 	@Override
 	public void update(World world)
 	{

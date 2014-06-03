@@ -26,7 +26,7 @@ public class VanillaDEF extends Gun{
 		damage = 1;
 		ammo = -1;
 		name = "DUAL MACHINEGUNS";
-		slingable = true;
+		slingable = false;
 	}
 	
 	@Override

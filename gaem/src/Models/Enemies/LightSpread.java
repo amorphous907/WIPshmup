@@ -19,7 +19,7 @@ public class LightSpread extends Enemy
 	public LightSpread(Vector2 position, int AI){
 		super(position, 60, 60, 50, 50);
 		actorID = 4;
-		texture = "enemyA";
+		texture = "lightSpread";
 		health = 200;
 		score = 300;
 		this.AI = AI;
@@ -57,16 +57,16 @@ public class LightSpread extends Enemy
 	{
 		switch(AI)
 		{ //AI VARIABLE SWITCH
-		case 1: //enemy slow zig-zags
+		case 1: //enemy zig-zags
 			if(wait){
 				
 				if(position.x >= 540-width)
 		        {
-		            velocity.x = velocity.x - 10;
+		            velocity.x = velocity.x - 20;
 		        }
 		        if(position.x <= 160)
 		        {
-		            velocity.x = velocity.x + 10;
+		            velocity.x = velocity.x + 20;
 		        }
 		        
 		        if(position.x >= 699-width)
@@ -90,40 +90,7 @@ public class LightSpread extends Enemy
 			}
 			break;
 			
-		case 2: //enemy fast zig-zags
-			if(wait){
-				
-				if(position.x >= 540-width)
-		        {
-		            velocity.x = velocity.x - 20;
-		        }
-		        if(position.x <= 160)
-		        {
-		            velocity.x = velocity.x + 20;
-		        }
-		        
-		        if(position.x >= 699-width)
-		        {
-		            velocity.x = -300;
-		        }
-		        if(position.x <= 0)
-		        {
-		            velocity.x = 300;
-		        }
-				
-				world.timer.scheduleTask(new Task(){
-
-					@Override
-					public void run() {
-						wait = true;
-					}
-					
-				}, 0.0166f);
-				wait = false;
-			}
-			break;
-			
-		case 3: //enemy only zig-zags half the screen to the left
+		case 2: //enemy only zig-zags half the screen to the left
 			if(wait){
 				
 				if(position.x >= 340-width)
@@ -156,12 +123,12 @@ public class LightSpread extends Enemy
 			}
 			break;
 			
-		case 4: //enemy only zig-zags half the screen to the right
+		case 3: //enemy only zig-zags half the screen to the right
 			if(wait){
 				
 				if(position.x >= 540-width)
 		        {
-		            velocity.x = velocity.x - 10;
+		            velocity.x = velocity.x - 20;
 		        }
 		        if(position.x <= 360)
 		        {
@@ -189,14 +156,14 @@ public class LightSpread extends Enemy
 			}
 			break;
 			
-		case 5: //enemy falls then flies right for a bit
+		case 4: //enemy falls then flies right for a bit
 			if(wait)
 			{
-				if(position.y >= 100-width)
+				if(position.y >= 200-width)
 		        {
-		            velocity.x = 200;
+		            velocity.x = 100;
 		        }
-				if(position.y >= 300-width)
+				if(position.y >= 400-width)
 		        {
 		            velocity.x = 0;
 		        }
@@ -212,14 +179,14 @@ public class LightSpread extends Enemy
 			}
 			break;
 			
-		case 6: //enemy falls then flies left for a bit
+		case 5: //enemy falls then flies left for a bit
 			if(wait)
 			{
-				if(position.y >= 100-width)
+				if(position.y >= 200-width)
 		        {
-		            velocity.x = -200;
+		            velocity.x = -100;
 		        }
-				if(position.y >= 300-width)
+				if(position.y >= 400-width)
 		        {
 		            velocity.x = 0;
 		        }
@@ -235,7 +202,7 @@ public class LightSpread extends Enemy
 			}
 			break;
 			
-		case 7: //enemy falls then flies left for a bit, then falls right
+		case 6: //enemy falls then flies left for a bit, then falls right
 			if(wait)
 			{
 				if(position.y >= 200-width)
@@ -266,7 +233,7 @@ public class LightSpread extends Enemy
 			}
 			break;
 			
-		case 8: //enemy falls then flies right for a bit, then falls left
+		case 7: //enemy falls then flies right for a bit, then falls left
 			if(wait)
 			{
 				if(position.y >= 200-width)
@@ -285,6 +252,38 @@ public class LightSpread extends Enemy
 		        {
 		            velocity.x = 0;
 		        }
+				world.timer.scheduleTask(new Task()
+				{
+					@Override
+					public void run() 
+					{
+						wait = true;
+					}
+				}, 0.0166f);
+				wait = false;
+			}
+			break;
+			
+		case 8: //enemy goes to the right
+			if(wait)
+			{
+		        velocity.x = 300;
+				world.timer.scheduleTask(new Task()
+				{
+					@Override
+					public void run() 
+					{
+						wait = true;
+					}
+				}, 0.0166f);
+				wait = false;
+			}
+			break;
+			
+		case 9: //enemy goes to the left
+			if(wait)
+			{
+		        velocity.x = -300;
 				world.timer.scheduleTask(new Task()
 				{
 					@Override

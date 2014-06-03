@@ -26,7 +26,7 @@ public class VanillaSTR extends Gun{
 		damage = 100;
 		ammo = -1;
 		name = "MISSILES";
-		slingable = true;
+		slingable = false;
 	}
 	
 	@Override

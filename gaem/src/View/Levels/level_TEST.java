@@ -12,7 +12,7 @@ import Models.Enemies.HeavyBasic;
 import Models.Enemies.HeavySpread;
 import Models.Enemies.LightLaser;
 import Models.Enemies.HeavyLaser;
-import Models.Enemies.HeavyGunship;
+import Models.Enemies.GunshipBasic;
 import Models.Enemies.EnemyMines;
 import Models.Enemies.Bosses.BOSS1;
 import Models.Enemies.Bosses.BOSS2;

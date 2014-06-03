@@ -17,7 +17,7 @@ public class HeavyLaser extends Enemy
 		super(position, width, height, hitX, hitY);
 		health = 600;
 		actorID = 8;
-		texture = "enemyE";
+		texture = "heavyLaser";
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
 		score = 600;
 	}
