@@ -18,12 +18,12 @@ public class GunshipBasic extends Enemy
 	public GunshipBasic(Vector2 position, float width, float height, float hitX, float hitY) 
 	{
 		super(position, width, height, hitX, hitY);
-		health = 1000;
+		health = 800;
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
 		velocity = new Vector2(0,150);
 		actorID = 9;
 		texture = "gunshipBasic";
-		score = 1000;
+		score = 800;
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ import Models.Enemies.LightLaser;
 import Models.Enemies.HeavyLaser;
 import Models.Enemies.LightTiny;
 import Models.Enemies.Bosses.BOSS1;
+import Models.Enemies.Bosses.BOSS2;
 import Models.Weapons.Projectiles.EnemyLaser;
 import View.World;
 
@@ -22,11 +23,14 @@ public class level_1 extends level
 	Random rnd = new Random();
 	boolean PREPARE_TO_DIE = false;
 	boolean musicstart = true;
+	int boss_here = 0;
 	int x;
+	float time = 110;
 	
 	public level_1(World world) {
 		super(world);
 		timeLimit = 60*2;
+		
 	}
 	
 	@Override
@@ -45,12 +49,32 @@ public class level_1 extends level
 			musicstart = false;
 		}
 		
-		if(waveDone) //&& time < timeLimit)
+		if(waveDone && time < timeLimit)
 		{
-			x = com.badlogic.gdx.math.MathUtils.random(21, 21);
+			x = com.badlogic.gdx.math.MathUtils.random(1, 20);
 			waveDone = false;
 			HandleWaves(x);
 		}
+		
+		if(time > timeLimit && boss_here == 0)
+		{
+			world.game.audio.stopMusic("level_1");
+			boss_here = 1;
+		}
+		if(boss_here == 1)
+		{
+			boss_here = 2;
+			world.game.audio.loopMusic("level_1 boss", 0.45f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new BOSS1(new Vector2(350,-200), 200,300,190,290));
+				}
+			} , 1.0f);
+		}
+		
 	}
 	@Override
 	protected void HandleWaves(int wave) {
@@ -93,7 +117,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 3.5f;
+					time = time + 3.5f;
 					waveDone = true;
 				}
 			} , 3.5f);
@@ -137,7 +161,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 3.2f;
+					time = time + 3.2f;
 					waveDone = true;
 				}
 			} , 3.2f);
@@ -210,7 +234,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 3.0f;
+					time = time + 3.0f;
 					waveDone = true;
 				}
 			} , 3.0f);
@@ -254,7 +278,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.2f;
+					time = time + 2.2f;
 					waveDone = true;
 				}
 			} , 2.2f);
@@ -308,7 +332,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 3.9f;
+					time = time + 3.9f;
 					waveDone = true;
 				}
 			} , 3.9f);
@@ -378,7 +402,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 3.0f;
+					time = time + 3.0f;
 					waveDone = true;
 				}
 			} , 3.0f);
@@ -450,7 +474,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 5.0f;
+					time = time + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -493,7 +517,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 5.0f;
+					time = time + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -537,7 +561,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 5.0f;
+					time = time + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -601,7 +625,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 8.0f;
+					time = time + 8.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -639,7 +663,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.6f;
+					time = time + 2.6f;
 					waveDone = true;
 				}
 			} , 2.8f);
@@ -682,7 +706,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 3.8f;
+					time = time + 3.8f;
 					waveDone = true;
 				}
 			} , 3.8f);
@@ -752,7 +776,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 3.0f;
+					time = time + 3.0f;
 					waveDone = true;
 				}
 			} , 3.0f);
@@ -806,7 +830,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 4.0f;
+					time = time + 4.0f;
 					waveDone = true;
 				}
 			} , 4.0f);
@@ -850,7 +874,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.7f;
+					time = time + 2.7f;
 					waveDone = true;
 				}
 			} , 2.7f);
@@ -913,7 +937,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.6f;
+					time = time + 2.6f;
 					waveDone = true;
 				}
 			} , 2.6f);
@@ -972,7 +996,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.0f;
+					time = time + 2.0f;
 					waveDone = true;
 				}
 			} , 2.0f);
@@ -1005,7 +1029,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.0f;
+					time = time + 2.0f;
 					waveDone = true;
 				}
 			} , 2.0f);
@@ -1049,7 +1073,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.6f;
+					time = time + 2.6f;
 					waveDone = true;
 				}
 			} , 2.6f);
@@ -1087,7 +1111,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 2.5f;
+					time = time + 2.5f;
 					waveDone = true;
 				}
 			} , 2.5f);
@@ -1101,41 +1125,6 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(20,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(40,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(60,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(80,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(100,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(120,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(140,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(160,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(180,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(200,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(220,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(240,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(260,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(280,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(320,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(340,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(360,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(380,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(420,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(440,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(460,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(480,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(500,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(520,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(540,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(560,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(580,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(600,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(620,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(640,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(660,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(680,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 0));
 					
 				}
 			} , 0.0f);
@@ -1147,7 +1136,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + 0.0f;
+					time = time + 0.0f;
 					waveDone = true;
 				}
 			} , 3.0f);
@@ -1171,7 +1160,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					timeLimit = timeLimit + #.#f;
+					time = time + #.#f;
 					waveDone = true;
 				}
 			} , #.#f);

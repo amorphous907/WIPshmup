@@ -13,9 +13,9 @@ public class eBomb2 extends EnemyBullet {
 	public eBomb2(Vector2 position, float width, float height, float hitX,
 			float hitY) {
 		super(position, width, height, hitX, hitY);
-		actorID = 11;
 		velocity = new Vector2(0,200);
-		animate = false;
+		texture = "enemyLaser";
+		//animate = false;
 	}
 	
 	public void update(World world)

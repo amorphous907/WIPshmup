@@ -15,7 +15,7 @@ public class HeavySpread extends Enemy
 			float hitY) 
 	{
 		super(position, width, height, hitX, hitY);
-		health = 600;
+		health = 400;
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
 		actorID = 6;
 		texture = "heavySpread";

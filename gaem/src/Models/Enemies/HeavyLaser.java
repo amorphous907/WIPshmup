@@ -15,11 +15,11 @@ public class HeavyLaser extends Enemy
 	public HeavyLaser(Vector2 position, float width, float height, float hitX, float hitY) 
 	{
 		super(position, width, height, hitX, hitY);
-		health = 600;
+		health = 400;
 		actorID = 8;
 		texture = "heavyLaser";
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
-		score = 600;
+		score = 500;
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ public class LightLaser extends Enemy
 		health = 200;
 		actorID = 7;
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
-		score = 300;
+		score = 250;
 		texture = "lightLaser";
 	}
 	

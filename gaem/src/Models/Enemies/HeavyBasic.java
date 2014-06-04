@@ -19,8 +19,8 @@ public class HeavyBasic extends Enemy
 		super(position, 90, 60, 80, 50);
 		actorID = 5;
 		texture = "heavyBasic";
-		health = 500;
-		score = 500;
+		health = 400;
+		score = 400;
 		this.AI = AI;
 		wait = true;
 	}

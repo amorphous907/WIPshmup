@@ -114,7 +114,7 @@ public class WorldRender {
 		textures.put("boss1", new Texture(Gdx.files.internal("data/texture/BOSS1.png"))); //BOSSES, THE BEST PART OF THE GAME, starting with boss1
 		textures.put("boss1armL", new Texture(Gdx.files.internal("data/texture/BOSS1armL.png")));
 		textures.put("boss1armR", new Texture(Gdx.files.internal("data/texture/BOSS1armR.png")));
-		textures.put("boss1shield", new Texture(Gdx.files.internal("data/texture/BOSS1shield.png")));
+		textures.put("boss1Shield", new Texture(Gdx.files.internal("data/texture/BOSS1shield.png")));
 		textures.put("boss1turret", new Texture(Gdx.files.internal("data/texture/BOSS1turret.png")));
 		textures.put("boss1turretB", new Texture(Gdx.files.internal("data/texture/BOSS1turretB.png")));
 		textures.put("boss2", new Texture(Gdx.files.internal("data/texture/BOSS2.png"))); //BOSS2

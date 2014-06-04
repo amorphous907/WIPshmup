@@ -3,8 +3,6 @@ package Models.Enemies.Bosses;
 
 import Models.Enemies.Enemy;
 import Models.Enemies.LightBasic;
-import Models.Enemies.enemyAL;
-import Models.Enemies.enemyAR;
 import Models.Enemies.HeavyBasic;
 import Models.Enemies.LightLaser;
 import View.World;

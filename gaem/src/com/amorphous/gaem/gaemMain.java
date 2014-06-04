@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 
 
 public class gaemMain extends Game{
-	public static final String version = "STARSHMUP V0.5.7.99999999999999999999999999999999999 THE GREAT DESTROYED edition";
+	public static final String version = "STARSHMUP V0.5.8 level 1 almost done edition";
 	public static final String LOG = "SpaceGame";
 	public static final String TITLE = "GAEM";
 	public static final boolean DEBUG = false;

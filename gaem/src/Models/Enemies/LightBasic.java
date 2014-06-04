@@ -17,7 +17,6 @@ public class LightBasic extends Enemy
 	public LightBasic(Vector2 position, int AI)
 	{
 		super(position, 60, 60, 50, 50);
-		actorID = 4;
 		texture = "lightBasic";
 		health = 200;
 		score = 200;
