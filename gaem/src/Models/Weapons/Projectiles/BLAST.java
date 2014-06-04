@@ -58,17 +58,17 @@ public class BLAST extends MoveableEntity
 		//damage enemy
 		if(e instanceof Enemy)
 		{
-			e.damage(100);
+			e.damage(150);
 			explode = true;
-			world.actors.add(new Explosion(new Vector2(centerLocation),100,100,0,0));
+			world.actors.add(new Explosion(new Vector2(centerLocation),150,150,0,0));
 			//kill itself
 			remove = true;
 		}
 		if(e instanceof subObjectEnemy)
 		{
-			e.damage(100);
+			e.damage(150);
 			explode = true;
-			world.actors.add(new Explosion(new Vector2(centerLocation),100,100,0,0));
+			world.actors.add(new Explosion(new Vector2(centerLocation),150,150,0,0));
 			//kill itself
 			remove = true;
 		}

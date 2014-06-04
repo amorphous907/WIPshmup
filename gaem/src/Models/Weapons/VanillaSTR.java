@@ -22,7 +22,7 @@ public class VanillaSTR extends Gun{
 	}
 	
 	public VanillaSTR(){
-		fireRate = 0.2f;
+		fireRate = 0.5f;
 		damage = 100;
 		ammo = -1;
 		name = "MISSILES";

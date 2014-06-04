@@ -5,12 +5,11 @@ import java.util.Random;
 import Models.Star;
 import Models.Enemies.LightBasic;
 import Models.Enemies.LightSpread;
-import Models.Enemies.enemyAL;
-import Models.Enemies.enemyAR;
 import Models.Enemies.HeavyBasic;
 import Models.Enemies.HeavySpread;
 import Models.Enemies.LightLaser;
 import Models.Enemies.HeavyLaser;
+import Models.Enemies.LightTiny;
 import Models.Enemies.Bosses.BOSS1;
 import Models.Weapons.Projectiles.EnemyLaser;
 import View.World;
@@ -33,11 +32,11 @@ public class level_1 extends level
 	@Override
 	public void update() {
 		float size = rnd.nextFloat()*50; 
-		if(rnd.nextInt(50)<10 && size > 12.5f && size <= 40)//10
+		if(rnd.nextInt(500)<10 && size > 12.5f && size <= 40)//10
 			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
-		if(rnd.nextInt(75)<5 && size > 25) //5
+		if(rnd.nextInt(750)<5 && size > 25) //5
 			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
-		if(rnd.nextInt(25)<25 && size <= 12.5) //25
+		if(rnd.nextInt(250)<25 && size <= 12.5) //25
 			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
 		
 		if(musicstart)
@@ -48,7 +47,7 @@ public class level_1 extends level
 		
 		if(waveDone) //&& time < timeLimit)
 		{
-			x = com.badlogic.gdx.math.MathUtils.random(1, 20);
+			x = com.badlogic.gdx.math.MathUtils.random(21, 21);
 			waveDone = false;
 			HandleWaves(x);
 		}
@@ -1095,6 +1094,65 @@ public class level_1 extends level
 			x = 0;
 		}
 		
+		if(x == 21)
+		{
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(20,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(40,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(60,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(80,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(100,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(120,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(140,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(160,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(180,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(200,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(220,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(240,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(260,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(280,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(320,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(340,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(360,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(380,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(420,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(440,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(460,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(480,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(500,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(520,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(540,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(560,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(580,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(600,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(620,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(640,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(660,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(680,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 0));
+					
+				}
+			} , 0.0f);
+			
+			
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					timeLimit = timeLimit + 0.0f;
+					waveDone = true;
+				}
+			} , 3.0f);
+			x = 0;
+		}
 		/*if(x == #)
 		{
 			world.timer.scheduleTask(new Task() 

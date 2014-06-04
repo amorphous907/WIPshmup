@@ -16,7 +16,7 @@ public class HeavyBasic extends Enemy
 	
 	public HeavyBasic(Vector2 position, int AI)
 	{
-		super(position, 60, 60, 50, 50);
+		super(position, 90, 60, 80, 50);
 		actorID = 5;
 		texture = "heavyBasic";
 		health = 500;
