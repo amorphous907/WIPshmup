@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer.Task;
 
-public class BOSS1R extends subObjectEnemy{
+public class BOSS4R extends subObjectEnemy{
 	public Vector2 aim;
 	int ready_4_battle = 0;
 	int x = 1;
@@ -23,13 +23,13 @@ public class BOSS1R extends subObjectEnemy{
     int ping = 6;
     private boolean wait = true;
 
-	public BOSS1R(Vector2 offset, float width, float height,
+	public BOSS4R(Vector2 offset, float width, float height,
 			float hitX, float hitY, MoveableEntity Parent) {
 		super(offset, width, height, hitX, hitY, Parent);
 		actorID = 24;
-		texture = "boss1armR";
+		texture = "boss4armR";
 		subObjects.add(new eTurret1(new Vector2(-15,82), 60, 80, 0, 0, this));
-		subObjects.add(new BOSS1shield(new Vector2(145,120), 210, 110, 200, 100, this));
+		subObjects.add(new BOSS4shield(new Vector2(145,120), 210, 110, 200, 100, this));
 		health = 10000;
 		score = 10000;
 		

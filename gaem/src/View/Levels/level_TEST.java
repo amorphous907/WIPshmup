@@ -14,7 +14,7 @@ import Models.Enemies.LightLaser;
 import Models.Enemies.HeavyLaser;
 import Models.Enemies.GunshipBasic;
 import Models.Enemies.EnemyMines;
-import Models.Enemies.Bosses.BOSS1;
+import Models.Enemies.Bosses.BOSS4;
 import Models.Enemies.Bosses.BOSS2;
 import Models.Enemies.Bosses.BOSS3;
 import Models.Enemies.Bosses.BOSS5;

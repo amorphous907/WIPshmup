@@ -296,6 +296,58 @@ public class LightSpread extends Enemy
 			}
 			break;
 			
+		case 10: //enemy goes to the right, stops at the middle, then go right some more
+			if(wait)
+			{
+		        velocity.x = 150;
+		        
+		        if(position.y >= 200-width)
+		        {
+		            velocity.x = 0;
+		        }
+				if(position.y >= 400-width)
+		        {
+		            velocity.x = 150;
+		        }
+		        
+				world.timer.scheduleTask(new Task()
+				{
+					@Override
+					public void run() 
+					{
+						wait = true;
+					}
+				}, 0.0166f);
+				wait = false;
+			}
+			break;
+			
+		case 11: //enemy goes to the right, stops a little, then go right some more
+			if(wait)
+			{
+		        velocity.x = -150;
+		        
+		        if(position.y >= 200-width)
+		        {
+		            velocity.x = 0;
+		        }
+				if(position.y >= 400-width)
+		        {
+		            velocity.x = -150;
+		        }
+		        
+				world.timer.scheduleTask(new Task()
+				{
+					@Override
+					public void run() 
+					{
+						wait = true;
+					}
+				}, 0.0166f);
+				wait = false;
+			}
+			break;
+			
 		default:
 			break;
 		}

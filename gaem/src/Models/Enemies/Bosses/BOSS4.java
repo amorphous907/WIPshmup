@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer.Task;
 
-public class BOSS1 extends Enemy
+public class BOSS4 extends Enemy
 {
 	Vector2 aim;
 	int move=1;
@@ -25,16 +25,27 @@ public class BOSS1 extends Enemy
     int ready_4_battle = 0;
     private boolean wait = true;
 	
-	public BOSS1(Vector2 position) 
+	public BOSS4(Vector2 position, float width, float height, float hitX, float hitY) 
 	{
-		super(position, 300, 180, 290, 170);
+		super(position, width, height, hitX, hitY);
 		health = 10000;
 		score = 10000;
 		tick = 0;
 		velocity = new Vector2(0,150);
-		texture = "boss1";
-		subObjects.add(new BOSS1turret(new Vector2(100,0), 100, 100, 0, 0, this));
-		subObjects.add(new BOSS1turret(new Vector2(-100,0), 100, 100, 0, 0, this));
+		actorID = 22;
+		texture = "boss4";
+		
+		y = com.badlogic.gdx.math.MathUtils.random(0, 1);
+		if(y == 0)
+		{
+			subObjects.add(new BOSS4turret(new Vector2(0,0), 120, 120, 0, 0, this));
+		}
+		if(y == 1)
+		{
+			subObjects.add(new BOSS4turretB(new Vector2(0,0), 120, 120, 0, 0, this));
+		}
+		subObjects.add(new BOSS4L(new Vector2(143,-3), 150, 300, 140, 290, this));
+		subObjects.add(new BOSS4R(new Vector2(-143,-3), 150, 300, 140, 290, this));
 	}
 	
 	@Override
@@ -142,7 +153,7 @@ public class BOSS1 extends Enemy
 			
 	        if(move == 1)
 			{
-				if(position.y >= 200-width/2)
+				if(position.y >= 100-width/2)
 				{
 					velocity.y = 0;
 					velocity.x = 100;

@@ -18,7 +18,6 @@ public class EnemyBullet extends MoveableEntity{
 		animationNum = 1;
 		currentFrame = 0;
 		velocity = new Vector2(0,600);
-		actorID = 29;
 		texture = "enemyBullet";
 	}
 	
@@ -28,7 +27,7 @@ public class EnemyBullet extends MoveableEntity{
 			animate = true;
 			animationNum = 1;
 			currentFrame = 0;
-			actorID = 29;
+			texture = "enemyBullet";
 			this.velocity = velocity;
 			}
 	@Override

@@ -32,17 +32,7 @@ public class VanillaSTR extends Gun{
 	@Override
 	protected void fire(World world, MoveableEntity entity)
 	{
-		
-		if(swap == 0)
-		{
-			projectiles.add(new Missile(new Vector2(entity.centerLocation.x + 12,entity.centerLocation.y), 10,20,5,10, new Vector2(75, 200)));
-			swap = 1;
-		}
-		else
-		{
-			projectiles.add(new Missile(new Vector2(entity.centerLocation.x - 12,entity.centerLocation.y), 10,20,5,10, new Vector2(-75, 200)));
-			swap = 0;
-		}
+		projectiles.add(new Missile(new Vector2(entity.centerLocation.x ,entity.centerLocation.y), 10,20,5,10, new Vector2(0, 200)));
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x, entity.centerLocation.y-10));
 		int x = com.badlogic.gdx.math.MathUtils.random(0, 3);
 		world.game.audio.playSound("PlayerLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);

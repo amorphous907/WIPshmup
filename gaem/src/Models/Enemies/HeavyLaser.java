@@ -16,7 +16,6 @@ public class HeavyLaser extends Enemy
 	{
 		super(position, width, height, hitX, hitY);
 		health = 400;
-		actorID = 8;
 		texture = "heavyLaser";
 		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
 		score = 500;

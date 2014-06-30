@@ -112,12 +112,15 @@ public class WorldRender {
 		textures.put("eTurret1", new Texture(Gdx.files.internal("data/texture/eTurret1.png"))); //turrets
 		
 		textures.put("boss1", new Texture(Gdx.files.internal("data/texture/BOSS1.png"))); //BOSSES, THE BEST PART OF THE GAME, starting with boss1
-		textures.put("boss1armL", new Texture(Gdx.files.internal("data/texture/BOSS1armL.png")));
-		textures.put("boss1armR", new Texture(Gdx.files.internal("data/texture/BOSS1armR.png")));
-		textures.put("boss1Shield", new Texture(Gdx.files.internal("data/texture/BOSS1shield.png")));
 		textures.put("boss1turret", new Texture(Gdx.files.internal("data/texture/BOSS1turret.png")));
-		textures.put("boss1turretB", new Texture(Gdx.files.internal("data/texture/BOSS1turretB.png")));
 		textures.put("boss2", new Texture(Gdx.files.internal("data/texture/BOSS2.png"))); //BOSS2
+		textures.put("boss4", new Texture(Gdx.files.internal("data/texture/BOSS4.png"))); //BOSS4
+		textures.put("boss4armL", new Texture(Gdx.files.internal("data/texture/BOSS4armL.png")));
+		textures.put("boss4armR", new Texture(Gdx.files.internal("data/texture/BOSS4armR.png")));
+		textures.put("boss4Shield", new Texture(Gdx.files.internal("data/texture/BOSS4shield.png")));
+		textures.put("boss4turret", new Texture(Gdx.files.internal("data/texture/BOSS4turret.png")));
+		textures.put("boss4turretB", new Texture(Gdx.files.internal("data/texture/BOSS4turretB.png")));
+		
 		
 		textures.put("enemyBullet", new Texture(Gdx.files.internal("data/texture/enemyBullet.png"))); //projectiles and stuff, starting with enemy bullet
 		textures.put("enemyBulletTiny", new Texture(Gdx.files.internal("data/texture/enemybullettiny.png")));

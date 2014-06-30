@@ -9,14 +9,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class BOSS1shield extends subObjectEnemy{
+public class BOSS4shield extends subObjectEnemy{
 	public Vector2 aim;
 
-	public BOSS1shield(Vector2 offset, float width, float height,
+	public BOSS4shield(Vector2 offset, float width, float height,
 			float hitX, float hitY, MoveableEntity Parent) {
 		super(offset, width, height, hitX, hitY, Parent);
 		actorID = 25;
-		texture = "boss1Shield";
+		texture = "boss4Shield";
 		health = 999999999;
 	}
 	

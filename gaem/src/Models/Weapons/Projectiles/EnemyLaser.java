@@ -13,7 +13,6 @@ public class EnemyLaser extends EnemyBullet {
 	public EnemyLaser(Vector2 position, float width, float height, float hitX,
 			float hitY) {
 		super(position, width, height, hitX, hitY);
-		actorID = 11;
 		texture = "enemyLaser";
 		animate = false;
 		// TODO Auto-generated constructor stub
@@ -22,7 +21,6 @@ public class EnemyLaser extends EnemyBullet {
 	public EnemyLaser(Vector2 position, float width, float height, float hitX,
 			float hitY, Vector2 velocity) {
 		super(position, width, height, hitX, hitY, velocity);
-		actorID = 11;
 		animate = false;
 		// TODO Auto-generated constructor stub
 	}
