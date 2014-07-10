@@ -42,7 +42,7 @@ public class LightTiny extends Enemy
 					loaded = true;
 				}
 				
-			}, 2.66f);
+			}, 4.66f);
 			loaded = false;
 		}
 	}
@@ -263,7 +263,7 @@ public class LightTiny extends Enemy
 		case 8: //enemy goes to the right
 			if(wait)
 			{
-		        velocity.x = 150;
+		        velocity.x = 100;
 				world.timer.scheduleTask(new Task()
 				{
 					@Override
@@ -279,7 +279,7 @@ public class LightTiny extends Enemy
 		case 9: //enemy goes to the left
 			if(wait)
 			{
-				velocity.x = -150;
+				velocity.x = -100;
 				world.timer.scheduleTask(new Task()
 				{
 					@Override

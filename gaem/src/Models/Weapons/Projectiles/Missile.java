@@ -6,6 +6,7 @@ import Models.MoveableEntity;
 import Models.subObjectEnemy;
 import Models.Enemies.Enemy;
 import Models.Enemies.LightBasic;
+import Models.Enemies.LightTiny;
 import View.World;
 import View.WorldRender;
 
@@ -15,10 +16,11 @@ import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class Missile extends MoveableEntity
 {
-	int vel = -100;
+	int vel = 100;
 	private ParticleEmitter fumes;
 	public boolean explode = false;
 
@@ -27,7 +29,6 @@ public class Missile extends MoveableEntity
 		super(position, width, height, hitX, hitY);
 		velocity = new Vector2(0,200);//how to change its velocity(pixels per second), add this for every bullet for specific velocities
 		rotation = 180;//you dont need to add this every new bullet, leave it at 180 for proper rendering
-		actorID = 41;
 		texture = "missile";
 		fumes = new ParticleEmitter();
 		circle = false;
@@ -53,7 +54,7 @@ public class Missile extends MoveableEntity
 		super(position, width, height, hitX, hitY);
 		this.velocity = velocity;//how to change its velocity(pixels per second), add this for every bullet for specific velocities
 		rotation = 180;//you dont need to add this every new bullet, leave it at 180 for proper rendering
-		actorID = 41;
+		actorID = 42;
 		texture = "missile";
 		fumes = new ParticleEmitter();
 		try {
@@ -80,7 +81,14 @@ public class Missile extends MoveableEntity
 	@Override
 	public void update(World world){
 		super.update(world);
-		 velocity.y -= 4;
+		world.timer.scheduleTask(new Task() 
+		{
+			@Override
+			public void run()
+			{
+				velocity.y -= 1;
+			}
+		} , 0.1f);
 		 if(velocity.x > 0) velocity.x -= 1;
 		 if(velocity.x < 0) velocity.x += 1;
 		rotation = velocity.angle()-90;

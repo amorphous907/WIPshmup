@@ -19,6 +19,7 @@ public class BOSS1turret extends subObject{
 			float hitX, float hitY, MoveableEntity Parent) {
 		super(offset, width, height, hitX, hitY, Parent);
 		texture = "boss1turret";
+		actorID = 42;
 	}
 
 	@Override
