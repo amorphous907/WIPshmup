@@ -2,1198 +2,2513 @@ package View.Levels;
 
 import java.util.Random;
 
-import Models.yellow;
+import Models.Star;
 import Models.Enemies.LightBasic;
-import Models.Enemies.enemyAL;
-import Models.Enemies.enemyAR;
-import Models.Enemies.HeavyBasic;
-import Models.Enemies.HeavySpread;
-import Models.Enemies.LightLaser;
-import Models.Enemies.HeavyLaser;
-import Models.Enemies.GunshipBasic;
-import Models.Enemies.Bosses.BOSS2;
+import Models.Enemies.LightSpread;
+import Models.Enemies.LightTiny;
+import Models.Enemies.Bosses.BOSS1;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer.Task;
 
-public class level_2 extends level_1
+public class level_2 extends level
 {
-	public boolean bossDead = false;
 	Random rnd = new Random();
-	int time = 0;
-	int currentTime = 0;
-	boolean done = true;
 	boolean PREPARE_TO_DIE = false;
 	boolean musicstart = true;
-	int tic = 0;
-	int tic2 = 0;
-	int x = 0;
-	int count = 0;
-	int HUE1 = 0;
-	int HUE2 = 0;
-	int HUE3 = 0;
-	int HUE4 = 0;
-	int HUE5 = 0;
-	public int timeLimit = 7200;
+	int boss_here = 0;
+	int x;
+	int y;
+	int z;
+	float time = 0;
+	
+	public level_2(World world) {
+		super(world);
+		timeLimit = 60*2;
+		
+	}
+	
 	@Override
-	public void update(World world)
-	{
+	public void update() {
 		float size = rnd.nextFloat()*50; 
-		if(rnd.nextInt(50)<10 && size > 12.5f && size <= 25)//10
-			world.actors.add(new yellow(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
-		if(rnd.nextInt(75)<5 && size > 25) //5
-			world.actors.add(new yellow(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
-		if(rnd.nextInt(25)<25 && size <= 12.5) //25
-			world.actors.add(new yellow(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
+		if(rnd.nextInt(1000)<10 && size > 12.5f && size <= 40)//10
+			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
+		if(rnd.nextInt(1500)<5 && size > 25) //5
+			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
+		if(rnd.nextInt(500)<25 && size <= 12.5) //25
+			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
 		
 		if(musicstart)
 		{
-			world.game.audio.loopMusic("level_2");
+			world.game.audio.loopMusic("level_2", 0.45f);
 			musicstart = false;
 		}
-		if(done && time < timeLimit)
+		
+		if(waveDone && time < timeLimit)
 		{
-			tic = 0;
-			x = com.badlogic.gdx.math.MathUtils.random(1, 41);
-			System.out.println("time"+time);
-			System.out.println("wave"+x);
-			done = false;
-		}
-		if(time >= timeLimit)
-		{
-			world.game.audio.stopMusic("level_2 boss");
-			tic2++;
-			if(tic2 == 200)
+			if(time < 30)
 			{
-				PREPARE_TO_DIE = true;
+				System.out.println("tier 1");
+				x = com.badlogic.gdx.math.MathUtils.random(1, 10);
 			}
-		}
-		if(PREPARE_TO_DIE)
-		{
-			world.game.audio.loopMusic("level_2 boss");
-			world.actors.add(new BOSS2(new Vector2(350,-200), 300,300,240,240));
-			PREPARE_TO_DIE = false;
+			if(time >= 30 && time < 60)
+			{
+				System.out.println("tier 2");
+				y = com.badlogic.gdx.math.MathUtils.random(1, 5);
+			}
+			if(time >= 60)
+			{
+				System.out.println("tier 3");
+				z = com.badlogic.gdx.math.MathUtils.random(1, 20);
+			}
+				
+			waveDone = false;
+			HandleWaves(x);
 		}
 		
-		if(x == 1)
+		if(time >= timeLimit && boss_here == 0)
 		{
-			if(tic == 0)
+			world.game.audio.stopMusic("level_2");
+			boss_here = 1;
+		}
+		if(boss_here == 1)
+		{
+			boss_here = 2;
+			world.game.audio.loopMusic("level_1 boss", 0.45f);
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightBasic(new Vector2(150,-100), 60,60,50,50));
-				world.actors.add(new LightBasic(new Vector2(350,-100), 60,60,50,50));
-				world.actors.add(new LightBasic(new Vector2(550,-100), 60,60,50,50));
-			}
-			if(tic == 50)
+				@Override
+				public void run()
+				{
+					world.actors.add(new BOSS1(new Vector2(350,-200)));
+				}
+			} , 1.0f);
+		}
+		
+	}
+	@Override
+	protected void HandleWaves(int wave) 
+	{
+		if(x == 1)//x wave is the last 60 seconds
+		{
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightLaser(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new LightLaser(new Vector2(500,-100), 60,60,50,50));
-			}
-			if(tic == 100)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new HeavyLaser(new Vector2(350,-100), 90,60,80,50));
-			}   
-			tic++;
-			currentTime++;
-			if(tic == 200)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(325,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(375,-100), 0));
+				}
+			} , 0.1f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
+				}
+			} , 0.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(200,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(500,-100), 0));
+					
+				}
+			} , 1.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(125,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(600,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(675,-100), 0));
+				}
+			} , 2.2f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(75,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(100,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(625,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 0));
+				}
+			} , 2.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 5.2f;
+					waveDone = true;
+				}
+			} , 5.2f);
+			x = 0;
 		}
 		
 		if(x == 2)
 		{
-			if(tic == 0)
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new HeavyLaser(new Vector2(500,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(200,-100), 90,60,80,50));
-			}
-			if(tic == 100)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightLaser(new Vector2(150,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(550,-100), 60,60,50,50));
-			}
-			if(tic == 150)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-50,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(750,-100), 9));
+				}
+			} , 0.2f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new HeavyLaser(new Vector2(350,-100), 90,60,80,50));
-			}   
-			tic++;
-			currentTime++;
-			if(tic == 200)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-100,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(800,-100), 9));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-150,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(850,-100), 9));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-200,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(900,-100), 9));
+				}
+			} , 0.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-250,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(950,-100), 9));
+				}
+			} , 1.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(700,-100), 1));
+				}
+			} , 2.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.6f;
+					waveDone = true;
+				}
+			} , 3.6f);
+			x = 0;
 		}
+		
 		if(x == 3)
 		{
-			if(tic == 0)
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightLaser(new Vector2(250,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(450,-100), 60,60,50,50));
-			}
-			if(tic == 100)
-            {
-            	world.actors.add(new LightBasic(new Vector2(300,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(400,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(200,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(500,-100), 90,60,80,50));
-            }
-			tic++;
-			currentTime++;
-			if(tic == 300)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+				}
+			} , 0.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+				}
+			} , 0.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 6));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 7));
+				}
+			} , 1.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+				}
+			} , 1.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+				}
+			} , 1.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 5.0f;
+					waveDone = true;
+				}
+			} , 5.0f);
+			x = 0;
 		}
+		
 		if(x == 4)
 		{
-			if(tic == 0)
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new HeavyBasic(new Vector2(500,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(200,-100), 90,60,80,50));
-			}
-			if(tic == 75)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new HeavyBasic(new Vector2(350,-100), 90,60,80,50));
-			}
-			if(tic == 125)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(150,-100), 4));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 4));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 5));
+					world.actors.add(new LightTiny(new Vector2(550,-100), 5));
+				}
+			} , 0.2f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(450,-100), 60,60,50,50));
-			}
-			tic++;
-			currentTime++;
-			if(tic == 200)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(500,-100), 11));
+					world.actors.add(new LightBasic(new Vector2(200,-100), 10));
+				}
+			} , 0.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(500,-100), 2));
+					world.actors.add(new LightTiny(new Vector2(200,-100), 3));
+				}
+			} , 1.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(500,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(200,-100), 10));
+				}
+			} , 1.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.4f;
+					waveDone = true;
+				}
+			} , 3.4f);
+			x = 0;
 		}
+		
 		if(x == 5)
 		{
-			if(tic == 0)
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-			}
-			if(tic == 100)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new HeavyBasic(new Vector2(100,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(600,-100), 90,60,80,50));
-			}
-			if(tic == 200)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(300,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(400,-100), 10));
+				}
+			} , 0.3f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new enemyAR(new Vector2(100,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new enemyAL(new Vector2(600,-100), 60,60,50,50));
-			}
-			tic++;
-			currentTime++;
-			if(tic == 300)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(250,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 10));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(300,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(400,-100), 11));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(250,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 11));
+				}
+			} , 1.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 4.7f;
+					waveDone = true;
+				}
+			} , 4.7f);
+			x = 0;
 		}
+		
 		if(x == 6)
 		{
-			if(tic == 0)
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightBasic(new Vector2(350,-100), 60,60,50,50));
-			}
-			if(tic == 50)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(250,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 11));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-				world.actors.add(new LightBasic(new Vector2(450,-100), 60,60,50,50));
-			}
-			if(tic == 100)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(250,-100), 2));
+					world.actors.add(new LightSpread(new Vector2(450,-100), 3));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				world.actors.add(new LightBasic(new Vector2(150,-100), 60,60,50,50));
-				world.actors.add(new LightBasic(new Vector2(550,-100), 60,60,50,50));
-			}
-			tic++;
-			currentTime++;
-			if(tic == 150)
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(150,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(250,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(550,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 11));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 150;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(150,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(250,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(550,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 10));
+				}
+			} , 1.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(150,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(250,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(550,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 9));
+				}
+			} , 2.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.9f;
+					waveDone = true;
+				}
+			} , 3.9f);
+			x = 0;
 		}
+		
 		if(x == 7)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new LightLaser(new Vector2(100,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(300,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightLaser(new Vector2(200,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(400,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(600,-100), 60,60,50,50));
-            }
-			tic++;
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 1));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(150,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(550,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 1));
+				}
+			} , 0.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(20,-100), 2));
+					world.actors.add(new LightTiny(new Vector2(120,-100), 2));
+					world.actors.add(new LightTiny(new Vector2(320,-100), 2));
+					world.actors.add(new LightTiny(new Vector2(380,-100), 3));
+					world.actors.add(new LightTiny(new Vector2(580,-100), 3));
+					world.actors.add(new LightTiny(new Vector2(680,-100), 3));
+				}
+			} , 1.1f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(20,-100), 4));
+					world.actors.add(new LightTiny(new Vector2(320,-100), 4));
+					world.actors.add(new LightTiny(new Vector2(380,-100), 5));
+					world.actors.add(new LightTiny(new Vector2(680,-100), 5));
+				}
+			} , 1.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(30,-100), 6));
+					world.actors.add(new LightTiny(new Vector2(130,-100), 6));
+					world.actors.add(new LightTiny(new Vector2(570,-100), 7));
+					world.actors.add(new LightTiny(new Vector2(670,-100), 7));
+				}
+			} , 1.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.8f;
+					waveDone = true;
+				}
+			} , 2.8f);
+			x = 0;
 		}
+		
 		if(x == 8)
-		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new enemyAR(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-			tic++;
-			currentTime++;
-			if(tic == 250)
+		{	
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 250;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(150,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(550,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 11));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(20,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(120,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(320,-100), 10));
+					world.actors.add(new LightTiny(new Vector2(380,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(580,-100), 11));
+					world.actors.add(new LightTiny(new Vector2(680,-100), 11));
+				}
+			} , 0.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(325,-100), 2));
+					world.actors.add(new LightTiny(new Vector2(325,-100), 6));
+					world.actors.add(new LightTiny(new Vector2(325,-100), 2));
+					world.actors.add(new LightTiny(new Vector2(375,-100), 3));
+					world.actors.add(new LightTiny(new Vector2(375,-100), 7));
+					world.actors.add(new LightTiny(new Vector2(375,-100), 3));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 1.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.6f;
+					waveDone = true;
+				}
+			} , 3.6f);
+			x = 0;
 		}
+		
 		if(x == 9)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(200,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(500,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-			tic++;
-			currentTime++;
-			if(tic == 250)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 250;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+				}
+			} , 0.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+				}
+			} , 1.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+				}
+			} , 2.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(-50,-100), 8));
+				}
+			} , 2.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 4.8f;
+					waveDone = true;
+				}
+			} , 4.8f);
+			x = 0;
 		}
+		
 		if(x == 10)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(200,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(500,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-			tic++;
-			currentTime++;
-			if(tic == 250)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 250;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+				}
+			} , 0.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+				}
+			} , 1.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+				}
+			} , 2.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(50,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(650,-100), 0));
+				}
+			} , 3.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(200,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(500,-100), 9));
+				}
+			} , 4.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(150,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(550,-100), 9));
+				}
+			} , 4.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(100,-100), 8));
+					world.actors.add(new LightTiny(new Vector2(600,-100), 9));
+				}
+			} , 4.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 7.5f;
+					waveDone = true;
+				}
+			} , 7.5f);
+			x = 0;
 		}
-		if(x == 11)
+		
+		if(y == 1)//y wave is 30 seconds in, but ends at 60
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightBasic(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new LightBasic(new Vector2(150,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(550,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 250)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 250;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
+				}
+			} , 0.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+				}
+			} , 0.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(200,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(500,-100), 0));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(-100,-100), 10));
+					world.actors.add(new LightSpread(new Vector2(800,-100), 11));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(200,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(500,-100), 6));
+				}
+			} , 2.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.0f;
+					waveDone = true;
+				}
+			} , 5.0f);
+			y = 0;
 		}
-		if(x == 12)
+		
+		if(y == 2)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightLaser(new Vector2(100,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(600,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(400,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(300,-100), 90,60,80,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(100,-100), 90,60,80,50));
-                world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-                world.actors.add(new HeavyLaser(new Vector2(600,-100), 90,60,80,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 250)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 250;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(200,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(500,-100), 6));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(300,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(400,-100), 6));
+				}
+			} , 0.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+				}
+			} , 1.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
+				}
+			} , 1.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+				}
+			} , 1.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 2));
+					world.actors.add(new LightBasic(new Vector2(350,-100), 3));
+				}
+			} , 2.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(150,-100), 1));
+					world.actors.add(new LightSpread(new Vector2(550,-100), 1));
+				}
+			} , 3.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 6.5f;
+					waveDone = true;
+				}
+			} , 6.5f);
+			y = 0;
 		}
-		if(x == 13)
+		
+		if(y == 3)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightLaser(new Vector2(200,-100), 60,60,50,50));
-                world.actors.add(new enemyAL(new Vector2(300,-100), 60,60,50,50));
-                world.actors.add(new enemyAR(new Vector2(400,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(500,-100), 60,60,50,50));
-            }
-			if(tic == 100)
-            {
-            	world.actors.add(new LightLaser(new Vector2(100,-100), 60,60,50,50));
-                world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-                world.actors.add(new LightLaser(new Vector2(600,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 200)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(150,-100), 1));
+					world.actors.add(new LightSpread(new Vector2(550,-100), 1));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(700,-100), 5));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+				}
+			} , 2.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(225,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(275,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(425,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(475,-100), 0));
+				}
+			} , 2.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(200,-100), 0));
+					world.actors.add(new LightTiny(new Vector2(500,-100), 0));
+				}
+			} , 3.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 5.5f;
+					waveDone = true;
+				}
+			} , 5.5f);
+			y = 0;
 		}
-		if(x == 14)
+		
+		if(y == 4)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new enemyAR(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new enemyAR(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(450,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 200)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+				}
+			} , 0.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+				}
+			} , 0.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+				}
+			} , 2.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+				}
+			} , 2.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+				}
+			} , 2.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+				}
+			} , 2.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+				}
+			} , 3.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+				}
+			} , 3.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 4.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(100,-100), 1));
+					world.actors.add(new LightBasic(new Vector2(600,-100), 1));
+				}
+			} , 5.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(275,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(425,-100), 6));
+				}
+			} , 6.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 9.0f;
+					waveDone = true;
+				}
+			} , 9.0f);
+			y = 0;
 		}
-		if(x == 15)
+		
+		if(y == 5)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(250,-100), 90,60,80,50));
-                world.actors.add(new HeavyBasic(new Vector2(350,-100), 90,60,80,50));
-                world.actors.add(new HeavySpread(new Vector2(450,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new LightLaser(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new HeavyLaser(new Vector2(350,-100), 90,60,80,50));
-                world.actors.add(new LightLaser(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(300,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(400,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 200)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(275,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(425,-100), 6));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(350,-100), 1));
+				}
+			} , 0.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(100,-100), 2));
+					world.actors.add(new LightBasic(new Vector2(600,-100), 3));
+				}
+			} , 1.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(0,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+				}
+			} , 2.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(25,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(675,-100), 1));
+				}
+			} , 2.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightTiny(new Vector2(50,-100), 1));
+					world.actors.add(new LightTiny(new Vector2(650,-100), 1));
+				}
+			} , 2.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 6.0f;
+					waveDone = true;
+				}
+			} , 6.0f);
+			y = 0;
 		}
-		if(x == 16)
+		
+		/*if(y == #)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightBasic(new Vector2(100,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(600,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 250)
-            {
-            	world.actors.add(new LightLaser(new Vector2(550,-100), 60,60,50,50));
-            	world.actors.add(new LightLaser(new Vector2(150,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 200)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
-		}
-		if(x == 17)
+				@Override
+				public void run()
+				{
+					
+				}
+			} , 0.0f);
+			
+			
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + #.#f;
+					waveDone = true;
+				}
+			} , #.#f);
+			y = 0;
+		}*/
+		
+		if(z == 1)//z wave is the last 60 seconds
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(50,-100), 90,60,80,50));
-            }
-            if(tic == 25)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(150,-100), 90,60,80,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(250,-100), 90,60,80,50));
-            }
-            if(tic == 75)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(350,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(650,-100), 90,60,80,50));
-            }
-            if(tic == 125)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(550,-100), 90,60,80,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(450,-100), 90,60,80,50));
-            }
-            if(tic == 175)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(350,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(50,-100), 90,60,80,50));
-            }
-            if(tic == 225)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(150,-100), 90,60,80,50));
-            }
-            if(tic == 250)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(250,-100), 90,60,80,50));
-            }
-            if(tic == 275)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(350,-100), 90,60,80,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 350)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 350;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 0));
+				}
+			} , 0);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 1));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 1));
+				}
+			} , 1.0f);
+			
+			world.timer.scheduleTask(new Task()
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 0));
+				}
+			} , 2.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.5f;
+					waveDone = true;
+				}
+			} , 3.5f);
+			z = 0;
 		}
-		if(x == 17)
+		
+		if(z == 2)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(650,-100), 90,60,80,50));
-            	world.actors.add(new HeavySpread(new Vector2(550,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new enemyAR(new Vector2(450,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(250,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(450,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(250,-100), 90,60,80,50));
-            }
-            if(tic == 250)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(550,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(150,-100), 90,60,80,50));
-            }
-            if(tic == 300)
-            {
-            	world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.add(new LightBasic(new Vector2(700,-100), 1));
+				}
+			} , 0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightBasic(new Vector2(250,-100), 2));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 3));
+				}
+			} , 0.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightSpread(new Vector2(0,-100), 6));
+					world.actors.add(new LightSpread(new Vector2(700,-100), 7));
+				}
+			} , 1.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.2f;
+					waveDone = true;
+				}
+			} , 3.2f);
+			z = 0;
 		}
-		if(x == 18)
+		
+		if(z == 3)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(650,-100), 90,60,80,50));
-            	world.actors.add(new HeavySpread(new Vector2(550,-100), 90,60,80,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new enemyAR(new Vector2(450,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(250,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(450,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(250,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(550,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(150,-100), 90,60,80,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
+				}
+			} , 0f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+				}
+			} , 0.2f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
+				}
+			} , 0.4f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+				}
+			} , 0.6f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
+				}
+			} , 0.8f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+				}
+			} , 1.0f);
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run(){
+					
+					world.actors.add(new LightSpread(new Vector2(200,-100), 6));
+					world.actors.add(new LightSpread(new Vector2(500,-100), 7));
+				}
+			} , 1.0f);
+			
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.0f;
+					waveDone = true;
+				}
+			} , 3.0f);
+			z = 0;
 		}
-		if(x == 19)
+		
+		if(z == 4)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(650,-100), 90,60,80,50));
-            	world.actors.add(new HeavySpread(new Vector2(550,-100), 90,60,80,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new enemyAR(new Vector2(450,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(250,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(450,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(250,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(550,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(150,-100), 90,60,80,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(100,-100), 1));
+					world.actors.add(new LightSpread(new Vector2(600,-100), 1));
+				}
+			} , 0);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 3));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 2));
+				}
+			} , .7f);
+			
+			world.timer.scheduleTask(new Task()
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 1));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 1));
+				}
+			} , 1.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.2f;
+					waveDone = true;
+				}
+			} , 2.2f);
+			z = 0;
 		}
-		if(x == 20)
+		
+		if(z == 5)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new enemyAR(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(450,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(350,-100), 4));
+					world.actors.add(new LightSpread(new Vector2(350,-100), 5));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(125,-100), 5));
+					world.actors.add(new LightSpread(new Vector2(575,-100), 4));
+				}
+			} , 0.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 3));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 2));
+				}
+			} , 1.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(50,-100), 3));
+					world.actors.add(new LightBasic(new Vector2(650,-100), 2));
+				}
+			} , 2.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.9f;
+					waveDone = true;
+				}
+			} , 3.9f);
+			z = 0;
 		}
-		if(x == 21)
+		
+		if(z == 6)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new GunshipBasic(new Vector2(350,-100), 90,60,80,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 100)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 100;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+				}
+			} , 0);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+				}
+			} , 0.3f);
+			
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+				}
+			} , 0.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+					world.actors.add(new LightSpread(new Vector2(0,-100), 8));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.0f;
+					waveDone = true;
+				}
+			} , 3.0f);
+			z = 0;
 		}
-		if(x == 22)
+		
+		if(z == 7)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new enemyAR(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(150,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(550,-100), 90,60,80,50));
-            }
-			tic++;
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+				}
+			} , 0);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.add(new LightBasic(new Vector2(700,-100), 1));
+				}
+			} , 0.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(0,-100), 4));
+					world.actors.add(new LightSpread(new Vector2(700,-100), 5));
+				}
+			} , 1.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
+				}
+			} , 2.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(100,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(600,-100), 5));
+				}
+			} , 3.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+				}
+			} , 3.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 5.0f;
+					waveDone = true;
+				}
+			} , 5.0f);
+			z = 0;
 		}
-		if(x == 23)
+		
+		if(z == 8)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(50,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(650,-100), 90,60,80,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(450,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new enemyAR(new Vector2(250,-100), 60,60,50,50));
-            	world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new enemyAL(new Vector2(450,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 250)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 250;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 0);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 5));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 4));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+				}
+			} , 3.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 5.0f;
+					waveDone = true;
+				}
+			} , 5.0f);
+			z = 0;
 		}
-		if(x == 24)
+		
+		if(z == 9)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(250,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(450,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+					
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 5));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 4));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 3.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 5.0f;
+					waveDone = true;
+				}
+			} , 5.0f);
+			z = 0;
 		}
-		if(x == 25)
+		
+		if(z == 10)
 		{
-			 if(tic == 0)
-	            {
-	            	world.actors.add(new enemyAR(new Vector2(250,-100), 60,60,50,50));
-	            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-	            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-	            	world.actors.add(new enemyAL(new Vector2(450,-100), 60,60,50,50));
-	            }
-	            if(tic == 100)
-	            {
-	            	world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-	            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+				}
+			} , 0.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(225,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(475,-100), 5));
+				}
+			} , 1.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+				}
+			} , 2.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
+				}
+			} , 3.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 8.0f;
+					waveDone = true;
+				}
+			} , 5.0f);
+			z = 0;
 		}
-		if(x == 26)
+		
+		if(z == 11)
 		{
-			 if(tic == 0)
-	            {
-	            	world.actors.add(new HeavyLaser(new Vector2(450,-100), 90,60,80,50));
-	            	world.actors.add(new HeavyLaser(new Vector2(250,-100), 90,60,80,50));
-	            }
-	            if(tic == 100)
-	            {
-	            	world.actors.add(new LightLaser(new Vector2(450,-100), 60,60,50,50));
-	                world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-	                world.actors.add(new LightLaser(new Vector2(250,-100), 60,60,50,50));
-	            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(250,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(350,-100), 4));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 5));
+					world.actors.add(new LightBasic(new Vector2(350,-100), 5));
+				}
+			} , 1.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.6f;
+					waveDone = true;
+				}
+			} , 2.8f);
+			z = 0;
 		}
-		if(x == 27)
+		
+		if(z == 12)
 		{
-			 if(tic == 0)
-	            {
-	            	world.actors.add(new HeavyLaser(new Vector2(450,-100), 90,60,80,50));
-	            	world.actors.add(new HeavyLaser(new Vector2(250,-100), 90,60,80,50));
-	            }
-	            if(tic == 100)
-	            {
-	            	world.actors.add(new LightLaser(new Vector2(450,-100), 60,60,50,50));
-	                world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-	                world.actors.add(new LightLaser(new Vector2(250,-100), 60,60,50,50));
-	            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(350,-100), 5));
+				}
+			} , 1.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 4));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 5));
+				}
+			} , 2.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.8f;
+					waveDone = true;
+				}
+			} , 3.8f);
+			z = 0;
 		}
-		if(x == 28)
+		
+		if(z == 13)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(600,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(100,-100), 60,60,50,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(400,-100), 90,60,80,50));
-            	world.actors.add(new HeavySpread(new Vector2(300,-100), 90,60,80,50));
-            }
-			tic++; 
-			currentTime++;
-			if(tic == 200)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+				}
+			} , 0);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+				}
+			} , 0.3f);
+			
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+				}
+			} , 0.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+					world.actors.add(new LightSpread(new Vector2(700,-100), 9));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+				}
+			} , 1.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.0f;
+					waveDone = true;
+				}
+			} , 3.0f);
+			z = 0;
 		}
-		if(x == 29)
+		
+		if(z == 14)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(600,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(100,-100), 60,60,50,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(400,-100), 90,60,80,50));
-            	world.actors.add(new HeavySpread(new Vector2(300,-100), 90,60,80,50));
-            }
-			tic++; 
-			currentTime++;
-			if(tic == 200)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 200;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(0,-100), 8));
+					world.actors.add(new LightSpread(new Vector2(700,-100), 9));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
+					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+				}
+			} , 0.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 2));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 3));
+				}
+			} , 1.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 6));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 7));
+				}
+			} , 2.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 4.0f;
+					waveDone = true;
+				}
+			} , 4.0f);
+			z = 0;
 		}
-		if(x == 30)
+		
+		if(z == 15)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(250,-100), 90,60,80,50));
-                world.actors.add(new LightLaser(new Vector2(300,-100), 60,60,50,50));
-                world.actors.add(new LightLaser(new Vector2(400,-100), 60,60,50,50));
-                world.actors.add(new HeavyLaser(new Vector2(450,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightLaser(new Vector2(500,-100), 60,60,50,50));
-            	world.actors.add(new LightLaser(new Vector2(200,-100), 60,60,50,50));
-            }
-			tic++; 
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 8));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 9));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(250,-100), 8));
+					world.actors.add(new LightSpread(new Vector2(450,-100), 9));
+				}
+			} , 0.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 8));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 9));
+				}
+			} , 1.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.7f;
+					waveDone = true;
+				}
+			} , 2.7f);
+			z = 0;
 		}
-		if(x == 31)
+		
+		if(z == 16)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(500,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(200,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(150,-100), 90,60,80,50));
-                world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-                world.actors.add(new HeavySpread(new Vector2(550,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(100,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(600,-100), 60,60,50,50));
-            }
-			tic++; 
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(325,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(375,-100), 0));
+				}
+			} , 0.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(300,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(400,-100), 0));
+				}
+			} , 0.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(275,-100), 0));
+					world.actors.add(new LightBasic(new Vector2(425,-100), 0));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(100,-100), 0));
+					world.actors.add(new LightSpread(new Vector2(600,-100), 0));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.6f;
+					waveDone = true;
+				}
+			} , 2.6f);
+			z = 0;
 		}
-		if(x == 32)
+		
+		if(z == 17)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(500,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(200,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(150,-100), 90,60,80,50));
-                world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-                world.actors.add(new HeavySpread(new Vector2(550,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(100,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(600,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+				}
+			} , 0.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+				}
+			} , 0.6f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+				}
+			} , 0.9f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.0f;
+					waveDone = true;
+				}
+			} , 2.0f);
+			z = 0;
 		}
-		if(x == 33)
+		
+		if(z == 18)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(100,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(600,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new LightBasic(new Vector2(100,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(600,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 2));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 3));
+				}
+			} , 0.8f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+				}
+			} , 1.3f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(250,-100), 10));
+					world.actors.add(new LightBasic(new Vector2(450,-100), 11));
+				}
+			} , 2.4f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 8));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 9));
+				}
+			} , 3.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 5.0f;
+					waveDone = true;
+				}
+			} , 5.0f);
+			z = 0;
 		}
-		if(x == 34)
+		
+		if(z == 19)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(100,-100), 90,60,80,50));
-            	world.actors.add(new HeavyLaser(new Vector2(600,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new LightBasic(new Vector2(100,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            	world.actors.add(new LightBasic(new Vector2(600,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 2));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 3));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(150,-100), 3));
+					world.actors.add(new LightBasic(new Vector2(550,-100), 2));
+				}
+			} , 0.5f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightSpread(new Vector2(150,-100), 0));
+					world.actors.add(new LightSpread(new Vector2(550,-100), 0));
+				}
+			} , 1.7f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 3.8f;
+					waveDone = true;
+				}
+			} , 3.8f);
+			z = 0;
 		}
-		if(x == 35)
+		
+		if(z == 20)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new enemyAR(new Vector2(400,-100), 60,60,50,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new enemyAR(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(0,-100), 6));
+					world.actors.add(new LightBasic(new Vector2(100,-100), 6));
+					world.actors.add(new LightBasic(new Vector2(200,-100), 6));
+					world.actors.add(new LightBasic(new Vector2(300,-100), 6));
+				}
+			} , 0.0f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					world.actors.add(new LightBasic(new Vector2(700,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(600,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(500,-100), 7));
+					world.actors.add(new LightBasic(new Vector2(400,-100), 7));
+				}
+			} , 1.2f);
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 2.5f;
+					waveDone = true;
+				}
+			} , 2.5f);
+			z = 0;
 		}
-		if(x == 36)
+		
+		if(z == 21)
 		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new enemyAR(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new enemyAR(new Vector2(350,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new enemyAR(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new enemyAL(new Vector2(500,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-                world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
+			world.timer.scheduleTask(new Task() 
 			{
-				time = time + 300;
-				done = true;
-			}
+				@Override
+				public void run()
+				{
+					
+				}
+			} , 0.0f);
+			
+			
+			
+			world.timer.scheduleTask(new Task() 
+			{
+				@Override
+				public void run()
+				{
+					time = time + 0.0f;
+					waveDone = true;
+				}
+			} , 3.0f);
+			z = 0;
 		}
-		if(x == 37)
-		{
-			if(tic == 0)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(350,-100), 90,60,80,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(300,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(400,-100), 90,60,80,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new HeavyBasic(new Vector2(200,-100), 90,60,80,50));
-            	world.actors.add(new HeavyBasic(new Vector2(500,-100), 90,60,80,50));
-            }
-            if(tic == 300)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-            	world.actors.add(new HeavySpread(new Vector2(350,-100), 90,60,80,50));
-                world.actors.add(new LightBasic(new Vector2(500,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 400)
-			{
-				time = time + 400;
-				done = true;
-			}
-		}
-		if(x == 38)
-		{
-			if(tic == 0)
-            {
-            	world.actors.add(new LightBasic(new Vector2(200,-100), 60,60,50,50));
-            }
-            if(tic == 50)
-            {
-            	world.actors.add(new LightBasic(new Vector2(250,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new LightBasic(new Vector2(300,-100), 60,60,50,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new LightBasic(new Vector2(350,-100), 60,60,50,50));
-            }
-            if(tic == 200)
-            {
-            	world.actors.add(new LightBasic(new Vector2(400,-100), 60,60,50,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 300)
-			{
-				time = time + 300;
-				done = true;
-			}
-		}
-		if(x == 39)
-		{
-			if(tic == 0)
-            {
-            	world.actors.add(new enemyAR(new Vector2(400,-100), 60,60,50,50));
-            	world.actors.add(new LightLaser(new Vector2(350,-100), 60,60,50,50));
-                world.actors.add(new enemyAL(new Vector2(300,-100), 60,60,50,50));
-            }
-            if(tic == 100)
-            {
-            	world.actors.add(new HeavySpread(new Vector2(200,-100), 90,60,80,50));
-            	world.actors.add(new HeavySpread(new Vector2(500,-100), 90,60,80,50));
-            }
-            if(tic == 150)
-            {
-            	world.actors.add(new HeavyLaser(new Vector2(350,-100), 90,60,80,50));
-            }
-			tic++;  
-			currentTime++;
-			if(tic == 250)
-			{
-				time = time + 250;
-				done = true;
-			}
-		}
-		if(x == 40)
-		{
-			if(tic == 0)
-			{
-				HUE1 = com.badlogic.gdx.math.MathUtils.random(0, 200);
-				HUE2 = com.badlogic.gdx.math.MathUtils.random(250, 450);
-				HUE3 = com.badlogic.gdx.math.MathUtils.random(500, 700);
-				world.actors.add(new HeavyLaser(new Vector2(HUE1,-100), 90,60,80,50));
-				world.actors.add(new HeavyLaser(new Vector2(HUE2,-100), 90,60,80,50));
-				world.actors.add(new HeavyLaser(new Vector2(HUE3,-100), 90,60,80,50));
-			}
-			tic++;
-			if(tic == 125)
-			{
-				time = time + 125;
-				done = true;
-			}
-		}
-		tic++;  
-		if(tic == 250)
-		{
-			time = time + 250;
-			done = true;
-		}
-		if(x == 41)
-		{
-			if(tic == 0)
-			{
-				HUE1 = com.badlogic.gdx.math.MathUtils.random(0, 140);
-				HUE2 = com.badlogic.gdx.math.MathUtils.random(140, 280);
-				HUE3 = com.badlogic.gdx.math.MathUtils.random(280, 420);
-				HUE4 = com.badlogic.gdx.math.MathUtils.random(420, 560);
-				HUE5 = com.badlogic.gdx.math.MathUtils.random(560, 700);
-				world.actors.add(new LightLaser(new Vector2(HUE1,-100), 60,60,50,50));
-				world.actors.add(new LightLaser(new Vector2(HUE2,-100), 60,60,50,50));
-				world.actors.add(new LightLaser(new Vector2(HUE3,-100), 60,60,50,50));
-				world.actors.add(new LightLaser(new Vector2(HUE4,-100), 60,60,50,50));
-				world.actors.add(new LightLaser(new Vector2(HUE5,-100), 60,60,50,50));
-			}
-			tic++;
-			currentTime++;
-			if(tic == 100)
-			{
-				time = time + 100;
-				done = true;
-			}
-		}
+		
+	}
+	@Override
+	public void start() {
+		
 	}
 }

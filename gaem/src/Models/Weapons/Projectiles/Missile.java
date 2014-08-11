@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 public class Missile extends MoveableEntity
 {
-	int vel = 100;
+	int vel = -0;
 	private ParticleEmitter fumes;
 	public boolean explode = false;
 

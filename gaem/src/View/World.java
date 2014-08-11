@@ -13,7 +13,6 @@ import Models.Players.Player3;
 import Models.Players.Player4;
 import View.Levels.level_1;
 import View.Levels.level_2;
-import View.Levels.level_3;
 import View.Levels.level_TEST;
 
 import com.amorphous.gaem.GamepadHandler;
@@ -84,7 +83,6 @@ public class World {
 	level_TEST levelT;
 	level_1 level1;
 	level_2 level2;
-	level_3 level3;
 	Array<View.Levels.level> levels;
 	public View.Levels.level level;
 	int currentLevel;

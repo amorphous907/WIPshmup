@@ -104,6 +104,7 @@ public class WorldRender {
 		textures.put("lightBasic", new Texture(Gdx.files.internal("data/texture/lightBasic.png"))); //enemy textures, starting with light
 		textures.put("lightSpread", new Texture(Gdx.files.internal("data/texture/lightSpread.png")));
 		textures.put("lightLaser", new Texture(Gdx.files.internal("data/texture/lightLaser.png")));
+		textures.put("lightTiny", new Texture(Gdx.files.internal("data/texture/lightTiny.png")));
 		textures.put("heavyBasic", new Texture(Gdx.files.internal("data/texture/heavyBasic.png"))); //heavy enemies
 		textures.put("heavySpread", new Texture(Gdx.files.internal("data/texture/heavySpread.png"))); 
 		textures.put("heavyLaser", new Texture(Gdx.files.internal("data/texture/heavyLaser.png")));
@@ -139,6 +140,7 @@ public class WorldRender {
 		textures.put("a6", new Texture(Gdx.files.internal("data/texture/a6.png")));
 		textures.put("a7", new Texture(Gdx.files.internal("data/texture/a7.png")));
 		textures.put("a8", new Texture(Gdx.files.internal("data/texture/a8.png")));
+		textures.put("Hurtmark1", new Texture(Gdx.files.internal("data/texture/Hurtmark1.png")));//enemy hurt marks
 		
 		
 		

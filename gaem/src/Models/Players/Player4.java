@@ -58,11 +58,16 @@ public class Player4 extends Player{
 	@Override
 	protected void applyPowerup(){
 		switch(powerupID){
+			case 0:
+				gun = null;
+				this.gun = new VanillaDEF();
+				break;
+			default:
+				break;
+		
 			case 1:
 				gun = null;
 				this.gun = new VanillaSTR();
-				break;
-			default:
 				break;
 				
 			case 2:
@@ -70,8 +75,6 @@ public class Player4 extends Player{
 				this.gun = new VanillaSPD();
 				break;
 		}
-		
-		
 		super.applyPowerup();
 	}
 	

@@ -57,11 +57,11 @@ public class LightBasic extends Enemy
 				
 				if(position.x >= 540-width)
 		        {
-		            velocity.x = velocity.x - 20;
+		            velocity.x = velocity.x - 15;
 		        }
 		        if(position.x <= 160)
 		        {
-		            velocity.x = velocity.x + 20;
+		            velocity.x = velocity.x + 15;
 		        }
 		        
 		        if(position.x >= 699-width)
@@ -90,11 +90,11 @@ public class LightBasic extends Enemy
 				
 				if(position.x >= 340-width)
 		        {
-		            velocity.x = velocity.x - 20;
+		            velocity.x = velocity.x - 15;
 		        }
 		        if(position.x <= 160)
 		        {
-		            velocity.x = velocity.x + 20;
+		            velocity.x = velocity.x + 15;
 		        }
 		        
 		        if(position.x >= 699-width)
@@ -123,11 +123,11 @@ public class LightBasic extends Enemy
 				
 				if(position.x >= 540-width)
 		        {
-		            velocity.x = velocity.x - 20;
+		            velocity.x = velocity.x - 15;
 		        }
 		        if(position.x <= 360)
 		        {
-		            velocity.x = velocity.x + 20;
+		            velocity.x = velocity.x + 15;
 		        }
 		        
 		        if(position.x >= 699-width)
@@ -262,7 +262,7 @@ public class LightBasic extends Enemy
 		case 8: //enemy goes to the right
 			if(wait)
 			{
-		        velocity.x = 300;
+		        velocity.x = 250;
 				world.timer.scheduleTask(new Task()
 				{
 					@Override
@@ -278,7 +278,7 @@ public class LightBasic extends Enemy
 		case 9: //enemy goes to the left
 			if(wait)
 			{
-		        velocity.x = -300;
+		        velocity.x = -250;
 				world.timer.scheduleTask(new Task()
 				{
 					@Override

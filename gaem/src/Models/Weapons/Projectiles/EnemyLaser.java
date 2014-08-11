@@ -14,6 +14,7 @@ public class EnemyLaser extends EnemyBullet {
 			float hitY) {
 		super(position, width, height, hitX, hitY);
 		texture = "enemyLaser";
+		actorID = 5;
 		animate = false;
 		// TODO Auto-generated constructor stub
 	}

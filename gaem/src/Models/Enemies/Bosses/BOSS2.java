@@ -32,9 +32,9 @@ public class BOSS2 extends Enemy
     int ready_4_battle = 0;
     int cooldown = 0;
 	
-	public BOSS2(Vector2 position, float width, float height, float hitX, float hitY) 
+	public BOSS2(Vector2 position) 
 	{
-		super(position, width, height, hitX, hitY);
+		super(position, 300, 300, 240, 240);
 		health = 20000;
 		tick = 0;
 		velocity = new Vector2(0,100);

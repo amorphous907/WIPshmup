@@ -18,7 +18,7 @@ public class LightTiny extends Enemy
 	public LightTiny(Vector2 position, int AI)
 	{
 		super(position, 30, 30, 30, 30);
-		texture = "boss2";
+		texture = "lightTiny";
 		health = 48;
 		score = 10;
 		this.AI = AI;

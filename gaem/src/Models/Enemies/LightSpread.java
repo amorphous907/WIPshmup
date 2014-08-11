@@ -62,11 +62,11 @@ public class LightSpread extends Enemy
 				
 				if(position.x >= 540-width)
 		        {
-		            velocity.x = velocity.x - 20;
+		            velocity.x = velocity.x - 15;
 		        }
 		        if(position.x <= 160)
 		        {
-		            velocity.x = velocity.x + 20;
+		            velocity.x = velocity.x + 15;
 		        }
 		        
 		        if(position.x >= 699-width)
@@ -95,11 +95,11 @@ public class LightSpread extends Enemy
 				
 				if(position.x >= 340-width)
 		        {
-		            velocity.x = velocity.x - 20;
+		            velocity.x = velocity.x - 15;
 		        }
 		        if(position.x <= 160)
 		        {
-		            velocity.x = velocity.x + 20;
+		            velocity.x = velocity.x + 15;
 		        }
 		        
 		        if(position.x >= 699-width)
@@ -128,11 +128,11 @@ public class LightSpread extends Enemy
 				
 				if(position.x >= 540-width)
 		        {
-		            velocity.x = velocity.x - 20;
+		            velocity.x = velocity.x - 15;
 		        }
 		        if(position.x <= 360)
 		        {
-		            velocity.x = velocity.x + 20;
+		            velocity.x = velocity.x + 15;
 		        }
 		        
 		        if(position.x >= 699-width)
