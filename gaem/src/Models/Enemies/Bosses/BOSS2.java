@@ -2,9 +2,7 @@ package Models.Enemies.Bosses;
 
 
 import Models.Enemies.Enemy;
-import Models.Enemies.LightBasic;
-import Models.Enemies.HeavyBasic;
-import Models.Enemies.LightLaser;
+import Models.Enemies.LightTiny;
 import View.World;
 
 import com.badlogic.gdx.Gdx;
@@ -92,34 +90,15 @@ public class BOSS2 extends Enemy
 			y = com.badlogic.gdx.math.MathUtils.random(0, 700);
 			if(pingA == 5 || pingB == 2)
             {
-				x = com.badlogic.gdx.math.MathUtils.random(0, 4);
+				x = com.badlogic.gdx.math.MathUtils.random(0, 0);
                 pingA = 0;
                 pingB = 0;
             }
-			if(x == 0)
+            if(x == 0)
             {
             	if(fired>firerate)
                 {
-            		world.actors.add(new LightBasic(new Vector2(y,-100), 0));
-                    fired=0;
-                    pingA++;
-                }
-                else
-                {
-                    fired++;
-                }
-            }
-            else
-			{
-				tick++;
-			}
-			
-            if(x == 1)
-            {
-            	if(fired>firerate)
-                {
-            		world.actors.add(new LightBasic(new Vector2(y,-100), 1));
-            		world.actors.add(new LightBasic(new Vector2(y,-100), 1));
+            		world.actors.add(new LightTiny(new Vector2(y,-100), 1));
                     fired=0;
                     pingB++;
                 }
@@ -132,57 +111,6 @@ public class BOSS2 extends Enemy
 			{
 				tick++;
 			}
-		if(x == 2)
-        {
-        	if(fired>firerate)
-            {
-        		world.actors.add(new LightLaser(new Vector2(y,-100), 60,60,50,50));
-                fired=0;
-                pingB++;
-            }
-            else
-            {
-                fired++;
-            }
-        }
-        else
-		{
-			tick++;
-		}
-		if(x == 3)
-        {
-        	if(fired>firerate)
-            {
-        		world.actors.add(new HeavyBasic(new Vector2(y,-100), 0));
-                fired=0;
-                pingB++;
-            }
-            else
-            {
-                fired++;
-            }
-        }
-        else
-		{
-			tick++;
-		}
-		if(x == 4)
-        {
-        	if(fired>firerate)
-            {
-        		world.actors.add(new HeavyBasic(new Vector2(y,-100), 0));
-                fired=0;
-                pingB++;
-            }
-            else
-            {
-                fired++;
-            }
-        }
-        else
-		{
-			tick++;
-		}
 	}
 		if(move == 1)
 		{

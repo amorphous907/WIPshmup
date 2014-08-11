@@ -23,7 +23,9 @@ public class Missile extends MoveableEntity
 	int vel = -0;
 	private ParticleEmitter fumes;
 	public boolean explode = false;
-
+	private boolean speedBoost;
+	
+	
 	public Missile(Vector2 position, float width, float height, float hitX,
 			float hitY) {
 		super(position, width, height, hitX, hitY);
@@ -47,6 +49,7 @@ public class Missile extends MoveableEntity
 		fumes.setSprite(particleSprite);
 		fumes.getScale().setHigh(8f);
 		fumes.start();
+		speedBoost = true;
 	}
 	
 	public Missile(Vector2 position, float width, float height, float hitX,
@@ -69,6 +72,7 @@ public class Missile extends MoveableEntity
 		fumes.setSprite(particleSprite);
 		fumes.getScale().setHigh(8f);
 		fumes.start();
+		speedBoost = true;
 	}
 	
 	public Missile(Vector2 position, Vector2 velocity){
@@ -76,19 +80,24 @@ public class Missile extends MoveableEntity
 		this.velocity = velocity;
 		actorID = 28;
 		rotation = velocity.angle()-90;
+		speedBoost = true;
 	}
 	
 	@Override
 	public void update(World world){
 		super.update(world);
-		world.timer.scheduleTask(new Task() 
-		{
-			@Override
-			public void run()
+		if(speedBoost){
+			world.timer.scheduleTask(new Task() 
 			{
-				velocity.y -= 1;
-			}
-		} , 0.1f);
+				@Override
+				public void run()
+				{
+					velocity.y -= 1;
+					speedBoost=true;
+				}
+			} , 0.1f);
+			speedBoost = false;
+		}
 		 if(velocity.x > 0) velocity.x -= 1;
 		 if(velocity.x < 0) velocity.x += 1;
 		rotation = velocity.angle()-90;

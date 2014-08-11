@@ -99,9 +99,9 @@ public class World {
 		currentLevel = level;
 
 		levels = new Array<View.Levels.level>();
-		levels.add(level1); //0
+		levels.add(levelT); //0
 		levels.add(level1); //1
-		//levels.add(level2); //2
+		levels.add(level2); //2
 
 		lives = 110;
 		players = 1;
