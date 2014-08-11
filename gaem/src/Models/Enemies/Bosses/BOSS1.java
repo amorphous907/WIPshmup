@@ -32,7 +32,7 @@ public class BOSS1 extends Enemy
     int pingB = 0;
     int x = 0;
     int z = 0;
-    int ready_4_battle = 0;
+    int ready_4_battle = 1;
     private boolean wait = true;
 	
 	public BOSS1(Vector2 position) 
