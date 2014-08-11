@@ -135,8 +135,16 @@ public class MoveableEntity extends Entity{
 
 	public void damage(int i) 
 	{
+		System.out.println(damageColor +"WAT");
 		health -= i;
 		color = new Color(damageColor);
 		fadeToWhite = true;
+		
+		subIter = subObjects.iterator();
+		while(subIter.hasNext()){
+			subObject = subIter.next();
+			subObject.subHit();
+		}
+		
 	}
 }
