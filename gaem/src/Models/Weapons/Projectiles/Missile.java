@@ -92,8 +92,7 @@ public class Missile extends MoveableEntity
 				@Override
 				public void run()
 				{
-					velocity.y -= 1;
-					speedBoost=true;
+					speedBoost();
 				}
 			} , 0.1f);
 			speedBoost = false;
@@ -112,6 +111,12 @@ public class Missile extends MoveableEntity
 		
 	}
 	
+	protected void speedBoost() {
+		velocity.y -= 100;
+		speedBoost=true;
+		System.out.println(speedBoost + " " + velocity.y);
+	}
+
 	@Override
 	public void collidesWith(MoveableEntity e, World world)
 	{
