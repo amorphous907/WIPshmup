@@ -4,6 +4,8 @@ import Models.MoveableEntity;
 import Models.Players.Player;
 import Models.Players.Powerups.PowerupSPD;
 import Models.Players.Powerups.PowerupSTR;
+import Models.Enemies.debuffCrack1;
+import Models.Weapons.Projectiles.armorPierce;
 import View.World;
 
 import com.badlogic.gdx.Gdx;
@@ -62,9 +64,13 @@ public class Enemy extends MoveableEntity{
 	{
 		if(e instanceof Player)
 		{
-			((Player) e).damage(1);
+			//((Player) e).damage(1);
 		}
-			
+		
+		if(e instanceof armorPierce)
+		{
+			subObjects.add(new debuffCrack1(new Vector2(0,0), width-10, height-10, 0, 0, this));
+		}
 	}
 
 	//health
