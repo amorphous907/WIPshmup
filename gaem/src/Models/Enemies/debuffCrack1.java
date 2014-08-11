@@ -2,8 +2,6 @@ package Models.Enemies;
 
 import Models.MoveableEntity;
 import Models.subObject;
-import Models.Weapons.Projectiles.EnemyBulletTiny;
-import Models.Weapons.Projectiles.EnemyLaser;
 import View.World;
 
 import com.badlogic.gdx.Gdx;
@@ -18,10 +16,8 @@ public class debuffCrack1 extends subObject{
 		super(offset, width, height, hitX, hitY, Parent);
 		texture = "debuffCrack1";
 		actorID = 42;
-	}
-
-	@Override
-	public void update(World world, MoveableEntity Parent){
-		super.update(world, Parent);
+		int x = 0;
+		x = com.badlogic.gdx.math.MathUtils.random(0, 359);
+		rotation = x;
 	}
 }

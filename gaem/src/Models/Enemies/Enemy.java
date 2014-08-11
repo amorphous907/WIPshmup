@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Enemy extends MoveableEntity{
 	int PUchance = 0;
+	int x = 0;
 	protected int tick;
 	protected boolean loaded;
 	//constructor, includes initial position as a new Vector2(x,y),width of texture, height of texture
@@ -69,7 +70,21 @@ public class Enemy extends MoveableEntity{
 		
 		if(e instanceof armorPierce)
 		{
-			subObjects.add(new debuffCrack1(new Vector2(0,0), width-10, height-10, 0, 0, this));
+			x = com.badlogic.gdx.math.MathUtils.random(1, 33);
+			if(x <= 11)
+			{
+				subObjects.add(new debuffCrack1(new Vector2(0,0), width-10, height-10, 0, 0, this));
+			}
+			
+			if(e instanceof debuffCrack1 && x <= 5)
+			{
+				subObjects.add(new debuffCrack2(new Vector2(0,0), width-10, height-10, 0, 0, this));
+			}
+			
+			if(e instanceof debuffCrack2 && x == 1)
+			{
+				subObjects.add(new debuffCrack3(new Vector2(0,0), width-10, height-10, 0, 0, this));
+			}
 		}
 	}
 
