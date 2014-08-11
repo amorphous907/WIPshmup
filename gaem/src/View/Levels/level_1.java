@@ -6,7 +6,7 @@ import Models.Star;
 import Models.Enemies.LightBasic;
 import Models.Enemies.LightSpread;
 import Models.Enemies.LightTiny;
-import Models.Enemies.Bosses.BOSS1;
+import Models.Enemies.Bosses.BOSS2;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
@@ -21,7 +21,7 @@ public class level_1 extends level
 	int x;
 	int y;
 	int z;
-	float time = 0;
+	float time = 120;
 	
 	public level_1(World world) {
 		super(world);
@@ -52,7 +52,7 @@ public class level_1 extends level
 				System.out.println("tier 1");
 				x = com.badlogic.gdx.math.MathUtils.random(1, 10);
 			}
-			if(time >= 30 && time < 60)
+			if(time >= 0 && time < 60)
 			{
 				System.out.println("tier 2");
 				y = com.badlogic.gdx.math.MathUtils.random(1, 5);
@@ -75,13 +75,13 @@ public class level_1 extends level
 		if(boss_here == 1)
 		{
 			boss_here = 2;
-			world.game.audio.loopMusic("level_1 boss", 0.45f);
+			world.game.audio.loopMusic("level_2 boss", 0.45f);
 			world.timer.scheduleTask(new Task() 
 			{
 				@Override
 				public void run()
 				{
-					world.actors.add(new BOSS1(new Vector2(350,-200)));
+					world.actors.add(new BOSS2(new Vector2(350,-200)));
 				}
 			} , 1.0f);
 		}
