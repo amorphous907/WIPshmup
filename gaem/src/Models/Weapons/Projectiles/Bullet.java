@@ -58,7 +58,7 @@ public class Bullet extends MoveableEntity
 	public void collidesWith(MoveableEntity e, World world)
 	{
 		//damage enemy
-		if(e instanceof Enemy)
+		if(e instanceof Enemy || e instanceof subObjectEnemy)
 		{
 			e.damage(12);
 			explode = true;
@@ -66,10 +66,11 @@ public class Bullet extends MoveableEntity
 			remove = true;
 		}
 		if(e instanceof subObjectEnemy){
-			e.damage(12);
+			((Models.subObject) e).subDamage(12);
 			explode = true;
 			//kill itself
 			remove = true;
+			System.out.println("damaged sub objkect");
 		}
 	}
 	
