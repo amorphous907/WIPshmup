@@ -11,12 +11,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Bullet extends MoveableEntity
+public class armorPierce extends MoveableEntity
 {
 	public boolean explode = false;
-
-	public Bullet(Vector2 position, Vector2 velocity){
-		super(position, 10, 10, 5, 5);
+	
+	public armorPierce(Vector2 position, Vector2 velocity){
+		super(position, 10, 20, 5, 10);
 		this.velocity = velocity;
 		actorID = 28;
 		texture = "vanillaBullet";
@@ -40,13 +40,13 @@ public class Bullet extends MoveableEntity
 		//damage enemy
 		if(e instanceof Enemy)
 		{
-			e.damage(12);
+			e.damage(20);
 			explode = true;
 			//kill itself
 			remove = true;
 		}
 		if(e instanceof subObjectEnemy){
-			e.damage(12);
+			e.damage(20);
 			explode = true;
 			//kill itself
 			remove = true;

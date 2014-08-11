@@ -141,6 +141,9 @@ public class WorldRender {
 		textures.put("a7", new Texture(Gdx.files.internal("data/texture/a7.png")));
 		textures.put("a8", new Texture(Gdx.files.internal("data/texture/a8.png")));
 		textures.put("Hurtmark1", new Texture(Gdx.files.internal("data/texture/Hurtmark1.png")));//enemy hurt marks
+		textures.put("debuffCrack1", new Texture(Gdx.files.internal("data/texture/debuffCrack1.png")));//enemy armor broken!
+		textures.put("debuffCrack2", new Texture(Gdx.files.internal("data/texture/debuffCrack2.png")));
+		textures.put("debuffCrack3", new Texture(Gdx.files.internal("data/texture/debuffCrack3.png")));
 		
 		
 		

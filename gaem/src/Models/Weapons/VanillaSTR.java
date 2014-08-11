@@ -1,7 +1,7 @@
 package Models.Weapons;
 
 import Models.MoveableEntity;
-import Models.Weapons.Projectiles.Missile;
+import Models.Weapons.Projectiles.armorPierce;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
@@ -22,7 +22,7 @@ public class VanillaSTR extends Gun{
 	}
 	
 	public VanillaSTR(){
-		fireRate = 0.5f;
+		fireRate = 0.144f;
 		damage = 100;
 		ammo = -1;
 		name = "MISSILES";
@@ -32,7 +32,8 @@ public class VanillaSTR extends Gun{
 	@Override
 	protected void fire(World world, MoveableEntity entity)
 	{
-		projectiles.add(new Missile(new Vector2(entity.centerLocation.x ,entity.centerLocation.y), 10,20,5,10, new Vector2(0, 200)));
+		projectiles.add(new armorPierce(new Vector2(entity.centerLocation.x, entity.centerLocation.y), new Vector2(0,-900)));
+		//projectiles.add(new Missile(new Vector2(entity.centerLocation.x ,entity.centerLocation.y), 10,20,5,10, new Vector2(0, 200)));
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x, entity.centerLocation.y-10));
 		int x = com.badlogic.gdx.math.MathUtils.random(0, 3);
 		world.game.audio.playSound("PlayerLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
