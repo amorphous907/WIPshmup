@@ -45,6 +45,11 @@ public class subObject extends MoveableEntity{
 	}
 	
 	public void subHit(){
+		subIter = subObjects.iterator();
+		while(subIter.hasNext()){
+			subObject = subIter.next();
+			subObject.subHit();
+		}
 		color = new Color(damageColor);
 		subFade = true;
 	}
