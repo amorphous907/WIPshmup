@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Enemy extends MoveableEntity{
 	int PUchance = 0;
-	int x = 0;
+	boolean cracked = false;
 	protected int tick;
 	protected boolean loaded;
 	//constructor, includes initial position as a new Vector2(x,y),width of texture, height of texture
@@ -70,27 +70,22 @@ public class Enemy extends MoveableEntity{
 		
 		if(e instanceof armorPierce)
 		{
-			x = com.badlogic.gdx.math.MathUtils.random(1, 33);
-			if(x <= 11)
+			if(!cracked)
 			{
 				subObjects.add(new debuffCrack1(new Vector2(0,0), width-10, height-10, 0, 0, this));
 			}
-			
-			if(e instanceof debuffCrack1 && x <= 5)
-			{
-				subObjects.add(new debuffCrack2(new Vector2(0,0), width-10, height-10, 0, 0, this));
-			}
-			
-			if(e instanceof debuffCrack2 && x == 1)
-			{
-				subObjects.add(new debuffCrack3(new Vector2(0,0), width-10, height-10, 0, 0, this));
-			}
+			cracked = true;
 		}
 	}
 
 	//health
 	public void damage(int i) 
 	{
+		if(cracked)
+		{
+			super.damage((int) (i * 1.5));
+		}
+		else
 		super.damage(i);
 		world.game.audio.playSound("EnemyHurt"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.2f);
 	}

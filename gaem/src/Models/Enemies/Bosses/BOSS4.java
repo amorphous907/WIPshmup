@@ -25,9 +25,9 @@ public class BOSS4 extends Enemy
     int ready_4_battle = 0;
     private boolean wait = true;
 	
-	public BOSS4(Vector2 position, float width, float height, float hitX, float hitY) 
+	public BOSS4(Vector2 position) 
 	{
-		super(position, width, height, hitX, hitY);
+		super(position, 200, 300, 190, 290);
 		health = 10000;
 		score = 10000;
 		tick = 0;

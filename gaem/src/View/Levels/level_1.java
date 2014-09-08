@@ -6,7 +6,7 @@ import Models.Star;
 import Models.Enemies.LightBasic;
 import Models.Enemies.LightSpread;
 import Models.Enemies.LightTiny;
-import Models.Enemies.Bosses.BOSS2;
+import Models.Enemies.Bosses.BOSS1;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
@@ -21,21 +21,16 @@ public class level_1 extends level
 	int x;
 	int y;
 	int z;
-	float time = 120;
+	float time = 0;
 	
 	public level_1(World world) {
 		super(world);
 		timeLimit = 60*2;
-		
 	}
 	
 	@Override
 	public void update() {
 		float size = rnd.nextFloat()*50; 
-		if(rnd.nextInt(1000)<10 && size > 12.5f && size <= 40)//10
-			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
-		if(rnd.nextInt(1500)<5 && size > 25) //5
-			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
 		if(rnd.nextInt(500)<25 && size <= 12.5) //25
 			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
 		
@@ -52,7 +47,7 @@ public class level_1 extends level
 				System.out.println("tier 1");
 				x = com.badlogic.gdx.math.MathUtils.random(1, 10);
 			}
-			if(time >= 0 && time < 60)
+			if(time >= 30 && time < 60)
 			{
 				System.out.println("tier 2");
 				y = com.badlogic.gdx.math.MathUtils.random(1, 5);
@@ -75,15 +70,15 @@ public class level_1 extends level
 		if(boss_here == 1)
 		{
 			boss_here = 2;
-			world.game.audio.loopMusic("level_2 boss", 0.45f);
+			world.game.audio.loopMusic("level_1 boss", 0.45f);
 			world.timer.scheduleTask(new Task() 
 			{
 				@Override
 				public void run()
 				{
-					world.actors.add(new BOSS2(new Vector2(350,-200)));
+					world.actors.add(new BOSS1(new Vector2(350,200)));
 				}
-			} , 1.0f);
+			} , 3.0f);
 		}
 		
 	}

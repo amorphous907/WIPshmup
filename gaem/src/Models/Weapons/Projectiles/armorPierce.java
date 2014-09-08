@@ -40,13 +40,13 @@ public class armorPierce extends MoveableEntity
 		//damage enemy
 		if(e instanceof Enemy)
 		{
-			e.damage(20);
+			e.damage(22);
 			explode = true;
 			//kill itself
 			remove = true;
 		}
 		if(e instanceof subObjectEnemy){
-			e.damage(20);
+			e.damage(22);
 			explode = true;
 			//kill itself
 			remove = true;

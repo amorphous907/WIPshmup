@@ -1,7 +1,5 @@
 package Models.Enemies;
 
-
-
 import Models.MoveableEntity;
 import Models.Players.Player;
 import Models.Weapons.Projectiles.EnemyBullet;

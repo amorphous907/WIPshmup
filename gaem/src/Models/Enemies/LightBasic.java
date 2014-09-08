@@ -118,7 +118,7 @@ public class LightBasic extends Enemy
 			}
 			break;
 			
-		case 3: //enemy only zig-zags half the screen to the right
+		case 3: //enemy only zig-zags a little half the screen to the right
 			if(wait){
 				
 				if(position.x >= 540-width)

@@ -2,6 +2,7 @@ package Models.Players;
 
 import java.io.IOException;
 
+import Models.Enemies.Bosses.BOSS4turret;
 import Models.Weapons.VanillaDEF;
 import Models.Weapons.VanillaSPD;
 import Models.Weapons.VanillaSTR;
@@ -27,7 +28,8 @@ public class Player1 extends Player{
 			float hitY) {
 		super(position, width, height, hitX, hitY);
 		actorID = 0;
-		texture = "player1";
+		texture = "vanilla";
+		subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
 		fumes = new ParticleEmitter();
 		try {
             fumes.load(Gdx.files.internal("data/particle/Player1Fumes").reader(2024));
