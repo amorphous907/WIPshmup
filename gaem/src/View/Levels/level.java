@@ -8,6 +8,7 @@ public abstract class level {
 	public boolean bossDead;
 	protected boolean waveDone;
 	protected final World world;
+	protected boolean star = true;
 	
 	public level(World world) {
 		this.world = world;

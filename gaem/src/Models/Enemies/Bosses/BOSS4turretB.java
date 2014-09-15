@@ -31,7 +31,7 @@ public class BOSS4turretB extends subObject{
 			if(aim != null){
 				EnemyBullet temp = new EnemyLaser(new Vector2(position.x+width/2,position.y+height/2+30),25,50,25,50);
 				temp.setVelocity(new Vector2(aim.cpy().sub(this.getPosition()).nor().scl(1200)));
-				world.actors.add(temp);
+				world.actors.get(0).add(temp);
 				world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			}
 			

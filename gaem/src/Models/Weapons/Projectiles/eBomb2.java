@@ -23,8 +23,8 @@ public class eBomb2 extends EnemyBullet {
 		
 		if(fire)
         {
-			world.actors.add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(300,0)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-300,0)));
+			world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(300,0)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-300,0)));
             world.timer.scheduleTask(new Task(){
 
 				@Override

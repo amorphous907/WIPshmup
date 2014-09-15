@@ -8,9 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Star extends MoveableEntity{
 	
-	public Star(Vector2 position, float width, float height, float hitX,
-			float hitY, Vector2 speed) {
-		super(position, width, height, hitX, hitY);
+	public Star(Vector2 position, float width, float height, Vector2 speed) {
+		super(position, width, height, 0, 0);
 		velocity = speed;
 		actorID = 14;
 		texture = "star";

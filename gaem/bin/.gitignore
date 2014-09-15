@@ -1,4 +1,5 @@
-/View
-/Models
-/com
-/Screens
+/Models/
+/Screens/
+/View/
+/com/
+/gaemMain.gwt.xml

@@ -27,8 +27,8 @@ public class HeavyLaser extends Enemy
 		super.update(world);
 		if(loaded)
 		{
-			world.actors.add(new EnemyLaser(new Vector2(position.x+width/2+12,position.y+height/2),25,75,25,75, new Vector2(0,1200)));
-			world.actors.add(new EnemyLaser(new Vector2(position.x+width/2-12,position.y+height/2),25,75,25,75, new Vector2(0,1200)));
+			world.actors.get(0).add(new EnemyLaser(new Vector2(position.x+width/2+12,position.y+height/2),25,75,25,75, new Vector2(0,1200)));
+			world.actors.get(0).add(new EnemyLaser(new Vector2(position.x+width/2-12,position.y+height/2),25,75,25,75, new Vector2(0,1200)));
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			world.getRender().addParticles(3, 2, 2, new Vector2(position.x+width/2+12,position.y+25+height/2));

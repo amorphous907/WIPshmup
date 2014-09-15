@@ -60,7 +60,7 @@ public class BLAST extends MoveableEntity
 		{
 			e.damage(150);
 			explode = true;
-			world.actors.add(new Explosion(new Vector2(centerLocation),150,150,0,0));
+			world.actors.get(0).add(new Explosion(new Vector2(centerLocation),150,150,0,0));
 			//kill itself
 			remove = true;
 		}
@@ -68,7 +68,7 @@ public class BLAST extends MoveableEntity
 		{
 			e.damage(150);
 			explode = true;
-			world.actors.add(new Explosion(new Vector2(centerLocation),150,150,0,0));
+			world.actors.get(0).add(new Explosion(new Vector2(centerLocation),150,150,0,0));
 			//kill itself
 			remove = true;
 		}

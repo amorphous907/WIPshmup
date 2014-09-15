@@ -21,8 +21,8 @@ public class Player extends MoveableEntity{
 	public VanillaSTR vanillastr;
 	public VanillaSPD vanillaspd;
 	public static int SPEED = 240;
-	public int spawnTime = 300; //in frames (60/second)
-	public int spawnTic = 300;
+	public float spawnTime = 5; //in seconds
+	public float spawnTic = 5;
 	private boolean test = false;
 	protected World world;
 	public boolean gamepad;

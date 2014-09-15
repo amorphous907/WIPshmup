@@ -32,7 +32,7 @@ public class LightTiny extends Enemy
 		super.update(world);
 		if(loaded)
 		{
-			world.actors.add(new EnemyBulletTiny(new Vector2(centerLocation.x,centerLocation.y+25)));
+			world.actors.get(0).add(new EnemyBulletTiny(new Vector2(centerLocation.x,centerLocation.y+25)));
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			world.getRender().addParticles(3, 2, 2, new Vector2(centerLocation.x,centerLocation.y+25));
 			world.timer.scheduleTask(new Task()

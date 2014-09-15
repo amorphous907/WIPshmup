@@ -29,7 +29,7 @@ public class GunshipBasic extends Enemy
 		super.update(world);
 		if(loaded)
 		{
-			world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-10,position.y+height/2-10),25,25,25,25));
+			world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-10,position.y+height/2-10),25,25,25,25));
 			world.getRender().addParticles(3, 2, 2, new Vector2(position.x+width/2-10,position.y+height/2-10));
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			

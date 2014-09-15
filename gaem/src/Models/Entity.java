@@ -28,8 +28,12 @@ public class Entity {
 	protected float frameDelay;
 	protected World world;
 	public Color color;
+
+	protected Color baseColor = new Color(1,1,1,1);
+	public float fadeRate = 4;
 	public Color damageColor;
-	public boolean fadeToWhite = false;
+	public boolean damageFlash = true;
+	public boolean fadeToBase = false;
 	protected String animationID;
 	protected boolean animationAdvance = true;
 	protected float animationDelay;
@@ -49,7 +53,7 @@ public class Entity {
 		this.centerLocation = new Vector2((this.getPosition().x+this.getWidth()/2), (this.getPosition().y+this.getHeight()/2));
 		actorID = -1;
 		texture = "NONE";
-		color = new Color(1,1,1,1);
+		color = baseColor;
 		damageColor = new Color(1,0,0,1);
 	}
 	
@@ -57,7 +61,7 @@ public class Entity {
 		this.position = new Vector2(position.x-width/2, position.y-height/2);
 		this.AI = AI;
 		actorID = -1;
-		color = new Color(1,1,1,1);
+		color = baseColor;
 		damageColor = new Color(1,0,0,1);
 	}
 	public Entity(Vector2 position, float width, float height, int AI){
@@ -66,7 +70,7 @@ public class Entity {
 		this.height = height;
 		this.AI = AI;
 		actorID = -1;
-		color = new Color(1,1,1,1);
+		color = baseColor;
 		damageColor = new Color(1,0,0,1);
 	}
 	
@@ -74,7 +78,7 @@ public class Entity {
 		this.position = position;
 		this.width = width;
 		this.height = height;
-		color = new Color(1,1,1,1);
+		color = baseColor;
 		damageColor = new Color(1,0,0,1);
 	}
 
@@ -103,6 +107,11 @@ public class Entity {
 	public Circle getCircle() {
 		return bounds2;
 	}
+	
+	public void setCircle(Circle bounds2){
+		this.bounds2 = bounds2;
+	}
+	
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
@@ -119,6 +128,14 @@ public class Entity {
 		world.draw(this, texture, color);
 	}
 
+	
+	public Color getBaseColor() {
+		return baseColor;
+	}
+
+	public void setBaseColor(Color baseColor) {
+		this.baseColor = baseColor;
+	}
 
 	public float getRotation() {
 		return rotation;

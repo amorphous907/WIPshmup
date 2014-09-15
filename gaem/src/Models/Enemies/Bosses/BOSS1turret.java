@@ -33,7 +33,7 @@ public class BOSS1turret extends subObject{
 			{
 				EnemyBulletTiny temp = new EnemyBulletTiny(new Vector2(position.x+width/2-10,position.y+height/2-10));
 				temp.setVelocity(new Vector2(aim.cpy().sub(this.getPosition()).nor().scl(400)));
-				world.actors.add(temp);
+				world.actors.get(0).add(temp);
 				world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			}
 			world.timer.scheduleTask(new Task(){

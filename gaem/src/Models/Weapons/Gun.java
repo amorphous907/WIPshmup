@@ -62,7 +62,7 @@ public class Gun {
 		if(slingable){
 			applyVelocity(entity);
 		}
-		world.actors.addAll(projectiles);
+		world.actors.get(0).addAll(projectiles);
 		projectiles.clear();
 	}
 	

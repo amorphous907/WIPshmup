@@ -48,16 +48,16 @@ public class BOSS5 extends Enemy
             {
             	if(side == 1)
             	{
-            		world.actors.add(new EnemyBullet(new Vector2(position.x+width,position.y+height),25,25,25,25, new Vector2(100,600)));
-            		world.actors.add(new EnemyBullet(new Vector2(position.x+width-10,position.y+height),25,25,25,25));
-            		world.actors.add(new EnemyBullet(new Vector2(position.x+width,position.y+height),25,25,25,25, new Vector2(-100,600)));
+            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width,position.y+height),25,25,25,25, new Vector2(100,600)));
+            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width-10,position.y+height),25,25,25,25));
+            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width,position.y+height),25,25,25,25, new Vector2(-100,600)));
             	side = 0;
             	}
             	else
             	{
-            		world.actors.add(new EnemyBullet(new Vector2(position.x+width,position.y+height),25,25,25,25, new Vector2(100,600)));
-                	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-10,position.y+height),25,25,25,25));
-                	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-100,600)));
+            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width,position.y+height),25,25,25,25, new Vector2(100,600)));
+                	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-10,position.y+height),25,25,25,25));
+                	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-100,600)));
             	}
             }
             if(x == 1)

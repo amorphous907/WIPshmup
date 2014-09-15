@@ -31,7 +31,7 @@ public class HeavyBasic extends Enemy
 		
 		if(loaded)
 		{
-			world.actors.add(new EnemyWide(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25));
+			world.actors.get(0).add(new EnemyWide(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25));
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			world.getRender().addParticles(3, 2, 2, new Vector2(centerLocation.x-20,centerLocation.y-10));

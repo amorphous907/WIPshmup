@@ -123,7 +123,7 @@ public class Missile extends MoveableEntity
 		//damage enemy
 		if(e instanceof Enemy)
 		{
-			world.actors.add(new BLAST(centerLocation, 0,0,100,100));
+			world.actors.get(0).add(new BLAST(centerLocation, 0,0,100,100));
 			explode = true;
 			world.game.audio.playSound("Player1Explosion", 1);
 			//kill itself
@@ -131,7 +131,7 @@ public class Missile extends MoveableEntity
 		}
 		if(e instanceof subObjectEnemy)
 		{
-			world.actors.add(new BLAST(centerLocation, 0,0,100,100));
+			world.actors.get(0).add(new BLAST(centerLocation, 0,0,100,100));
 			explode = true;
 			world.game.audio.playSound("Player1Explosion", 1);
 			//kill itself

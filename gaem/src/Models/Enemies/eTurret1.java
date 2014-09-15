@@ -32,7 +32,7 @@ public class eTurret1 extends subObject{
 			if(aim != null){
 				EnemyBullet temp = new EnemyBullet(new Vector2(position.x+width/2-10,position.y+height/2-10),25,25,25,25);
 				temp.setVelocity(new Vector2(aim.cpy().sub(this.getPosition()).nor().scl(400)));
-				world.actors.add(temp);
+				world.actors.get(0).add(temp);
 				world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			}
 			

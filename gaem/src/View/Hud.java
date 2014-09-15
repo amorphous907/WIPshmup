@@ -27,7 +27,7 @@ public class Hud extends Entity{
 		if(render.world.player1.isPlaying()){
 			render.renderText(render.world.player1.health+"/"+render.world.player1.maxHealth, 2, 865, 860, 0.3f);
 		} else if(render.world.player1.spawnTic != render.world.player1.spawnTime) {
-			render.renderText(""+((300-render.world.player1.spawnTic)/60+1), 2, 885, 860, 0.3f);
+			render.renderText(""+(Math.round((5-render.world.player1.spawnTic))), 2, 885, 860, 0.3f);
 		} else {
 			render.renderText("PRESS FIRE!", 2, 845, 860, 0.3f);
 		}
@@ -37,7 +37,7 @@ public class Hud extends Entity{
 		if(render.world.player2.isPlaying()){
 			render.renderText(render.world.player2.health+"/"+render.world.player2.maxHealth, 2, 865, 860-120, 0.3f);
 		} else if(render.world.player2.spawnTic != render.world.player2.spawnTime) {
-			render.renderText(""+((300-render.world.player2.spawnTic)/60+1), 2, 885, 860-120, 0.3f);
+			render.renderText(""+(Math.round((5-render.world.player2.spawnTic))), 2, 885, 860-120, 0.3f);
 		} else {
 			render.renderText("PRESS FIRE!", 2, 845, 860-120, 0.3f);
 		}
@@ -47,7 +47,7 @@ public class Hud extends Entity{
 		if(render.world.player3.isPlaying()){
 			render.renderText(render.world.player3.health+"/"+render.world.player3.maxHealth, 2, 865, 860-234, 0.3f);
 		} else if(render.world.player3.spawnTic != render.world.player3.spawnTime) {
-			render.renderText(""+((300-render.world.player3.spawnTic)/60+1), 2, 885, 860-234, 0.3f);
+			render.renderText(""+(Math.round((5-render.world.player3.spawnTic))), 2, 885, 860-234, 0.3f);
 		} else {
 			render.renderText("PRESS FIRE!", 2, 845, 860-234, 0.3f);
 		}
@@ -57,7 +57,7 @@ public class Hud extends Entity{
 		if(render.world.player4.isPlaying()){
 			render.renderText(render.world.player4.health+"/"+render.world.player4.maxHealth, 2, 865, 860-354, 0.3f);
 		} else if(render.world.player4.spawnTic != render.world.player4.spawnTime) {
-			render.renderText(""+((300-render.world.player4.spawnTic)/60+1), 2, 885, 860-354, 0.3f);
+			render.renderText(""+(Math.round((5-render.world.player4.spawnTic))), 2, 885, 860-354, 0.3f);
 		} else {
 			render.renderText("PRESS FIRE!", 2, 845, 860-354, 0.3f);
 		}
