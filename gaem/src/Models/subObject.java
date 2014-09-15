@@ -32,7 +32,7 @@ public class subObject extends MoveableEntity{
 		if(subFade){
 			color.lerp(Color.WHITE, Gdx.graphics.getDeltaTime()*4);
 			if(color.r >= 0.95f && color.g >= 0.95f && color.b >= 0.95f)
-				fadeToWhite = false;
+				fadeToBase = false;
 		}
 		
 		update(world);
@@ -50,7 +50,7 @@ public class subObject extends MoveableEntity{
 			subObject = subIter.next();
 			subObject.subHit();
 		}
-		color = new Color(damageColor);
+		if(damageFlash) color = new Color(damageColor);
 		subFade = true;
 	}
 }

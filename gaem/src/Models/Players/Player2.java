@@ -28,7 +28,7 @@ public class Player2 extends Player{
 		super(position, width, height, hitX, hitY);
 		actorID = 1;
 		texture = "vanilla";
-		subObjects.add(new VanillaDECAL(new Vector2(), 2, this));
+		//subObjects.add(new VanillaDECAL(new Vector2(), 2, this));
 		fumes = new ParticleEmitter();
 		try {
             fumes.load(Gdx.files.internal("data/particle/Player1Fumes").reader(2024));

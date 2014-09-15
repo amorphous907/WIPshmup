@@ -94,7 +94,7 @@ public class WorldRender {
 		textures = new HashMap<String, Texture>();
 		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));//RED SUN OVER PARADICE
 		textures.put("vanilla", new Texture(Gdx.files.internal("data/texture/vanilla.png")));
-		textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
+		//textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
 		
 		textures.put("powerupSTR", new Texture(Gdx.files.internal("data/texture/PowerupSTR.png"))); //Power ups
 		textures.put("powerupSPD", new Texture(Gdx.files.internal("data/texture/PowerupSPD.png")));

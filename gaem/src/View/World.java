@@ -11,6 +11,7 @@ import Models.Players.Player1;
 import Models.Players.Player2;
 import Models.Players.Player3;
 import Models.Players.Player4;
+import Screens.MainMenu;
 import View.Levels.level_1;
 import View.Levels.level_2;
 import View.Levels.level_TEST;
@@ -35,12 +36,15 @@ public class World {
 	public float[] controllerAxis;
 	public Timer timer;
 	public int score = 0;
+	public int layers = 15;
 
-	public Array<MoveableEntity> actors;
+	public Array<Array<MoveableEntity>> actors;
 	public Array<MoveableEntity> actors2;
 	public Iterator<MoveableEntity> aIter;
 	public Iterator<MoveableEntity> aIter2;
+	public Iterator<Array<MoveableEntity>> layerIter;
 	public Array<MoveableEntity> background;
+	public Array<MoveableEntity> foreground;
 	public int players;
 	public Array<Controller> gamepads;
 	Controller player1Gamepad, player2Gamepad, player3Gamepad, player4Gamepad;
@@ -83,9 +87,9 @@ public class World {
 	level_TEST levelT;
 	level_1 level1;
 	level_2 level2;
-	Array<View.Levels.level> levels;
+	public Array<View.Levels.level> levels;
 	public View.Levels.level level;
-	int currentLevel;
+	public int currentLevel;
 
 	public int lives;
 	//ignore this parker
@@ -94,7 +98,7 @@ public class World {
 		timer = new Timer();
 		//levelT = new level_TEST();//0
 		level1 = new level_1(this);//1
-		//level2 = new level_2();//2
+		level2 = new level_2(this);//2
 		//level3 = new level_3();//3
 		currentLevel = level;
 
@@ -106,9 +110,13 @@ public class World {
 		lives = 110;
 		players = 1;
 
-		actors = new Array<MoveableEntity>();
+		actors = new Array<Array<MoveableEntity>>();
+		for(int c = 0; c <= layers; c++){
+			actors.add(new Array<MoveableEntity>());
+		}
 		background = new Array<MoveableEntity>();
-
+		foreground = new Array<MoveableEntity>();
+		
 		spawn = new Vector2(325, 725);
 		player1=new Player1(new Vector2(9999 , 99999),60,60,45,45);
 		player2=new Player2(new Vector2(9999 , 99999),60,60,45,45);
@@ -187,6 +195,7 @@ public class World {
 
 	public void update(){
 		//and this
+		handleInputs();
 		updateActors();
 		if(level.bossDead)
 		{
@@ -207,9 +216,9 @@ public class World {
 		}
 		else{
 			player1.setPosition(new Vector2(spawn));
-			player1.spawnTic++;
-			if(player1.spawnTic > 300)
-				player1.spawnTic = 300;
+			player1.spawnTic += Gdx.graphics.getDeltaTime();;
+			if(player1.spawnTic > 5)
+				player1.spawnTic = 5;
 			if(keys[PLAYER_ONE_FIRE] || controllerButtons[GamepadHandler.PLAYER_ONE_A])
 				respawn(player1);
 		}
@@ -218,9 +227,9 @@ public class World {
 			player2.update(this);
 		else{
 			player2.setPosition(new Vector2(spawn));
-			player2.spawnTic++;
-			if(player2.spawnTic > 300)
-				player2.spawnTic = 300;
+			player2.spawnTic += Gdx.graphics.getDeltaTime();;
+			if(player2.spawnTic > 5)
+				player2.spawnTic = 5;
 			if(keys[PLAYER_TWO_FIRE] || controllerButtons[GamepadHandler.PLAYER_TWO_A])
 				respawn(player2);
 		}
@@ -228,9 +237,9 @@ public class World {
 			player3.update(this);
 		else{
 			player3.setPosition(new Vector2(spawn));
-			player3.spawnTic++;
-			if(player3.spawnTic > 300)
-				player3.spawnTic = 300;
+			player3.spawnTic += Gdx.graphics.getDeltaTime();;
+			if(player3.spawnTic > 5)
+				player3.spawnTic = 5;
 			if(keys[PLAYER_THREE_FIRE] || controllerButtons[GamepadHandler.PLAYER_THREE_A])
 				respawn(player3);
 		}
@@ -239,14 +248,27 @@ public class World {
 			player4.update(this);
 		else{
 			player4.setPosition(new Vector2(spawn));
-			player4.spawnTic++;
-			if(player4.spawnTic > 300)
-				player4.spawnTic = 300;
+			player4.spawnTic += Gdx.graphics.getDeltaTime();
+			if(player4.spawnTic > 5)
+				player4.spawnTic = 5;
 			if(keys[PLAYER_FOUR_FIRE] || controllerButtons[GamepadHandler.PLAYER_FOUR_A])
 				respawn(player4);
 		}
 
-		aIter = actors.iterator();
+		layerIter = actors.iterator();
+		while(layerIter.hasNext()){
+			aIter = layerIter.next().iterator();
+			while(aIter.hasNext()){
+				entity = aIter.next();
+				entity.update(this);
+				if(entity.remove){
+					if(entity.dead)
+						score += entity.score;
+					aIter.remove();
+				}
+			}
+		}
+		aIter = background.iterator();
 		while(aIter.hasNext()){
 			entity = aIter.next();
 			entity.update(this);
@@ -256,7 +278,7 @@ public class World {
 				aIter.remove();
 			}
 		}
-		aIter = background.iterator();
+		aIter = foreground.iterator();
 		while(aIter.hasNext()){
 			entity = aIter.next();
 			entity.update(this);
@@ -301,21 +323,32 @@ public class World {
 	public Array<MoveableEntity> getActors(){
 		Array<MoveableEntity> array = new Array<MoveableEntity>();
 		array.addAll(getSubActors(background));
-		array.addAll(getSubActors(actors));
+		array.addAll(getSubActors(getLayeredActors()));
+		array.add(player1);
+		array.add(player2);
+		array.add(player3);
+		array.add(player4);
+		array.addAll(getSubActors(foreground));
+		return array;
+	}
+
+	public Array<MoveableEntity> getCollisionActors(){
+		Array<MoveableEntity> array = new Array<MoveableEntity>();
+		array.addAll(getSubActors(getLayeredActors()));
 		array.add(player1);
 		array.add(player2);
 		array.add(player3);
 		array.add(player4);
 		return array;
 	}
-
-	public Array<MoveableEntity> getCollisionActors(){
+	
+	public Array<MoveableEntity> getLayeredActors(){
 		Array<MoveableEntity> array = new Array<MoveableEntity>();
-		array.addAll(getSubActors(actors));
-		array.add(player1);
-		array.add(player2);
-		array.add(player3);
-		array.add(player4);
+		for(int c = 0; c < actors.size ; c++){
+			for(int a = 0; a < actors.get(c).size; a++){
+				array.add(actors.get(c).get(a));
+			}
+		}
 		return array;
 	}
 
@@ -336,7 +369,10 @@ public class World {
 	}
 
 	private void handleInputs() {
-
+		if(keys[Keys.ESCAPE]){
+			game.audio.stopMusic();
+			game.setScreen(new MainMenu(game));
+		}
 	}
 
 	public void dispose(){

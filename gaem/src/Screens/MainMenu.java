@@ -111,6 +111,8 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 					@Override
 					public void input(String text) {
 						level = Integer.parseInt(text);
+						game.saves.putInteger("level", level);
+						game.saves.flush();
 					}
 
 					@Override

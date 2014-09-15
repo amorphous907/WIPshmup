@@ -74,32 +74,32 @@ public class BOSS3 extends Enemy
         shoot_tic++;
         if(shoot_tic == 10)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 20)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+40,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-40,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+40,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-40,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 30)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+30,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-30,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+30,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-30,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 40)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+20,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-20,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+20,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-20,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav"); 
         }
         if(shoot_tic == 50)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+10,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+10,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+10,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+10,position.y+height/2+50),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
             pingB++;
             pingB++;
@@ -113,13 +113,13 @@ public class BOSS3 extends Enemy
     {
         if(fired>firerate)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height),25,25,25,25, new Vector2(100,600)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height),25,25,25,25));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height),25,25,25,25, new Vector2(-100,600)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height),25,25,25,25, new Vector2(100,600)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height),25,25,25,25));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height),25,25,25,25, new Vector2(-100,600)));
             //Greenfoot.playSound("auto.wav");
-            world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height),25,25,25,25, new Vector2(100,600)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height),25,25,25,25));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height),25,25,25,25, new Vector2(-100,600)));
+            world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height),25,25,25,25, new Vector2(100,600)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height),25,25,25,25));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height),25,25,25,25, new Vector2(-100,600)));
             fired=0;
             pingB++;
         }
@@ -133,32 +133,32 @@ public class BOSS3 extends Enemy
         shoot_tic++;
         if(shoot_tic == 10)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+60,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-60,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+60,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-60,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 20)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+70,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-70,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+70,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-70,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 30)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+80,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-80,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+80,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-80,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 40)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+90,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-90,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+90,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-90,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav"); 
         }
         if(shoot_tic == 50)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+100,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-100,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+100,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-100,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic > 50)
@@ -171,32 +171,32 @@ public class BOSS3 extends Enemy
         shoot_tic++;
         if(shoot_tic == 10)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+150,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-150,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+150,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-150,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 20)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+140,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-140,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 30)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+130,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-130,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+130,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-130,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic == 40)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+120,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-120,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+120,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-120,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav"); 
         }
         if(shoot_tic == 50)
         {
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2+110,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
-        	world.actors.add(new EnemyBullet(new Vector2(position.x+width/2-110,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+110,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-110,position.y+height/2-10),25,50,25,50, new Vector2(0,1200)));
             //Greenfoot.playSound("auto.wav");
         }
         if(shoot_tic > 50)
@@ -206,7 +206,7 @@ public class BOSS3 extends Enemy
     }
     if(x == 4)
     {
-    	world.actors.add(new EnemyMines(new Vector2(position.x+com.badlogic.gdx.math.MathUtils.random(0, 400)-200,200), 60,60,50,50));  
+    	world.actors.get(0).add(new EnemyMines(new Vector2(position.x+com.badlogic.gdx.math.MathUtils.random(0, 400)-200,200), 60,60,50,50));  
         pingB++;
     }
     }

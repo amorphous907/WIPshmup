@@ -27,9 +27,9 @@ public class HeavySpread extends Enemy
 		super.update(world);
 		if(loaded)
 		{
-			world.actors.add(new EnemyBullet(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25, new Vector2(100,600)));
-			world.actors.add(new EnemyBullet(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25));
-			world.actors.add(new EnemyBullet(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25, new Vector2(-100,600)));
+			world.actors.get(0).add(new EnemyBullet(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25, new Vector2(100,600)));
+			world.actors.get(0).add(new EnemyBullet(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25));
+			world.actors.get(0).add(new EnemyBullet(new Vector2(centerLocation.x,centerLocation.y+25),25,25,25,25, new Vector2(-100,600)));
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);

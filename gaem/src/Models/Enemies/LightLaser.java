@@ -28,7 +28,7 @@ public class LightLaser extends Enemy
 		
 		if(loaded)
 		{
-			world.actors.add(new EnemyLaser(new Vector2(centerLocation.x,centerLocation.y+25),25,50,25,50, new Vector2(0,1200)));
+			world.actors.get(0).add(new EnemyLaser(new Vector2(centerLocation.x,centerLocation.y+25),25,50,25,50, new Vector2(0,1200)));
 			world.getRender().addParticles(3, 2, 2, new Vector2(centerLocation.x,centerLocation.y+25));
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			

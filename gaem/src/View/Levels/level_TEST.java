@@ -25,6 +25,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public class level_TEST extends level_1
 {
+	public level_TEST(World world) {
+		super(world);
+		// TODO Auto-generated constructor stub
+	}
 	int tic = 0;
 	public void update(World world)
 	{
@@ -33,8 +37,8 @@ public class level_TEST extends level_1
 		
 		if(tic == 100)
 		{
-			world.actors.add(new PowerupSPD(new Vector2(350,50), 30,30,30,30));
-			world.actors.add(new PowerupSTR(new Vector2(350,200), 30,30,30,30));
+			world.actors.get(0).add(new PowerupSPD(new Vector2(350,50), 30,30,30,30));
+			world.actors.get(0).add(new PowerupSTR(new Vector2(350,200), 30,30,30,30));
 		}
 	}
 }

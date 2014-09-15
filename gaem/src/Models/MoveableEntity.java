@@ -77,10 +77,10 @@ public class MoveableEntity extends Entity{
 				subIter.remove();
 		}
 		
-		if(fadeToWhite){
-			color.lerp(Color.WHITE, Gdx.graphics.getDeltaTime()*4);
+		if(fadeToBase){
+			color.lerp(baseColor, Gdx.graphics.getDeltaTime()*fadeRate);
 			if(color.r >= 0.95f && color.g >= 0.95f && color.b >= 0.95f)
-				fadeToWhite = false;
+				fadeToBase = false;
 		}
 		
 		/*if(subObjects.size != 0){
@@ -135,10 +135,10 @@ public class MoveableEntity extends Entity{
 
 	public void damage(int i) 
 	{
-		System.out.println(damageColor +"WAT");
 		health -= i;
-		color = new Color(damageColor);
-		fadeToWhite = true;
+		if(damageFlash) color = new Color(damageColor);
+		
+		fadeToBase = true;
 		
 		subIter = subObjects.iterator();
 		while(subIter.hasNext()){

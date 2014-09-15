@@ -59,7 +59,7 @@ public class BOSS4L extends subObjectEnemy{
 		        {
 		            if(fired>firerate)
 		            {
-		            	world.actors.add(new eBomb1(new Vector2(position.x+width/2,position.y+height),45,45,35,35));
+		            	world.actors.get(0).add(new eBomb1(new Vector2(position.x+width/2,position.y+height),45,45,35,35));
 		            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 		                fired=0;
 		                ping++;
@@ -73,7 +73,7 @@ public class BOSS4L extends subObjectEnemy{
 		        {
 		            if(fired>firerate)
 		            {
-		            	world.actors.add(new eBomb2(new Vector2(position.x+width/2,position.y+height),45,45,35,35));
+		            	world.actors.get(0).add(new eBomb2(new Vector2(position.x+width/2,position.y+height),45,45,35,35));
 		            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 		                fired=0;
 		                ping++;

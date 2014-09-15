@@ -22,6 +22,7 @@ public class level_1 extends level
 	int y;
 	int z;
 	float time = 0;
+	boolean NOVA = true;
 	
 	public level_1(World world) {
 		super(world);
@@ -30,9 +31,36 @@ public class level_1 extends level
 	
 	@Override
 	public void update() {
-		float size = rnd.nextFloat()*50; 
-		if(rnd.nextInt(500)<25 && size <= 12.5) //25
-			world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size,0,0, new Vector2(0,size*4)));
+		if(star){
+			world.timer.scheduleTask(new Task(){
+				@Override
+				public void run()
+				{
+					float size = rnd.nextFloat()*20; 
+					if(size <= 12.5) //25
+						world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size, new Vector2(0,size*4)));
+					star = true;
+				}
+			} , 0.016f);
+			star = false;
+		}
+		
+		if(NOVA){ //THIS IS YOUR STAR
+			world.timer.scheduleTask(new Task(){
+				@Override
+				public void run()
+				{
+					if(rnd.nextInt(2) == 1){ //randomly pick between foreground and background
+						world.background.insert(0, new Star(new Vector2(350,0), 100,100, new Vector2(0,100)));
+					} else{
+						world.foreground.insert(0, new Star(new Vector2(350,0), 100,100, new Vector2(0,100)));
+					}
+					NOVA = true;
+				}
+			} , 5f);
+			
+			NOVA = false;
+		}
 		
 		if(musicstart)
 		{
@@ -76,7 +104,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new BOSS1(new Vector2(350,200)));
+					world.actors.get(0).add(new BOSS1(new Vector2(350,200)));
 				}
 			} , 3.0f);
 		}
@@ -92,7 +120,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 0));
 				}
 			} , 0.0f);
 			
@@ -101,8 +129,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(325,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(375,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(325,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(375,-100), 0));
 				}
 			} , 0.1f);
 			
@@ -111,8 +139,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(300,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(400,-100), 0));
 				}
 			} , 0.2f);
 			
@@ -121,8 +149,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(200,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(500,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(200,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(500,-100), 0));
 					
 				}
 			} , 1.3f);
@@ -132,10 +160,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(125,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(600,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(675,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(125,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(600,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(675,-100), 0));
 				}
 			} , 2.2f);
 			world.timer.scheduleTask(new Task() 
@@ -143,10 +171,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(75,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(100,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(625,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(75,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(100,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(625,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 0));
 				}
 			} , 2.3f);
 			
@@ -169,8 +197,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 9));
 				}
 			} , 0.0f);
 			
@@ -179,8 +207,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-50,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(750,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(-50,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(750,-100), 9));
 				}
 			} , 0.2f);
 			
@@ -189,8 +217,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-100,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(800,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(-100,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(800,-100), 9));
 				}
 			} , 0.4f);
 			
@@ -199,8 +227,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-150,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(850,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(-150,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(850,-100), 9));
 				}
 			} , 0.6f);
 			
@@ -209,8 +237,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-200,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(900,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(-200,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(900,-100), 9));
 				}
 			} , 0.8f);
 			
@@ -219,8 +247,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-250,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(950,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(-250,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(950,-100), 9));
 				}
 			} , 1.0f);
 			
@@ -229,9 +257,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
-					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 1));
 				}
 			} , 2.2f);
 			
@@ -254,8 +282,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(690,-100), 1));
 				}
 			} , 0.0f);
 			
@@ -264,8 +292,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(690,-100), 1));
 				}
 			} , 0.2f);
 			
@@ -274,7 +302,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 0));
 				}
 			} , 0.3f);
 			
@@ -283,8 +311,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(690,-100), 1));
 				}
 			} , 0.4f);
 			
@@ -293,8 +321,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 6));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 7));
 				}
 			} , 1.4f);
 			
@@ -303,8 +331,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(690,-100), 1));
 				}
 			} , 1.5f);
 			
@@ -313,8 +341,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(690,-100), 1));
 				}
 			} , 1.7f);
 			
@@ -323,8 +351,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(10,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(690,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(10,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(690,-100), 1));
 				}
 			} , 1.9f);
 			
@@ -347,8 +375,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 10));
 				}
 			} , 0.0f);
 			
@@ -357,10 +385,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(150,-100), 4));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 4));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 5));
-					world.actors.add(new LightTiny(new Vector2(550,-100), 5));
+					world.actors.get(0).add(new LightTiny(new Vector2(150,-100), 4));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 4));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 5));
+					world.actors.get(0).add(new LightTiny(new Vector2(550,-100), 5));
 				}
 			} , 0.2f);
 			
@@ -369,8 +397,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 11));
 				}
 			} , 0.4f);
 			
@@ -379,8 +407,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(500,-100), 11));
-					world.actors.add(new LightBasic(new Vector2(200,-100), 10));
+					world.actors.get(0).add(new LightBasic(new Vector2(500,-100), 11));
+					world.actors.get(0).add(new LightBasic(new Vector2(200,-100), 10));
 				}
 			} , 0.9f);
 			
@@ -389,8 +417,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(500,-100), 2));
-					world.actors.add(new LightTiny(new Vector2(200,-100), 3));
+					world.actors.get(0).add(new LightTiny(new Vector2(500,-100), 2));
+					world.actors.get(0).add(new LightTiny(new Vector2(200,-100), 3));
 				}
 			} , 1.3f);
 			
@@ -399,8 +427,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(500,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(200,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(500,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(200,-100), 10));
 				}
 			} , 1.7f);
 			
@@ -423,8 +451,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 10));
 				}
 			} , 0.0f);
 			
@@ -433,8 +461,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(300,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(400,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(300,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(400,-100), 10));
 				}
 			} , 0.3f);
 			
@@ -443,8 +471,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(250,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 10));
 				}
 			} , 0.6f);
 			
@@ -453,7 +481,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 0.6f);
 			
@@ -462,8 +490,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 10));
 				}
 			} , 1.2f);
 			
@@ -472,8 +500,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(300,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(400,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(300,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(400,-100), 11));
 				}
 			} , 1.5f);
 			
@@ -482,8 +510,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(250,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 11));
 				}
 			} , 1.8f);
 			
@@ -506,8 +534,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(250,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 11));
 				}
 			} , 0.0f);
 			
@@ -516,8 +544,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(250,-100), 2));
-					world.actors.add(new LightSpread(new Vector2(450,-100), 3));
+					world.actors.get(0).add(new LightSpread(new Vector2(250,-100), 2));
+					world.actors.get(0).add(new LightSpread(new Vector2(450,-100), 3));
 				}
 			} , 0.4f);
 			
@@ -526,13 +554,13 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(150,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(250,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(550,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(150,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(550,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 11));
 				}
 			} , 1.2f);
 			
@@ -541,13 +569,13 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(150,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(250,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(550,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(150,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(550,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 10));
 				}
 			} , 1.8f);
 			
@@ -556,12 +584,12 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(150,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(250,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(550,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(150,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(550,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 9));
 				}
 			} , 2.5f);
 			
@@ -584,8 +612,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 1));
 				}
 			} , 0.0f);
 			
@@ -594,11 +622,11 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(150,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(550,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(150,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(550,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 1));
 				}
 			} , 0.7f);
 			
@@ -607,12 +635,12 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(20,-100), 2));
-					world.actors.add(new LightTiny(new Vector2(120,-100), 2));
-					world.actors.add(new LightTiny(new Vector2(320,-100), 2));
-					world.actors.add(new LightTiny(new Vector2(380,-100), 3));
-					world.actors.add(new LightTiny(new Vector2(580,-100), 3));
-					world.actors.add(new LightTiny(new Vector2(680,-100), 3));
+					world.actors.get(0).add(new LightTiny(new Vector2(20,-100), 2));
+					world.actors.get(0).add(new LightTiny(new Vector2(120,-100), 2));
+					world.actors.get(0).add(new LightTiny(new Vector2(320,-100), 2));
+					world.actors.get(0).add(new LightTiny(new Vector2(380,-100), 3));
+					world.actors.get(0).add(new LightTiny(new Vector2(580,-100), 3));
+					world.actors.get(0).add(new LightTiny(new Vector2(680,-100), 3));
 				}
 			} , 1.1f);
 			
@@ -621,10 +649,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(20,-100), 4));
-					world.actors.add(new LightTiny(new Vector2(320,-100), 4));
-					world.actors.add(new LightTiny(new Vector2(380,-100), 5));
-					world.actors.add(new LightTiny(new Vector2(680,-100), 5));
+					world.actors.get(0).add(new LightTiny(new Vector2(20,-100), 4));
+					world.actors.get(0).add(new LightTiny(new Vector2(320,-100), 4));
+					world.actors.get(0).add(new LightTiny(new Vector2(380,-100), 5));
+					world.actors.get(0).add(new LightTiny(new Vector2(680,-100), 5));
 				}
 			} , 1.3f);
 			
@@ -633,10 +661,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(30,-100), 6));
-					world.actors.add(new LightTiny(new Vector2(130,-100), 6));
-					world.actors.add(new LightTiny(new Vector2(570,-100), 7));
-					world.actors.add(new LightTiny(new Vector2(670,-100), 7));
+					world.actors.get(0).add(new LightTiny(new Vector2(30,-100), 6));
+					world.actors.get(0).add(new LightTiny(new Vector2(130,-100), 6));
+					world.actors.get(0).add(new LightTiny(new Vector2(570,-100), 7));
+					world.actors.get(0).add(new LightTiny(new Vector2(670,-100), 7));
 				}
 			} , 1.7f);
 			
@@ -659,11 +687,11 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(150,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(550,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(150,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(550,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 11));
 				}
 			} , 0.0f);
 			
@@ -672,12 +700,12 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(20,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(120,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(320,-100), 10));
-					world.actors.add(new LightTiny(new Vector2(380,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(580,-100), 11));
-					world.actors.add(new LightTiny(new Vector2(680,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(20,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(120,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(320,-100), 10));
+					world.actors.get(0).add(new LightTiny(new Vector2(380,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(580,-100), 11));
+					world.actors.get(0).add(new LightTiny(new Vector2(680,-100), 11));
 				}
 			} , 0.7f);
 			
@@ -686,12 +714,12 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(325,-100), 2));
-					world.actors.add(new LightTiny(new Vector2(325,-100), 6));
-					world.actors.add(new LightTiny(new Vector2(325,-100), 2));
-					world.actors.add(new LightTiny(new Vector2(375,-100), 3));
-					world.actors.add(new LightTiny(new Vector2(375,-100), 7));
-					world.actors.add(new LightTiny(new Vector2(375,-100), 3));
+					world.actors.get(0).add(new LightTiny(new Vector2(325,-100), 2));
+					world.actors.get(0).add(new LightTiny(new Vector2(325,-100), 6));
+					world.actors.get(0).add(new LightTiny(new Vector2(325,-100), 2));
+					world.actors.get(0).add(new LightTiny(new Vector2(375,-100), 3));
+					world.actors.get(0).add(new LightTiny(new Vector2(375,-100), 7));
+					world.actors.get(0).add(new LightTiny(new Vector2(375,-100), 3));
 				}
 			} , 1.2f);
 			
@@ -700,7 +728,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 1.7f);
 			
@@ -723,9 +751,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(75,-100), 8));
 				}
 			} , 0.0f);
 			
@@ -734,9 +762,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(75,-100), 8));
 				}
 			} , 0.4f);
 			
@@ -745,9 +773,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(75,-100), 8));
 				}
 			} , 0.8f);
 			
@@ -756,9 +784,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(75,-100), 8));
 				}
 			} , 1.2f);
 			
@@ -767,9 +795,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(75,-100), 8));
 				}
 			} , 1.6f);
 			
@@ -778,9 +806,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(-75,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(0,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(-75,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(75,-100), 8));
 				}
 			} , 2.0f);
 			
@@ -789,7 +817,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(-50,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(-50,-100), 8));
 				}
 			} , 2.7f);
 			
@@ -812,9 +840,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(625,-100), 9));
 				}
 			} , 0.0f);
 			
@@ -823,9 +851,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(625,-100), 9));
 				}
 			} , 0.4f);
 			
@@ -834,9 +862,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(625,-100), 9));
 				}
 			} , 0.8f);
 			
@@ -845,9 +873,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(625,-100), 9));
 				}
 			} , 1.2f);
 			
@@ -856,9 +884,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(625,-100), 9));
 				}
 			} , 1.6f);
 			
@@ -867,9 +895,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(775,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 9));
-					world.actors.add(new LightTiny(new Vector2(625,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(775,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(625,-100), 9));
 				}
 			} , 2.0f);
 			
@@ -878,8 +906,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(50,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(650,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(50,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(650,-100), 0));
 				}
 			} , 3.7f);
 			
@@ -888,8 +916,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(200,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(500,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(200,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(500,-100), 9));
 				}
 			} , 4.2f);
 			
@@ -898,8 +926,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(150,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(550,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(150,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(550,-100), 9));
 				}
 			} , 4.5f);
 			
@@ -908,8 +936,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(100,-100), 8));
-					world.actors.add(new LightTiny(new Vector2(600,-100), 9));
+					world.actors.get(0).add(new LightTiny(new Vector2(100,-100), 8));
+					world.actors.get(0).add(new LightTiny(new Vector2(600,-100), 9));
 				}
 			} , 4.9f);
 			
@@ -932,7 +960,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 0.0f);
 			
@@ -941,8 +969,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(300,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(400,-100), 0));
 				}
 			} , 0.2f);
 			
@@ -951,8 +979,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 0));
 				}
 			} , 0.3f);
 			
@@ -961,8 +989,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(200,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(500,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(200,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(500,-100), 0));
 				}
 			} , 0.4f);
 			
@@ -971,8 +999,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(-100,-100), 10));
-					world.actors.add(new LightSpread(new Vector2(800,-100), 11));
+					world.actors.get(0).add(new LightSpread(new Vector2(-100,-100), 10));
+					world.actors.get(0).add(new LightSpread(new Vector2(800,-100), 11));
 				}
 			} , 1.5f);
 			
@@ -981,8 +1009,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(200,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(500,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(200,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(500,-100), 6));
 				}
 			} , 2.2f);
 			
@@ -1005,8 +1033,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(200,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(500,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(200,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(500,-100), 6));
 				}
 			} , 0.0f);
 			
@@ -1015,8 +1043,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(300,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(400,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(300,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(400,-100), 6));
 				}
 			} , 0.5f);
 			
@@ -1025,8 +1053,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 0));
 				}
 			} , 1.0f);
 			
@@ -1035,8 +1063,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(300,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(400,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(300,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(400,-100), 0));
 				}
 			} , 1.2f);
 			
@@ -1045,7 +1073,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(350,-100), 0));
 				}
 			} , 1.3f);
 			
@@ -1054,8 +1082,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 0));
 				}
 			} , 1.6f);
 			
@@ -1064,8 +1092,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 2));
-					world.actors.add(new LightBasic(new Vector2(350,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 3));
 				}
 			} , 2.8f);
 			
@@ -1074,8 +1102,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(150,-100), 1));
-					world.actors.add(new LightSpread(new Vector2(550,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(150,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(550,-100), 1));
 				}
 			} , 3.3f);
 			
@@ -1098,8 +1126,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(150,-100), 1));
-					world.actors.add(new LightSpread(new Vector2(550,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(150,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(550,-100), 1));
 				}
 			} , 0.0f);
 			
@@ -1108,8 +1136,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(700,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 5));
 				}
 			} , 1.2f);
 			
@@ -1118,9 +1146,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(250,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(450,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(250,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(450,-100), 0));
 				}
 			} , 2.8f);
 			
@@ -1129,10 +1157,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(225,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(275,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(425,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(475,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(225,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(275,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(425,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(475,-100), 0));
 				}
 			} , 2.9f);
 			
@@ -1141,8 +1169,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(200,-100), 0));
-					world.actors.add(new LightTiny(new Vector2(500,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(200,-100), 0));
+					world.actors.get(0).add(new LightTiny(new Vector2(500,-100), 0));
 				}
 			} , 3.0f);
 			
@@ -1165,7 +1193,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(00,-100), 1));
 				}
 			} , 0.0f);
 			
@@ -1174,7 +1202,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(00,-100), 1));
 				}
 			} , 0.3f);
 			
@@ -1183,7 +1211,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(00,-100), 1));
 				}
 			} , 0.6f);
 			
@@ -1192,7 +1220,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(00,-100), 1));
 				}
 			} , 0.9f);
 			
@@ -1201,7 +1229,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(00,-100), 1));
 				}
 			} , 1.2f);
 			
@@ -1210,7 +1238,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(00,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(00,-100), 1));
 				}
 			} , 1.5f);
 			
@@ -1219,7 +1247,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 1));
 				}
 			} , 2.0f);
 			
@@ -1228,7 +1256,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 1));
 				}
 			} , 2.3f);
 			
@@ -1237,7 +1265,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 1));
 				}
 			} , 2.6f);
 			
@@ -1246,7 +1274,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 1));
 				}
 			} , 2.9f);
 			
@@ -1255,7 +1283,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 1));
 				}
 			} , 3.2f);
 			
@@ -1264,7 +1292,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 1));
 				}
 			} , 3.5f);
 			
@@ -1273,7 +1301,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 4.2f);
 			
@@ -1282,8 +1310,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(100,-100), 1));
-					world.actors.add(new LightBasic(new Vector2(600,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(100,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(600,-100), 1));
 				}
 			} , 5.5f);
 			
@@ -1292,8 +1320,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(275,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(425,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(275,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(425,-100), 6));
 				}
 			} , 6.7f);
 			
@@ -1316,8 +1344,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(275,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(425,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(275,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(425,-100), 6));
 				}
 			} , 0.0f);
 			
@@ -1326,7 +1354,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(350,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 1));
 				}
 			} , 0.8f);
 			
@@ -1335,8 +1363,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(100,-100), 2));
-					world.actors.add(new LightBasic(new Vector2(600,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(100,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(600,-100), 3));
 				}
 			} , 1.6f);
 			
@@ -1345,8 +1373,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(0,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(700,-100), 1));
 				}
 			} , 2.7f);
 			
@@ -1355,8 +1383,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(25,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(675,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(25,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(675,-100), 1));
 				}
 			} , 2.8f);
 			
@@ -1365,8 +1393,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightTiny(new Vector2(50,-100), 1));
-					world.actors.add(new LightTiny(new Vector2(650,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(50,-100), 1));
+					world.actors.get(0).add(new LightTiny(new Vector2(650,-100), 1));
 				}
 			} , 2.9f);
 			
@@ -1414,9 +1442,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 0));
 				}
 			} , 0);
 			
@@ -1425,8 +1453,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 1));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 1));
 				}
 			} , 1.0f);
 			
@@ -1435,9 +1463,9 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 0));
 				}
 			} , 2.0f);
 			
@@ -1460,8 +1488,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
-					world.actors.add(new LightBasic(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 1));
 				}
 			} , 0f);
 			
@@ -1470,8 +1498,8 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightBasic(new Vector2(250,-100), 2));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 3));
 				}
 			} , 0.9f);
 			
@@ -1480,8 +1508,8 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightSpread(new Vector2(0,-100), 6));
-					world.actors.add(new LightSpread(new Vector2(700,-100), 7));
+					world.actors.get(0).add(new LightSpread(new Vector2(0,-100), 6));
+					world.actors.get(0).add(new LightSpread(new Vector2(700,-100), 7));
 				}
 			} , 1.8f);
 			
@@ -1504,7 +1532,7 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 8));
 				}
 			} , 0f);
 			world.timer.scheduleTask(new Task() 
@@ -1512,7 +1540,7 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 9));
 				}
 			} , 0.2f);
 			world.timer.scheduleTask(new Task() 
@@ -1520,7 +1548,7 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 8));
 				}
 			} , 0.4f);
 			world.timer.scheduleTask(new Task() 
@@ -1528,7 +1556,7 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 9));
 				}
 			} , 0.6f);
 			world.timer.scheduleTask(new Task() 
@@ -1536,7 +1564,7 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 8));
 				}
 			} , 0.8f);
 			world.timer.scheduleTask(new Task() 
@@ -1544,7 +1572,7 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 9));
 				}
 			} , 1.0f);
 			world.timer.scheduleTask(new Task() 
@@ -1552,8 +1580,8 @@ public class level_1 extends level
 				@Override
 				public void run(){
 					
-					world.actors.add(new LightSpread(new Vector2(200,-100), 6));
-					world.actors.add(new LightSpread(new Vector2(500,-100), 7));
+					world.actors.get(0).add(new LightSpread(new Vector2(200,-100), 6));
+					world.actors.get(0).add(new LightSpread(new Vector2(500,-100), 7));
 				}
 			} , 1.0f);
 			
@@ -1577,8 +1605,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(100,-100), 1));
-					world.actors.add(new LightSpread(new Vector2(600,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(100,-100), 1));
+					world.actors.get(0).add(new LightSpread(new Vector2(600,-100), 1));
 				}
 			} , 0);
 			
@@ -1587,8 +1615,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 3));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 2));
 				}
 			} , .7f);
 			
@@ -1597,8 +1625,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 1));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 1));
 				}
 			} , 1.4f);
 			
@@ -1621,8 +1649,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(350,-100), 4));
-					world.actors.add(new LightSpread(new Vector2(350,-100), 5));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 4));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 5));
 				}
 			} , 0.0f);
 			
@@ -1631,8 +1659,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(125,-100), 5));
-					world.actors.add(new LightSpread(new Vector2(575,-100), 4));
+					world.actors.get(0).add(new LightSpread(new Vector2(125,-100), 5));
+					world.actors.get(0).add(new LightSpread(new Vector2(575,-100), 4));
 				}
 			} , 0.8f);
 			
@@ -1641,8 +1669,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 3));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 2));
 				}
 			} , 1.9f);
 			
@@ -1651,8 +1679,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(50,-100), 3));
-					world.actors.add(new LightBasic(new Vector2(650,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(50,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(650,-100), 2));
 				}
 			} , 2.8f);
 			
@@ -1675,7 +1703,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(-200,-100), 8));
 				}
 			} , 0);
 			
@@ -1684,7 +1712,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(-200,-100), 8));
 				}
 			} , 0.3f);
 			
@@ -1694,7 +1722,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(-200,-100), 8));
 				}
 			} , 0.6f);
 			
@@ -1703,7 +1731,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(-200,-100), 8));
 				}
 			} , 0.9f);
 			
@@ -1712,8 +1740,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
-					world.actors.add(new LightSpread(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(-200,-100), 8));
+					world.actors.get(0).add(new LightSpread(new Vector2(0,-100), 8));
 				}
 			} , 1.2f);
 			
@@ -1722,7 +1750,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(-200,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(-200,-100), 8));
 				}
 			} , 1.5f);
 			
@@ -1745,7 +1773,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 0));
 				}
 			} , 0);
 			
@@ -1754,8 +1782,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
-					world.actors.add(new LightBasic(new Vector2(700,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 1));
 				}
 			} , 0.8f);
 			
@@ -1764,8 +1792,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(0,-100), 4));
-					world.actors.add(new LightSpread(new Vector2(700,-100), 5));
+					world.actors.get(0).add(new LightSpread(new Vector2(0,-100), 4));
+					world.actors.get(0).add(new LightSpread(new Vector2(700,-100), 5));
 				}
 			} , 1.6f);
 			
@@ -1774,8 +1802,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(650,-100), 5));
 				}
 			} , 2.2f);
 			
@@ -1784,8 +1812,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(100,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(600,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(100,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(600,-100), 5));
 				}
 			} , 3.0f);
 			
@@ -1794,7 +1822,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 0));
 				}
 			} , 3.6f);
 			
@@ -1817,7 +1845,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 0);
 			
@@ -1826,8 +1854,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 5));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 4));
 				}
 			} , 1.5f);
 			
@@ -1836,8 +1864,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 5));
 				}
 			} , 3.0f);
 			
@@ -1860,8 +1888,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 5));
 					
 				}
 			} , 0.0f);
@@ -1871,8 +1899,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 5));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 4));
 				}
 			} , 1.5f);
 			
@@ -1881,7 +1909,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 3.0f);
 			
@@ -1904,8 +1932,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(650,-100), 5));
 				}
 			} , 0.0f);
 			
@@ -1914,8 +1942,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 5));
 				}
 			} , 0.9f);
 			
@@ -1924,8 +1952,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(225,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(475,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(225,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(475,-100), 5));
 				}
 			} , 1.8f);
 			
@@ -1934,8 +1962,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 5));
 				}
 			} , 2.4f);
 			
@@ -1944,8 +1972,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(650,-100), 5));
 				}
 			} , 3.6f);
 			
@@ -1968,10 +1996,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(50,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(150,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(250,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(350,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(50,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 4));
 				}
 			} , 0.0f);
 			
@@ -1980,10 +2008,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(650,-100), 5));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 5));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 5));
-					world.actors.add(new LightBasic(new Vector2(350,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(650,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 5));
 				}
 			} , 1.6f);
 			
@@ -2006,7 +2034,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 0.0f);
 			
@@ -2015,8 +2043,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(350,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 5));
 				}
 			} , 1.4f);
 			
@@ -2025,8 +2053,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 4));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 5));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 4));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 5));
 				}
 			} , 2.0f);
 			
@@ -2049,7 +2077,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(900,-100), 9));
 				}
 			} , 0);
 			
@@ -2058,7 +2086,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(900,-100), 9));
 				}
 			} , 0.3f);
 			
@@ -2068,7 +2096,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(900,-100), 9));
 				}
 			} , 0.6f);
 			
@@ -2077,7 +2105,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(900,-100), 9));
 				}
 			} , 0.9f);
 			
@@ -2086,8 +2114,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
-					world.actors.add(new LightSpread(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(900,-100), 9));
+					world.actors.get(0).add(new LightSpread(new Vector2(700,-100), 9));
 				}
 			} , 1.2f);
 			
@@ -2096,7 +2124,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(900,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(900,-100), 9));
 				}
 			} , 1.5f);
 			
@@ -2119,8 +2147,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(0,-100), 8));
-					world.actors.add(new LightSpread(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightSpread(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightSpread(new Vector2(700,-100), 9));
 				}
 			} , 0.0f);
 			
@@ -2129,8 +2157,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 8));
-					world.actors.add(new LightBasic(new Vector2(700,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 9));
 				}
 			} , 0.5f);
 			
@@ -2139,8 +2167,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 2));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 3));
 				}
 			} , 1.6f);
 			
@@ -2149,8 +2177,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 6));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 7));
 				}
 			} , 2.6f);
 			
@@ -2173,8 +2201,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 8));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 9));
 				}
 			} , 0.0f);
 			
@@ -2183,8 +2211,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(250,-100), 8));
-					world.actors.add(new LightSpread(new Vector2(450,-100), 9));
+					world.actors.get(0).add(new LightSpread(new Vector2(250,-100), 8));
+					world.actors.get(0).add(new LightSpread(new Vector2(450,-100), 9));
 				}
 			} , 0.7f);
 			
@@ -2193,8 +2221,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 8));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 9));
 				}
 			} , 1.4f);
 			
@@ -2217,7 +2245,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 0.0f);
 			
@@ -2226,8 +2254,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(325,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(375,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(325,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(375,-100), 0));
 				}
 			} , 0.2f);
 			
@@ -2236,8 +2264,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(300,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(400,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(300,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(400,-100), 0));
 				}
 			} , 0.4f);
 			
@@ -2246,8 +2274,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(275,-100), 0));
-					world.actors.add(new LightBasic(new Vector2(425,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(275,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(425,-100), 0));
 				}
 			} , 0.6f);
 			
@@ -2256,8 +2284,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(100,-100), 0));
-					world.actors.add(new LightSpread(new Vector2(600,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(100,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(600,-100), 0));
 				}
 			} , 1.2f);
 			
@@ -2280,7 +2308,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
 				}
 			} , 0.0f);
 			
@@ -2289,7 +2317,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
 				}
 			} , 0.3f);
 			
@@ -2298,7 +2326,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
 				}
 			} , 0.6f);
 			
@@ -2307,7 +2335,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
 				}
 			} , 0.9f);
 			
@@ -2316,7 +2344,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 1));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 1));
 				}
 			} , 1.2f);
 			
@@ -2339,7 +2367,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightBasic(new Vector2(350,-100), 0));
 				}
 			} , 0.0f);
 			
@@ -2348,8 +2376,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 2));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 3));
 				}
 			} , 0.8f);
 			
@@ -2358,7 +2386,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(350,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(350,-100), 0));
 				}
 			} , 1.3f);
 			
@@ -2367,8 +2395,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(250,-100), 10));
-					world.actors.add(new LightBasic(new Vector2(450,-100), 11));
+					world.actors.get(0).add(new LightBasic(new Vector2(250,-100), 10));
+					world.actors.get(0).add(new LightBasic(new Vector2(450,-100), 11));
 				}
 			} , 2.4f);
 			
@@ -2377,8 +2405,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 8));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 9));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 8));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 9));
 				}
 			} , 3.5f);
 			
@@ -2401,8 +2429,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 2));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 3));
 				}
 			} , 0.0f);
 			
@@ -2411,8 +2439,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(150,-100), 3));
-					world.actors.add(new LightBasic(new Vector2(550,-100), 2));
+					world.actors.get(0).add(new LightBasic(new Vector2(150,-100), 3));
+					world.actors.get(0).add(new LightBasic(new Vector2(550,-100), 2));
 				}
 			} , 0.5f);
 			
@@ -2421,8 +2449,8 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightSpread(new Vector2(150,-100), 0));
-					world.actors.add(new LightSpread(new Vector2(550,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(150,-100), 0));
+					world.actors.get(0).add(new LightSpread(new Vector2(550,-100), 0));
 				}
 			} , 1.7f);
 			
@@ -2445,10 +2473,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(0,-100), 6));
-					world.actors.add(new LightBasic(new Vector2(100,-100), 6));
-					world.actors.add(new LightBasic(new Vector2(200,-100), 6));
-					world.actors.add(new LightBasic(new Vector2(300,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(0,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(100,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(200,-100), 6));
+					world.actors.get(0).add(new LightBasic(new Vector2(300,-100), 6));
 				}
 			} , 0.0f);
 			
@@ -2457,10 +2485,10 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new LightBasic(new Vector2(700,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(600,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(500,-100), 7));
-					world.actors.add(new LightBasic(new Vector2(400,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(700,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(600,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(500,-100), 7));
+					world.actors.get(0).add(new LightBasic(new Vector2(400,-100), 7));
 				}
 			} , 1.2f);
 			

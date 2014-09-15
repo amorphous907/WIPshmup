@@ -98,7 +98,7 @@ public class BOSS2 extends Enemy
             {
             	if(fired>firerate)
                 {
-            		world.actors.add(new LightTiny(new Vector2(y,-100), 1));
+            		world.actors.get(0).add(new LightTiny(new Vector2(y,-100), 1));
                     fired=0;
                     pingB++;
                 }
