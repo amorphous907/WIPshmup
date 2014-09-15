@@ -3,6 +3,7 @@ package View.Levels;
 import java.util.Random;
 
 import Models.Star;
+import Models.Enemies.GunshipBasic;
 import Models.Enemies.LightBasic;
 import Models.Enemies.LightSpread;
 import Models.Enemies.LightTiny;
@@ -15,13 +16,15 @@ import com.badlogic.gdx.utils.Timer.Task;
 public class level_1 extends level
 {
 	Random rnd = new Random();
+	boolean minibossded = false;
+	boolean minibosssummon = false;
 	boolean PREPARE_TO_DIE = false;
 	boolean musicstart = true;
 	int boss_here = 0;
 	int x;
 	int y;
 	int z;
-	float time = 0;
+	float time = 45;
 	
 	public level_1(World world) {
 		super(world);
@@ -52,7 +55,12 @@ public class level_1 extends level
 				System.out.println("tier 2");
 				y = com.badlogic.gdx.math.MathUtils.random(1, 5);
 			}
-			if(time >= 60)
+			if(time >= 60 && !minibosssummon)
+			{
+				world.actors.add(new GunshipBasic(new Vector2(350,-200)));
+			}
+			
+			if(time >= 60 && minibossded)
 			{
 				System.out.println("tier 3");
 				z = com.badlogic.gdx.math.MathUtils.random(1, 20);
@@ -76,7 +84,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.add(new BOSS1(new Vector2(350,200)));
+					world.actors.add(new BOSS1(new Vector2(350,-200)));
 				}
 			} , 3.0f);
 		}

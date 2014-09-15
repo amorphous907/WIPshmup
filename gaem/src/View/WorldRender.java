@@ -107,6 +107,7 @@ public class WorldRender {
 		textures.put("heavySpread", new Texture(Gdx.files.internal("data/texture/heavySpread.png"))); 
 		textures.put("heavyLaser", new Texture(Gdx.files.internal("data/texture/heavyLaser.png")));
 		textures.put("gunshipBasic", new Texture(Gdx.files.internal("data/texture/gunshipBasic.png")));//gunship & unique enemies enemies, starting with gunships
+		textures.put("MINIBOSSL1", new Texture(Gdx.files.internal("data/texture/MINIBOSSL1.png")));
 		textures.put("spaceMine1", new Texture(Gdx.files.internal("data/texture/spaceMine1.png")));
 		textures.put("enemyMissile", new Texture(Gdx.files.internal("data/texture/EnemyMissile.png")));
 		textures.put("eTurret1", new Texture(Gdx.files.internal("data/texture/eTurret1.png"))); //turrets
@@ -129,7 +130,7 @@ public class WorldRender {
 		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png")));
 		
 		textures.put("star", new Texture(Gdx.files.internal("data/texture/star.png"))); //scenery and other background stuff, starting with everyone's favorite ball of death, a star
-		textures.put("yellow", new Texture(Gdx.files.internal("data/texture/yellow.png")));
+		textures.put("level1hanger", new Texture(Gdx.files.internal("data/texture/level1 hangerground.png")));
 		textures.put("a1", new Texture(Gdx.files.internal("data/texture/a1.png"))); 
 		textures.put("a2", new Texture(Gdx.files.internal("data/texture/a2.png")));
 		textures.put("a3", new Texture(Gdx.files.internal("data/texture/a3.png")));

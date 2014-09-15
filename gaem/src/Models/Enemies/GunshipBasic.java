@@ -15,15 +15,12 @@ public class GunshipBasic extends Enemy
 	int turn=0;
 	int move=1;
 	
-	public GunshipBasic(Vector2 position, float width, float height, float hitX, float hitY) 
+	public GunshipBasic(Vector2 position) 
 	{
-		super(position, width, height, hitX, hitY);
-		health = 800;
-		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
-		velocity = new Vector2(0,150);
-		actorID = 9;
-		texture = "gunshipBasic";
-		score = 800;
+		super(position, 120, 90, 110, 80);
+		health = 2500;
+		score = 2500;
+		texture = "MINIBOSSL1";
 	}
 	
 	@Override
@@ -52,18 +49,18 @@ public class GunshipBasic extends Enemy
 			if(position.y >= 200-width)
 			{
 				velocity.y = 0;
-				velocity.x = 275;
+				velocity.x = 125;
 				move = 0;
 			}
 		}
 		
 		if(position.x >= 699-width)
         {
-            velocity.x = -275;
+            velocity.x = -175;
         }
         if(position.x <= 0)
         {
-            velocity.x = 275;
+            velocity.x = 175;
         }
 	}
 	
