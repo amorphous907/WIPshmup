@@ -24,7 +24,7 @@ public class level_1 extends level
 	int x;
 	int y;
 	int z;
-	float time = 45;
+	float time = 0;
 	
 	public level_1(World world) {
 		super(world);
