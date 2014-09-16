@@ -42,7 +42,7 @@ public class level_1 extends level
 				{
 					float size = rnd.nextFloat()*20; 
 					if(size <= 12.5) //25
-						//world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size, new Vector2(0,size*4)));
+						world.background.get(10).insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size, new Vector2(0,size*4)));
 					star = true;
 				}
 			} , 0.016f);
@@ -56,7 +56,7 @@ public class level_1 extends level
 				{
 					//if(rnd.nextInt(2) == 1)//randomly pick between foreground and background
 					//{ 
-						world.background.insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
+						world.background.get(0).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
 					//} 
 					//else
 					//{

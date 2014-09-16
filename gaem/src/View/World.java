@@ -43,8 +43,8 @@ public class World {
 	public Iterator<MoveableEntity> aIter;
 	public Iterator<MoveableEntity> aIter2;
 	public Iterator<Array<MoveableEntity>> layerIter;
-	public Array<MoveableEntity> background;
-	public Array<MoveableEntity> foreground;
+	public Array<Array<MoveableEntity>> background;
+	public Array<Array<MoveableEntity>> foreground;
 	public int players;
 	public Array<Controller> gamepads;
 	Controller player1Gamepad, player2Gamepad, player3Gamepad, player4Gamepad;
@@ -114,8 +114,14 @@ public class World {
 		for(int c = 0; c <= layers; c++){
 			actors.add(new Array<MoveableEntity>());
 		}
-		background = new Array<MoveableEntity>();
-		foreground = new Array<MoveableEntity>();
+		background = new Array<Array<MoveableEntity>>();
+		for(int c = 0; c <= layers; c++){
+			background.add(new Array<MoveableEntity>());
+		}
+		foreground = new Array<Array<MoveableEntity>>();
+		for(int c = 0; c <= layers; c++){
+			foreground.add(new Array<MoveableEntity>());
+		}
 		
 		spawn = new Vector2(325, 725);
 		player1=new Player1(new Vector2(9999 , 99999),60,60,45,45);
@@ -268,24 +274,30 @@ public class World {
 				}
 			}
 		}
-		aIter = background.iterator();
-		while(aIter.hasNext()){
-			entity = aIter.next();
-			entity.update(this);
-			if(entity.remove){
-				if(entity.dead)
-					score += entity.score;
-				aIter.remove();
+		layerIter = background.iterator();
+		while(layerIter.hasNext()){
+			aIter = layerIter.next().iterator();
+			while(aIter.hasNext()){
+				entity = aIter.next();
+				entity.update(this);
+				if(entity.remove){
+					if(entity.dead)
+						score += entity.score;
+					aIter.remove();
+				}
 			}
 		}
-		aIter = foreground.iterator();
-		while(aIter.hasNext()){
-			entity = aIter.next();
-			entity.update(this);
-			if(entity.remove){
-				if(entity.dead)
-					score += entity.score;
-				aIter.remove();
+		layerIter = foreground.iterator();
+		while(layerIter.hasNext()){
+			aIter = layerIter.next().iterator();
+			while(aIter.hasNext()){
+				entity = aIter.next();
+				entity.update(this);
+				if(entity.remove){
+					if(entity.dead)
+						score += entity.score;
+					aIter.remove();
+				}
 			}
 		}
 		collideActors(getCollisionActors());
@@ -322,13 +334,13 @@ public class World {
 
 	public Array<MoveableEntity> getActors(){
 		Array<MoveableEntity> array = new Array<MoveableEntity>();
-		array.addAll(getSubActors(background));
+		array.addAll(getSubActors(getLayeredBackground()));
 		array.addAll(getSubActors(getLayeredActors()));
 		array.add(player1);
 		array.add(player2);
 		array.add(player3);
 		array.add(player4);
-		array.addAll(getSubActors(foreground));
+		array.addAll(getSubActors(getLayeredForeground()));
 		return array;
 	}
 
@@ -344,9 +356,29 @@ public class World {
 	
 	public Array<MoveableEntity> getLayeredActors(){
 		Array<MoveableEntity> array = new Array<MoveableEntity>();
-		for(int c = 0; c < actors.size ; c++){
+		for(int c =  actors.size-1; c >= 0 ; c--){
 			for(int a = 0; a < actors.get(c).size; a++){
 				array.add(actors.get(c).get(a));
+			}
+		}
+		return array;
+	}
+	
+	public Array<MoveableEntity> getLayeredBackground(){
+		Array<MoveableEntity> array = new Array<MoveableEntity>();
+		for(int c = background.size-1; c >= 0 ; c--){
+			for(int a = 0; a < background.get(c).size; a++){
+				array.add(background.get(c).get(a));
+			}
+		}
+		return array;
+	}
+	
+	public Array<MoveableEntity> getLayeredForeground(){
+		Array<MoveableEntity> array = new Array<MoveableEntity>();
+		for(int c =  foreground.size-1; c >= 0 ; c--){
+			for(int a = 0; a < foreground.get(c).size; a++){
+				array.add(foreground.get(c).get(a));
 			}
 		}
 		return array;
