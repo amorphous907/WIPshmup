@@ -1,7 +1,7 @@
 package Models.Weapons;
 
 import Models.MoveableEntity;
-import Models.Weapons.Projectiles.Bullet;
+import Models.Weapons.Projectiles.vulcanBullet;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
@@ -26,13 +26,15 @@ public class VanillaSPD extends Gun {
 		maxSpread = 10;
 		damage = 100;
 		ammo = -1;
-		name = "CHAIN GUN";
+		name = "Vulcan Minigun";
+		slingable = false;
 	}
 	
 	@Override
 	protected void fire(World world, MoveableEntity entity)
 	{
-		projectiles.add(new Bullet(new Vector2(entity.centerLocation.x, entity.centerLocation.y-10), new Vector2(0,-900).rotate(spread))); //.rotate(spread) is the bullet spread parameter
+		projectiles.add(new vulcanBullet(new Vector2(entity.centerLocation.x, entity.centerLocation.y-10), new Vector2(0,-900).rotate(spread+2))); //.rotate(spread) is the bullet spread parameter
+		projectiles.add(new vulcanBullet(new Vector2(entity.centerLocation.x, entity.centerLocation.y-10), new Vector2(0,-900).rotate(spread-2)));
 		applyVelocity(entity);
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x, entity.centerLocation.y-10));
 		if(slow && fireRate > 0.04f){

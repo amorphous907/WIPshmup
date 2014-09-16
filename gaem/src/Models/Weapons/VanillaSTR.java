@@ -25,7 +25,7 @@ public class VanillaSTR extends Gun{
 		fireRate = 0.144f;
 		damage = 100;
 		ammo = -1;
-		name = "MISSILES";
+		name = "Armor Piercing";
 		slingable = false;
 	}
 	

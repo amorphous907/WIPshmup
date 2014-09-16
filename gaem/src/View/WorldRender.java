@@ -93,8 +93,9 @@ public class WorldRender {
 		
 		textures = new HashMap<String, Texture>();
 		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));//RED SUN OVER PARADICE
-		textures.put("vanilla", new Texture(Gdx.files.internal("data/texture/vanilla.png")));
-		//textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
+		
+		textures.put("vanilla", new Texture(Gdx.files.internal("data/texture/vanilla.png")));//player ships
+		textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
 		
 		textures.put("powerupSTR", new Texture(Gdx.files.internal("data/texture/PowerupSTR.png"))); //Power ups
 		textures.put("powerupSPD", new Texture(Gdx.files.internal("data/texture/PowerupSPD.png")));
@@ -128,9 +129,11 @@ public class WorldRender {
 		textures.put("enemyLaser", new Texture(Gdx.files.internal("data/texture/enemylaser.png"))); 
 		textures.put("enemyBeam", new Texture(Gdx.files.internal("data/texture/enemybeam.png"))); 
 		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png")));
+		textures.put("vulcanBullet", new Texture(Gdx.files.internal("data/texture/vulcanbullet.png")));
+		
 		
 		textures.put("star", new Texture(Gdx.files.internal("data/texture/star.png"))); //scenery and other background stuff, starting with everyone's favorite ball of death, a star
-		textures.put("level1hanger", new Texture(Gdx.files.internal("data/texture/level1 hangerground.png")));
+		textures.put("level1hanger", new Texture(Gdx.files.internal("data/texture/level1 hanger.png")));
 		textures.put("a1", new Texture(Gdx.files.internal("data/texture/a1.png"))); 
 		textures.put("a2", new Texture(Gdx.files.internal("data/texture/a2.png")));
 		textures.put("a3", new Texture(Gdx.files.internal("data/texture/a3.png")));

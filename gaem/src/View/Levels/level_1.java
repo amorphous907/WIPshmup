@@ -3,6 +3,7 @@ package View.Levels;
 import java.util.Random;
 
 import Models.Star;
+import Models.level1hanger;
 import Models.Enemies.GunshipBasic;
 import Models.Enemies.LightBasic;
 import Models.Enemies.LightSpread;
@@ -41,7 +42,7 @@ public class level_1 extends level
 				{
 					float size = rnd.nextFloat()*20; 
 					if(size <= 12.5) //25
-						world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size, new Vector2(0,size*4)));
+						//world.background.insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size, new Vector2(0,size*4)));
 					star = true;
 				}
 			} , 0.016f);
@@ -53,20 +54,24 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					if(rnd.nextInt(2) == 1){ //randomly pick between foreground and background
-						world.background.insert(0, new Star(new Vector2(350,0), 100,100, new Vector2(0,100)));
-					} else{
-						world.foreground.insert(0, new Star(new Vector2(350,0), 100,100, new Vector2(0,100)));
-					}
+					//if(rnd.nextInt(2) == 1)//randomly pick between foreground and background
+					//{ 
+						world.background.insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
+					//} 
+					//else
+					//{
+						//world.foreground.insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
+					//}
 					NOVA = true;
 				}
-			} , 5f);
+			} , 8f);
 			
 			NOVA = false;
 		}
 		
 		if(musicstart)
 		{
+			world.background.insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
 			world.game.audio.loopMusic("level_1", 0.45f);
 			musicstart = false;
 		}

@@ -27,6 +27,7 @@ public class Player4 extends Player{
 			float hitY) {
 		super(position, width, height, hitX, hitY);
 		actorID = 3;
+		subObjects.add(new VanillaDECAL(new Vector2(), 4, this));
 		texture = "vanilla";
 		//subObjects.add(new VanillaDECAL(new Vector2(), 4, this));
 		fumes = new ParticleEmitter();
