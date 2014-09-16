@@ -341,7 +341,7 @@ public class World {
 		array.add(player3);
 		array.add(player4);
 		array.addAll(getSubActors(getLayeredForeground()));
-		return array;
+		return array; 
 	}
 
 	public Array<MoveableEntity> getCollisionActors(){

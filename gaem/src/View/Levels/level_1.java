@@ -46,7 +46,7 @@ public class level_1 extends level
 					star = true;
 				}
 			} , 0.016f);
-			star = false;
+			star = false; 
 		}
 		
 		if(NOVA){ //THIS IS YOUR STAR
