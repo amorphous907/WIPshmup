@@ -110,8 +110,8 @@ public class Player extends MoveableEntity{
 			position.x = 0;
 		if(position.x > 700-width)
 			position.x = 700-width;
-		if(position.y < 0)
-			position.y = 0;
+		if(position.y < 150)
+			position.y = 150;
 		if(position.y > 900-height)
 			position.y = 900-height;
 	}

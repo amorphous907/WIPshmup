@@ -28,8 +28,35 @@ public class Player1 extends Player{
 			float hitY) {
 		super(position, width, height, hitX, hitY);
 		actorID = 0;
-		subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
-		texture = "vanilla";
+		int ship = 2;
+		if(ship  == 1)
+		{
+			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+			texture = "vanilla";
+			height = 60;
+			width = 60;
+			hitX = 45;
+			hitY = 45;
+		}
+		if(ship  == 2)
+		{
+			subObjects.add(new laserDECAL(new Vector2(), 1, this));
+			texture = "laser";
+			height = 60;
+			width = 90;
+			hitX = 60;
+			hitY = 45;
+		}
+		if(ship  == 3)
+		{
+			subObjects.add(new spreadDECAL(new Vector2(), 1, this));
+			texture = "spread";
+			height = 70;
+			width = 40;
+			hitX = 30;
+			hitY = 50;
+		}
+		
 		//subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
 		fumes = new ParticleEmitter();
 		try {

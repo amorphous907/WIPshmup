@@ -96,6 +96,10 @@ public class WorldRender {
 		
 		textures.put("vanilla", new Texture(Gdx.files.internal("data/texture/vanilla.png")));//player ships
 		textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
+		textures.put("laser", new Texture(Gdx.files.internal("data/texture/laser.png")));
+		textures.put("laserDECAL", new Texture(Gdx.files.internal("data/texture/laser DECAL.png")));
+		textures.put("spread", new Texture(Gdx.files.internal("data/texture/spread.png")));
+		textures.put("spreadDECAL", new Texture(Gdx.files.internal("data/texture/spread DECAL.png")));
 		
 		textures.put("powerupSTR", new Texture(Gdx.files.internal("data/texture/PowerupSTR.png"))); //Power ups
 		textures.put("powerupSPD", new Texture(Gdx.files.internal("data/texture/PowerupSPD.png")));
@@ -134,6 +138,7 @@ public class WorldRender {
 		
 		textures.put("star", new Texture(Gdx.files.internal("data/texture/star.png"))); //scenery and other background stuff, starting with everyone's favorite ball of death, a star
 		textures.put("level1hanger", new Texture(Gdx.files.internal("data/texture/level1 hanger.png")));
+		textures.put("level1floor", new Texture(Gdx.files.internal("data/texture/level1floor.png")));
 		textures.put("a1", new Texture(Gdx.files.internal("data/texture/a1.png"))); 
 		textures.put("a2", new Texture(Gdx.files.internal("data/texture/a2.png")));
 		textures.put("a3", new Texture(Gdx.files.internal("data/texture/a3.png")));
