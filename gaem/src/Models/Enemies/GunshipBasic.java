@@ -27,6 +27,10 @@ public class GunshipBasic extends Enemy
 	public void update(World world)
 	{
 		super.update(world);
+		if(health <= 0)
+	        world.levels.get(world.currentLevel).minibossded = true;
+
+		
 		if(loaded)
 		{
 			world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-10,position.y+height/2-10),25,25,25,25));

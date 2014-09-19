@@ -18,17 +18,17 @@ import com.badlogic.gdx.utils.Timer.Task;
 public class level_1 extends level
 {
 	Random rnd = new Random();
-	boolean minibossded = false;
-	boolean minibosssummon = true;
+	boolean minibosssummon = false;
 	boolean PREPARE_TO_DIE = false;
 	boolean musicstart = true;
 	int boss_here = 0;
 	int x;
 	int y;
 	int z;
-	float time = 60;
+	float time = 45;
 	boolean NOVA = true;
 	boolean tile = true;
+	boolean halfway = false;
 	
 	public level_1(World world) {
 		super(world);
@@ -51,7 +51,7 @@ public class level_1 extends level
 			star = false; 
 		}
 		
-		if(NOVA){ //THIS IS YOUR STAR
+		if(NOVA && !halfway){
 			world.timer.scheduleTask(new Task(){
 				@Override
 				public void run()
@@ -64,16 +64,28 @@ public class level_1 extends level
 			} , 8f);
 			NOVA = false;
 		}
-		if(tile){ //thank you mason
+		if(tile && !halfway){ //thank you mason
 			world.timer.scheduleTask(new Task(){
 				@Override
 				public void run()
 				{
-					world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700,150, new Vector2(0,100)));
+					world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700f,150f, new Vector2(0,100),("level1floor")));
 					//world.foreground.get(0).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
 					tile = true;
 				}
 			} , 2f);
+			tile = false;
+		}
+		if(tile && !halfway){ //thank you mason
+			world.timer.scheduleTask(new Task(){
+				@Override
+				public void run()
+				{
+					world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700f,150f, new Vector2(0,100),("level1beam")));
+					//world.foreground.get(0).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
+					tile = true;
+				}
+			} , 4f);
 			tile = false;
 		}
 		
@@ -96,13 +108,15 @@ public class level_1 extends level
 				System.out.println("tier 2");
 				y = com.badlogic.gdx.math.MathUtils.random(1, 5);
 			}
-			/*if(time >= 60 && !minibosssummon)
+			if(time >= 60 && !minibosssummon)
 			{
 				world.actors.get(0).add(new GunshipBasic(new Vector2(350,-200)));
-			}*/
+				halfway = true;
+			}
 			
-			if(time >= 60)// && minibossded)
+			if(time >= 60 && minibossded)
 			{
+				
 				System.out.println("tier 3");
 				z = com.badlogic.gdx.math.MathUtils.random(1, 20);
 			}

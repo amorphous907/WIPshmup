@@ -9,6 +9,7 @@ public abstract class level {
 	protected boolean waveDone;
 	protected final World world;
 	protected boolean star = true;
+	public boolean minibossded = false;
 	
 	public level(World world) {
 		this.world = world;
@@ -19,6 +20,12 @@ public abstract class level {
 	public abstract void start();
 	
 	public abstract void update();
+	{
+		if(minibossded)
+		{
+			System.out.println("DEAD DEAD DEAD");
+		}
+	}
 	
 	protected abstract void HandleWaves(int wave);
 	
