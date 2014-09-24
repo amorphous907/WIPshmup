@@ -2,6 +2,8 @@ package com.amorphous.gaem;
 
 import Models.Players.Player;
 import View.World;
+
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
@@ -90,14 +92,15 @@ public class InputHandler implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		//System.out.println("Button "+button);
+		world.mouseDown = button;
+		System.out.println(world.mouseDown);
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+		world.mouseDown = -1;
+		return true;
 	}
 
 	@Override
@@ -112,6 +115,9 @@ public class InputHandler implements InputProcessor{
 		//world.getRender().getCamera().unproject(touch);
 		//touch2.set(touch.x, touch.y);
 		//System.out.println(touch2.x+" "+touch2.y);
+		Vector3 mouseTemp = new Vector3(screenX, screenY, 0);
+		world.getRender().getCamera().unproject(mouseTemp);
+		world.mousePos = new Vector3(mouseTemp);
 		return true;
 	}
 

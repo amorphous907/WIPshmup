@@ -3,7 +3,7 @@ package View.Levels;
 import java.util.Random;
 
 import Models.Star;
-import Models.genericBG;
+//import Models.genericBG;
 import Models.level1hanger;
 import Models.Enemies.GunshipBasic;
 import Models.Enemies.LightBasic;
@@ -69,7 +69,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700f,150f, new Vector2(0,100),("level1floor")));
+					//world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700f,150f, new Vector2(0,100),("level1floor")));
 					//world.foreground.get(0).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
 					tile = true;
 				}
@@ -81,7 +81,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700f,150f, new Vector2(0,100),("level1beam")));
+					//world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700f,150f, new Vector2(0,100),("level1beam")));
 					//world.foreground.get(0).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
 					tile = true;
 				}

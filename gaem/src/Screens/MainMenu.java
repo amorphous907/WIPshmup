@@ -27,7 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenu extends ApplicationAdapter implements Screen{
 	private Table table;
-	private TextButton buttonExit, buttonPlay, buttonLevels;
+	private TextButton buttonExit, buttonPlay, buttonLevels, buttonEditor;
 	private Skin skin;
 	private Stage stage;
 	private gaemMain game;
@@ -125,6 +125,16 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 		});
 		buttonLevels.pad(10, 75, 10, 75);
 		
+		buttonEditor = new TextButton("LEVEL EDITOR", textButtonStyle);
+		buttonEditor.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				level = 0;
+				game.audio.stopMusic();
+				game.setScreen(new GameScreen(game, level));
+			}
+		});
+		buttonEditor.pad(10, 75, 10, 75);
 		
 		ls = new LabelStyle(Zero, Color.WHITE);
 		title = new Label(gaemMain.TITLE, ls);
@@ -138,6 +148,9 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 		table.add(buttonLevels);
 		table.getCell(buttonLevels).spaceBottom(15);
 		table.row();
+		table.add(buttonEditor);
+		table.getCell(buttonEditor).spaceBottom(15);
+		table.row();
 		table.add(buttonExit);
 		table.debug();
 		stage.addActor(table);
@@ -148,10 +161,12 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 		Timeline.createSequence().beginSequence()
 			.push(Tween.set(buttonPlay, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(buttonLevels, ActorAccessor.ALPHA).target(0))
+			.push(Tween.set(buttonEditor, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(buttonExit, ActorAccessor.ALPHA).target(0))
 			.push(Tween.from(title, ActorAccessor.ALPHA, .5f).target(0))
 			.push(Tween.to(buttonPlay, ActorAccessor.ALPHA, .25f).target(1))
 			.push(Tween.to(buttonLevels, ActorAccessor.ALPHA, .25f).target(1))
+			.push(Tween.to(buttonEditor, ActorAccessor.ALPHA, .25f).target(1))
 			.push(Tween.to(buttonExit, ActorAccessor.ALPHA, .25f).target(1))
 			.end().start(tweenManager);
 		

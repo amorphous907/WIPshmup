@@ -40,7 +40,7 @@ public class Player1 extends Player{
 		}
 		if(ship  == 2)
 		{
-			subObjects.add(new laserDECAL(new Vector2(), 1, this));
+			//subObjects.add(new laserDECAL(new Vector2(), 1, this));
 			texture = "laser";
 			height = 60;
 			width = 90;
@@ -49,7 +49,7 @@ public class Player1 extends Player{
 		}
 		if(ship  == 3)
 		{
-			subObjects.add(new spreadDECAL(new Vector2(), 1, this));
+			//subObjects.add(new spreadDECAL(new Vector2(), 1, this));
 			texture = "spread";
 			height = 70;
 			width = 40;

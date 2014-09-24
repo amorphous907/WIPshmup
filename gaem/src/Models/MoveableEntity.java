@@ -38,6 +38,7 @@ public class MoveableEntity extends Entity{
 	
 	public MoveableEntity(Vector2 position, int aI) {
 		super(position, aI);
+		new Vector2(0,0);
 	}
 
 	public Vector2 getVelocity(){

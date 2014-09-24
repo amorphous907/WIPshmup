@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import Models.Entity;
 import Models.MoveableEntity;
+import Models.Text;
 import Models.Players.Player;
 import View.Levels.level;
 import View.Levels.level_1;
@@ -96,10 +97,10 @@ public class WorldRender {
 		
 		textures.put("vanilla", new Texture(Gdx.files.internal("data/texture/vanilla.png")));//player ships
 		textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
-		textures.put("laser", new Texture(Gdx.files.internal("data/texture/laser.png")));
-		textures.put("laserDECAL", new Texture(Gdx.files.internal("data/texture/laser DECAL.png")));
-		textures.put("spread", new Texture(Gdx.files.internal("data/texture/spread.png")));
-		textures.put("spreadDECAL", new Texture(Gdx.files.internal("data/texture/spread DECAL.png")));
+		textures.put("laser", new Texture(Gdx.files.internal("data/texture/Laser.png")));
+		textures.put("laserDECAL", new Texture(Gdx.files.internal("data/texture/Laser DECAL.png")));
+		textures.put("spread", new Texture(Gdx.files.internal("data/texture/Spread.png")));
+		textures.put("spreadDECAL", new Texture(Gdx.files.internal("data/texture/Spread DECAL.png")));
 		
 		textures.put("powerupSTR", new Texture(Gdx.files.internal("data/texture/PowerupSTR.png"))); //Power ups
 		textures.put("powerupSPD", new Texture(Gdx.files.internal("data/texture/PowerupSPD.png")));
@@ -131,7 +132,7 @@ public class WorldRender {
 		textures.put("enemyBullet", new Texture(Gdx.files.internal("data/texture/enemyBullet.png"))); //projectiles and stuff, starting with enemy bullet
 		textures.put("enemyBulletTiny", new Texture(Gdx.files.internal("data/texture/enemybullettiny.png")));
 		textures.put("enemyLaser", new Texture(Gdx.files.internal("data/texture/enemylaser.png"))); 
-		textures.put("enemyBeam", new Texture(Gdx.files.internal("data/texture/enemybeam.png"))); 
+		textures.put("enemyBeam", new Texture(Gdx.files.internal("data/texture/enemyBeam.png"))); 
 		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png")));
 		textures.put("vulcanBullet", new Texture(Gdx.files.internal("data/texture/vulcanbullet.png")));
 		
@@ -153,6 +154,8 @@ public class WorldRender {
 		textures.put("debuffCrack2", new Texture(Gdx.files.internal("data/texture/debuffCrack2.png")));
 		textures.put("debuffCrack3", new Texture(Gdx.files.internal("data/texture/debuffCrack3.png")));
 		
+		
+		textures.put("edit", new Texture(Gdx.files.internal("data/edit.png"))); //editor grid
 		
 		
 		
@@ -200,7 +203,7 @@ public class WorldRender {
 		
 		batch.begin();
 		renderActors(world.getActors());
-		renderText();
+		renderText(world.getText());
 		renderParticles();
 		renderBars();
 		hud.update();
@@ -269,18 +272,28 @@ public class WorldRender {
 		}
 	}
 
-	private void renderText() {
-
+	private void renderText(Array<Text> text) {
+		for(Text x : text){
+			renderText(x.getText(), x.getFont(), x.getPosition().x, x.getPosition().y, x.getScale(), x.getColor());
+		}
 	}
 	
 	public void renderText(String text, int index, int x, int y){
 		fonts.get(index).draw(batch, text, x, y);
 	}
 	
-	public void renderText(String text, int index, int x, int y, float scale){
+	public void renderText(String text, int index, float x, float y, float scale){
 		fonts.get(index).setScale(scale);
 		fonts.get(index).drawMultiLine(batch, text, x, y);
 		fonts.get(index).setScale(1);
+	}
+	
+	public void renderText(String text, int index, float x, float y, float scale, Color color){
+		fonts.get(index).setScale(scale);
+		fonts.get(index).setColor(color);
+		fonts.get(index).drawMultiLine(batch, text, x, y);
+		fonts.get(index).setScale(1);
+		fonts.get(index).setColor(Color.WHITE);
 	}
 
 	private void debug() {
@@ -319,7 +332,7 @@ public class WorldRender {
 		eIter = actors.iterator();
 		while(eIter.hasNext()){
 			entity = eIter.next();
-				if(entity.render && !entity.animate && entity.actorID != -1)
+				if(entity.render && !entity.animate)
 					entity.render(this);
 				else if(entity.render && !entity.animate){
 					draw(entity, none);

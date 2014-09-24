@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import Models.MoveableEntity;
+import Models.Text;
 import Models.subObject;
 import Models.Players.Player;
 import Models.Players.Player1;
@@ -12,6 +13,7 @@ import Models.Players.Player2;
 import Models.Players.Player3;
 import Models.Players.Player4;
 import Screens.MainMenu;
+import View.Levels.levelEditor;
 import View.Levels.level_1;
 import View.Levels.level_2;
 import View.Levels.level_TEST;
@@ -24,7 +26,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
@@ -45,6 +49,7 @@ public class World {
 	public Iterator<Array<MoveableEntity>> layerIter;
 	public Array<Array<MoveableEntity>> background;
 	public Array<Array<MoveableEntity>> foreground;
+	public Array<Text> text;
 	public int players;
 	public Array<Controller> gamepads;
 	Controller player1Gamepad, player2Gamepad, player3Gamepad, player4Gamepad;
@@ -83,10 +88,14 @@ public class World {
 	public static final int PLAYER_FOUR_RIGHT = Keys.J;
 	public static final int PLAYER_FOUR_DOWN = Keys.H;
 	public static final int PLAYER_FOUR_LEFT = Keys.G;
+	
+	public Vector3 mousePos;
+	public int mouseDown;
 
 	level_TEST levelT;
 	level_1 level1;
 	level_2 level2;
+	levelEditor edit;
 	public Array<View.Levels.level> levels;
 	public View.Levels.level level;
 	public int currentLevel;
@@ -96,14 +105,18 @@ public class World {
 	public World(gaemMain game, int level){
 		this.game = game;
 		timer = new Timer();
-		//levelT = new level_TEST();//0
+		
+		mousePos = new Vector3();
+		mouseDown = -1;
+		
+		edit = new levelEditor(this);//0
 		level1 = new level_1(this);//1
 		level2 = new level_2(this);//2
 		//level3 = new level_3();//3
 		currentLevel = level;
 
 		levels = new Array<View.Levels.level>();
-		levels.add(levelT); //0
+		levels.add(edit); //0
 		levels.add(level1); //1
 		levels.add(level2); //2
 
@@ -122,6 +135,7 @@ public class World {
 		for(int c = 0; c <= layers; c++){
 			foreground.add(new Array<MoveableEntity>());
 		}
+		text = new Array<Text>();
 		
 		spawn = new Vector2(325, 725);
 		player1=new Player1(new Vector2(9999 , 99999),60,60,45,45);
@@ -423,6 +437,13 @@ public class World {
 		if(lives > 0 && player.setPlaying()){
 			lives--;
 		}
+	}
+
+	public Array<Text> getText() {
+		Array<Text> temp = new Array<Text>();
+		temp.addAll(text);
+		text.clear();
+		return temp;
 	}
 
 
