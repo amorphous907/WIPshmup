@@ -16,6 +16,7 @@ import View.World;
 
 public class levelEditor extends level{
 	private float waveLength;
+	private String waveVariable;
 	private boolean start = true;
 	private int waveNumber = 0;
 	private Iterator<MoveableEntity> eIter;
@@ -25,6 +26,15 @@ public class levelEditor extends level{
 		
 	public levelEditor(World world) {
 		super(world);
+		making = false;
+		for(int i = 0 ; i < wave.length ; i++){
+			wave[i] = false;
+		}
+	}
+
+	@Override
+	public void start() {
+		
 		Gdx.input.getTextInput(new TextInputListener(){
 
 			@Override
@@ -52,14 +62,22 @@ public class levelEditor extends level{
 			}
 			
 		}, "Wave Number:", "1");
-		making = false;
-		for(int i = 0 ; i < wave.length ; i++){
-			wave[i] = false;
-		}
-	}
+		
+		Gdx.input.getTextInput(new TextInputListener(){
 
-	@Override
-	public void start() {
+			@Override
+			public void input(String text) {
+				waveVariable = text;
+			}
+
+			@Override
+			public void canceled() {
+				waveVariable = "x";
+			}
+			
+		}, "Wave Variable:", "x");
+		
+		
 		for(int x = 0; x < 700 ; x += 50){
 			for(int y = 0 ; y < 900 ; y += 50){
 				world.actors.get(0).add(new editorGrid(new Vector2(x, y), 0, waveLength));
@@ -120,7 +138,7 @@ public class levelEditor extends level{
 								if(e.position.y == y){
 									editorGrid temp = (editorGrid) e;
 									if(temp.isFinished){
-										writer.println("					world.actors.get(0).add(new "+temp.getClassName()+"(new Vector2("+temp.getPosition().x+",-100), "+temp.getAI()+"));");
+										writer.println("					world.actors.get(0).add(new "+temp.getClassName()+"(new Vector2("+temp.getPosition().x+"f,-100f), "+temp.getAI()+"));");
 									}
 								}
 							}
@@ -130,7 +148,7 @@ public class levelEditor extends level{
 						writer.println("");
 					}
 				}
-				writer.println("			x = 0;");
+				writer.println("			"+waveVariable+" = 0;");
 				writer.println("		}");
 				
 				writer.close();
