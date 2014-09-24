@@ -88,7 +88,7 @@ public class levelEditor extends level{
 		if(world.keys[Keys.BACKSPACE] && !making){
 			making = true;
 			try {
-				PrintWriter writer = new PrintWriter("Level_"+waveNumber+".txt", "UTF-8");
+				PrintWriter writer = new PrintWriter("Wave_"+waveNumber+".txt", "UTF-8");
 				writer.println("		if(x == " + waveNumber + ")");
 				writer.println("		{");
 				for(float y = 0 ; y < 900 ; y += 50){
