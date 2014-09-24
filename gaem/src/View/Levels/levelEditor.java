@@ -20,6 +20,7 @@ public class levelEditor extends level{
 	private int waveNumber = 0;
 	private Iterator<MoveableEntity> eIter;
 	private boolean making;
+	private boolean[] wave = new boolean[1500];
 	
 		
 	public levelEditor(World world) {
@@ -52,6 +53,9 @@ public class levelEditor extends level{
 			
 		}, "Wave Number:", "1");
 		making = false;
+		for(int i = 0 ; i < wave.length ; i++){
+			wave[i] = false;
+		}
 	}
 
 	@Override
@@ -71,19 +75,23 @@ public class levelEditor extends level{
 			start();
 			start = false;
 		}
+		if(world.keys[Keys.R]){
+			eIter = world.getActors().iterator();
+			while(eIter.hasNext()){
+				MoveableEntity e = eIter.next();
+				if(e instanceof editorGrid){
+					((editorGrid) e).reset();
+				}
+			}
+		}
+		
 		if(world.keys[Keys.BACKSPACE] && !making){
 			making = true;
 			try {
 				PrintWriter writer = new PrintWriter("Level_"+waveNumber+".txt", "UTF-8");
 				writer.println("		if(x == " + waveNumber + ")");
 				writer.println("		{");
-				for(int y = 0 ; y < 900 ; y += 50){
-					System.out.println(y);
-					writer.println("			world.timer.scheduleTask(new Task()");
-					writer.println("			{");
-					writer.println("				@Override");
-					writer.println("				public void run()");
-					writer.println("				{");
+				for(float y = 0 ; y < 900 ; y += 50){
 					eIter = world.getActors().iterator();
 					while(eIter.hasNext()){
 						MoveableEntity e = eIter.next();
@@ -91,14 +99,36 @@ public class levelEditor extends level{
 							if(e.position.y == y){
 								editorGrid temp = (editorGrid) e;
 								if(temp.isFinished){
-									writer.println("					world.actors.get(0).add(new "+temp.getClassName()+"(new Vector2("+temp.getPosition().x+",-100), "+temp.getAI()+"));");
+									wave[(int) y] = true;
 								}
 							}
 						}
 					}
-					writer.println("				}");
-					writer.println("			} , "+(waveLength*(y/900))+"f);");
-					writer.println("");
+				}
+				for(float y = 0 ; y < 900 ; y += 50){
+					System.out.println(y);
+					if(wave[(int) y]){
+						writer.println("			world.timer.scheduleTask(new Task()");
+						writer.println("			{");
+						writer.println("				@Override");
+						writer.println("				public void run()");
+						writer.println("				{");
+						eIter = world.getActors().iterator();
+						while(eIter.hasNext()){
+							MoveableEntity e = eIter.next();
+							if(e instanceof editorGrid){
+								if(e.position.y == y){
+									editorGrid temp = (editorGrid) e;
+									if(temp.isFinished){
+										writer.println("					world.actors.get(0).add(new "+temp.getClassName()+"(new Vector2("+temp.getPosition().x+",-100), "+temp.getAI()+"));");
+									}
+								}
+							}
+						}
+						writer.println("				}");
+						writer.println("			} , "+(waveLength*(y/900f))+"f);");
+						writer.println("");
+					}
 				}
 				writer.println("			x = 0;");
 				writer.println("		}");

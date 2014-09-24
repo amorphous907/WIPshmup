@@ -53,11 +53,7 @@ public class editorGrid extends MoveableEntity{
 		}
 		
 		if(world.mouseDown == 1 && bounds.contains(world.mousePos.x, world.mousePos.y)){
-			className = "";
-			AI = 0;
-			xOffset = 0;
-			texture = "edit";
-			isFinished = false;
+			reset();
 		}
 		
 		if(bounds.contains(world.mousePos.x, world.mousePos.y)){
@@ -66,6 +62,14 @@ public class editorGrid extends MoveableEntity{
 		}
 	}
 	
+	public void reset() {
+		className = "";
+		AI = 0;
+		xOffset = 0;
+		texture = "edit";
+		isFinished = false;
+	}
+
 	private void stepOne(){
 		Gdx.input.getTextInput(new TextInputListener(){
 
