@@ -19,11 +19,13 @@ public class editorGrid extends MoveableEntity{
 	private float xOffset;
 	private boolean done;
 	private float waveTime;
+	private Vector2 spawnPosition;
+	public boolean testing = false;
 
 	public editorGrid(Vector2 position, int aI) {
 		super(position, 50, 50, 50, 50);
 		xOffset = 0;
-		originalPosition = new Vector2(position);
+		originalPosition = new Vector2(this.position);
 		done = false;
 		velocity = new Vector2(0,0);
 		texture = "edit";
@@ -34,19 +36,21 @@ public class editorGrid extends MoveableEntity{
 	public editorGrid(Vector2 position, int aI, float waveLength) {
 		super(position, 50, 50, 50, 50);
 		xOffset = 0;
-		originalPosition = new Vector2(position);
+		originalPosition = new Vector2(this.position);
 		done = false;
 		waveTime = waveLength;
 		texture = "edit";
 		className = "";
-		System.out.println("EDITOR: " + position);
+		System.out.println("EDITOR: " + this.position);
 	}
 	
 	@Override
 	public void update(World world){
 		super.update(world);
-		position = new Vector2(originalPosition.x+xOffset, originalPosition.y);
-		
+		if(!testing){
+			position = new Vector2(originalPosition.x+xOffset, originalPosition.y);
+			spawnPosition = new Vector2(position.x+25, position.y+25);
+		}
 		if(world.mouseDown == 0 && bounds.contains(world.mousePos.x, world.mousePos.y) && !done){
 			done = true;
 			stepOne();
@@ -58,7 +62,7 @@ public class editorGrid extends MoveableEntity{
 		
 		if(bounds.contains(world.mousePos.x, world.mousePos.y)){
 			world.text.clear();
-			world.text.add(new Text(position+" "+className+" "+AI, new Vector2(world.mousePos.x+10, world.mousePos.y-10), 1, 1, Color.GRAY));
+			world.text.add(new Text(centerLocation+" "+className+" "+AI, new Vector2(world.mousePos.x+10, world.mousePos.y-10), 1, 1, Color.GRAY));
 		}
 	}
 	
@@ -218,6 +222,30 @@ public class editorGrid extends MoveableEntity{
 
 	public void setFinished(boolean isFinished) {
 		this.isFinished = isFinished;
+	}
+
+	public Vector2 getOriginalPosition() {
+		return originalPosition;
+	}
+
+	public void setOriginalPosition(Vector2 originalPosition) {
+		this.originalPosition = originalPosition;
+	}
+
+	public float getxOffset() {
+		return xOffset;
+	}
+
+	public void setxOffset(float xOffset) {
+		this.xOffset = xOffset;
+	}
+
+	public Vector2 getSpawnPosition() {
+		return spawnPosition;
+	}
+
+	public void setSpawnPosition(Vector2 spawnPosition) {
+		this.spawnPosition = spawnPosition;
 	}
 	
 	

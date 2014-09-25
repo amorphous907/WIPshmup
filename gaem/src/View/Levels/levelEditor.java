@@ -5,13 +5,28 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer.Task;
 
+import Models.Explosion;
 import Models.MoveableEntity;
+import Models.level1hanger;
+import Models.Enemies.EnemyMines;
+import Models.Enemies.GunshipBasic;
+import Models.Enemies.HeavyBasic;
+import Models.Enemies.HeavyLaser;
+import Models.Enemies.HeavySpread;
+import Models.Enemies.LightBasic;
+import Models.Enemies.LightLaser;
+import Models.Enemies.LightSpread;
+import Models.Enemies.LightTiny;
+import Models.Enemies.eTurret1;
 import View.World;
 
 public class levelEditor extends level{
@@ -22,6 +37,7 @@ public class levelEditor extends level{
 	private Iterator<MoveableEntity> eIter;
 	private boolean making;
 	private boolean[] wave = new boolean[1500];
+	private boolean testing = false;
 	
 		
 	public levelEditor(World world) {
@@ -78,8 +94,8 @@ public class levelEditor extends level{
 		}, "Wave Variable:", "x");
 		
 		
-		for(int x = 0; x < 700 ; x += 50){
-			for(int y = 0 ; y < 900 ; y += 50){
+		for(int x = 25; x < 700 ; x += 50){
+			for(int y = 25 ; y < 900 ; y += 50){
 				world.actors.get(0).add(new editorGrid(new Vector2(x, y), 0, waveLength));
 			}
 		}
@@ -101,6 +117,11 @@ public class levelEditor extends level{
 					((editorGrid) e).reset();
 				}
 			}
+		}
+		
+		if(world.keys[Keys.PLUS] && !testing){
+			testing = true;
+			spawnWave();
 		}
 		
 		if(world.keys[Keys.BACKSPACE] && !making){
@@ -138,7 +159,7 @@ public class levelEditor extends level{
 								if(e.position.y == y){
 									editorGrid temp = (editorGrid) e;
 									if(temp.isFinished){
-										writer.println("					world.actors.get(0).add(new "+temp.getClassName()+"(new Vector2("+temp.getPosition().x+"f,-100f), "+temp.getAI()+"));");
+										writer.println("					world.actors.get(0).add(new "+temp.getClassName()+"(new Vector2("+temp.getSpawnPosition().x+"f,-100f), "+temp.getAI()+"));");
 									}
 								}
 							}
@@ -167,6 +188,113 @@ public class levelEditor extends level{
 	protected void HandleWaves(int wave) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void spawnWave(){
+		for(float y = 0 ; y < 900 ; y += 50){
+			addSpawn((int) y);
+			System.out.println(y+ "THIS IS BIG THINGY");
+		}
+		
+		eIter = world.getActors().iterator();
+		while(eIter.hasNext()){
+			MoveableEntity e = eIter.next();
+			if(e instanceof editorGrid){
+				((editorGrid) e).testing = true;
+				e.position = new Vector2(999,999);
+			}
+		}
+		world.timer.scheduleTask(new Task(){
+			@Override
+			public void run()
+			{
+				eIter = world.getActors().iterator();
+				while(eIter.hasNext()){
+					MoveableEntity e = eIter.next();
+					if(e instanceof editorGrid){
+						((editorGrid) e).testing = false;
+					}
+					testing = false;
+				}
+			}
+		}, waveLength+5);
+	}
+	
+	private void addSpawn(final int y) {
+		world.timer.scheduleTask(new Task(){
+			@Override
+			public void run()
+			{
+				findSpawns(y);
+			}
+		}, waveLength*((900-y)/900f) );
+		
+	}
+
+	private void findSpawns(int y) {
+		eIter = world.getActors().iterator();
+		while(eIter.hasNext()){
+			MoveableEntity e = eIter.next();
+			if(e instanceof editorGrid){
+				if(((editorGrid) e).getOriginalPosition().y == y){
+					editorGrid temp = (editorGrid) e;
+					if(temp.isFinished){
+						spawnTest(temp);
+					}
+				}
+			}
+		}
+	}
+
+	private void spawnTest(editorGrid e){
+		System.out.println(e.getClassName());
+		switch(e.getClassName()){
+		case "Explosion":
+			break;
+		case "level1hanger":
+			break;
+		case "Star":
+			break;
+		case "EnemyMines":
+			break;
+		case "eTurret1":
+			break;
+		case "GunshipBasic":
+			world.actors.get(0).add(new GunshipBasic(new Vector2(e.getSpawnPosition().x, -100)));
+			break;
+		case "HeavyBasic":
+			world.actors.get(0).add(new HeavyBasic(new Vector2(e.getSpawnPosition().x, -100), e.getAI()));
+			break;
+		case "HeavyLaser":
+			world.actors.get(0).add(new HeavyLaser(new Vector2(e.getSpawnPosition().x, -100), e.getAI()));
+			break;
+		case "HeavySpread":
+			world.actors.get(0).add(new HeavySpread(new Vector2(e.getSpawnPosition().x, -100), e.getAI()));
+			break;
+		case "LightBasic":
+			world.actors.get(0).add(new LightBasic(new Vector2(e.getSpawnPosition().x, -100), e.getAI()));
+			break;
+		case "LightLaser":
+			world.actors.get(0).add(new LightLaser(new Vector2(e.getSpawnPosition().x, -100), e.getAI()));
+			break;
+		case "LightSpread":
+			world.actors.get(0).add(new LightSpread(new Vector2(e.getSpawnPosition().x, -100), e.getAI()));
+			break;
+		case "LightTiny":
+			world.actors.get(0).add(new LightTiny(new Vector2(e.getSpawnPosition().x, -100), e.getAI()));
+			break;
+		case "BOSS1":
+			break;
+		case "BOSS2":
+			break;
+		case "BOSS3":
+			break;
+		case "BOSS4":
+			break;
+		default:
+			world.actors.get(0).add(new LightBasic(new Vector2(e.getSpawnPosition().x-e.getxOffset(), -100), e.getAI()));
+			break;
+		}
 	}
 
 }

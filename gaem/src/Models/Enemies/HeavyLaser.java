@@ -21,6 +21,15 @@ public class HeavyLaser extends Enemy
 		score = 500;
 	}
 	
+	public HeavyLaser(Vector2 position, int i) {
+		super(position, 50, 50, 50, 50);
+		this.AI = i;
+		health = 400;
+		texture = "heavyLaser";
+		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
+		score = 500;
+	}
+
 	@Override
 	public void update(World world)
 	{

@@ -21,6 +21,14 @@ public class LightLaser extends Enemy
 		texture = "lightLaser";
 	}
 	
+	public LightLaser(Vector2 position, int ai) {
+		super(position, 50, 50, 50, 50);
+		health = 200;
+		tick = com.badlogic.gdx.math.MathUtils.random(0, 99);
+		score = 250;
+		texture = "lightLaser";
+	}
+
 	@Override
 	public void update(World world)
 	{
