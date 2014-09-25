@@ -169,6 +169,16 @@ public class levelEditor extends level{
 						writer.println("");
 					}
 				}
+				writer.println("");
+				writer.println("			world.timer.scheduleTask(new Task()");
+				writer.println("			{");
+				writer.println("				@Override");
+				writer.println("				public void run()");
+				writer.println("				{");
+				writer.println("					time = time + "+(waveLength+5f)+";");
+				writer.println("					waveDone = true;");
+				writer.println("				}");
+				writer.println("			} , "+(waveLength+5f)+");");
 				writer.println("			"+waveVariable+" = 0;");
 				writer.println("		}");
 				
