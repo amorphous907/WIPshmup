@@ -2,6 +2,7 @@ package Models.Weapons;
 
 import Models.MoveableEntity;
 import Models.Weapons.Projectiles.Bullet;
+import Models.Weapons.Projectiles.LaserBullet;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
@@ -33,6 +34,7 @@ public class VanillaDEF extends Gun{
 	protected void fire(World world, MoveableEntity entity){
 		projectiles.add(new Bullet(new Vector2(entity.centerLocation.x-12, entity.centerLocation.y), new Vector2(0,-900)));
 		projectiles.add(new Bullet(new Vector2(entity.centerLocation.x+12, entity.centerLocation.y), new Vector2(0,-900)));
+		
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x-10, entity.centerLocation.y-10));
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x+10, entity.centerLocation.y-10));
 		int x = com.badlogic.gdx.math.MathUtils.random(0, 3);

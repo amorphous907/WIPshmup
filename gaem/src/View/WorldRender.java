@@ -135,6 +135,7 @@ public class WorldRender {
 		textures.put("enemyBeam", new Texture(Gdx.files.internal("data/texture/enemyBeam.png"))); 
 		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png")));
 		textures.put("vulcanBullet", new Texture(Gdx.files.internal("data/texture/vulcanbullet.png")));
+		textures.put("LaserBullet", new Texture(Gdx.files.internal("data/texture/LaserBullet.png")));
 		
 		
 		textures.put("star", new Texture(Gdx.files.internal("data/texture/star.png"))); //scenery and other background stuff, starting with everyone's favorite ball of death, a star

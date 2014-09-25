@@ -3,6 +3,8 @@ package Models.Players;
 import java.io.IOException;
 
 import Models.Enemies.Bosses.BOSS4turret;
+import Models.Weapons.LaserDEF;
+import Models.Weapons.SpreadDEF;
 import Models.Weapons.VanillaDEF;
 import Models.Weapons.VanillaSPD;
 import Models.Weapons.VanillaSTR;
@@ -28,33 +30,36 @@ public class Player1 extends Player{
 			float hitY) {
 		super(position, width, height, hitX, hitY);
 		actorID = 0;
-		int ship = 2;
+		int ship = com.badlogic.gdx.math.MathUtils.random(1, 3);
 		if(ship  == 1)
 		{
 			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
-			height = 60;
-			width = 60;
-			hitX = 45;
-			hitY = 45;
+			setHeight(60);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 45;
+			bounds.height = 45;
+			gun = new VanillaDEF();
 		}
 		if(ship  == 2)
 		{
-			//subObjects.add(new laserDECAL(new Vector2(), 1, this));
+			subObjects.add(new laserDECAL(new Vector2(), 1, this));
 			texture = "laser";
-			height = 60;
-			width = 90;
-			hitX = 60;
-			hitY = 45;
+			setHeight(60);// = 60;
+			setWidth(90);// = 60;
+			bounds.width = 60;
+			bounds.height = 45;
+			gun = new LaserDEF();
 		}
 		if(ship  == 3)
 		{
-			//subObjects.add(new spreadDECAL(new Vector2(), 1, this));
+			subObjects.add(new spreadDECAL(new Vector2(), 1, this));
 			texture = "spread";
-			height = 70;
-			width = 40;
-			hitX = 30;
-			hitY = 50;
+			setHeight(70);// = 60;
+			setWidth(40);// = 60;
+			bounds.width = 30;
+			bounds.height = 50;
+			gun = new SpreadDEF();
 		}
 		
 		//subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
@@ -70,7 +75,8 @@ public class Player1 extends Player{
 		fumes.setSprite(particleSprite);
 		fumes.getScale().setHigh(8f);
 		fumes.start();
-		gun = new VanillaDEF();
+		//gun = new VanillaDEF();// where guns were once previously
+
 	}
 	
 	public void update(World world){

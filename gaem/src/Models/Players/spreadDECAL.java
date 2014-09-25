@@ -14,7 +14,7 @@ public class spreadDECAL extends subObject{
 	private spreadDECAL Pcolor;
 	
 	public spreadDECAL(Vector2 offset, int Pcolor,  MoveableEntity Parent) {
-		super(offset, 61, 61, 45, 45, Parent);
+		super(offset, 41, 71, 45, 45, Parent);
 		actorID = 12;
 		texture = "spreadDECAL";
 		this.Pcolor = this;

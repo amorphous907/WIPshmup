@@ -14,7 +14,7 @@ public class laserDECAL extends subObject{
 	private laserDECAL Pcolor;
 	
 	public laserDECAL(Vector2 offset, int Pcolor,  MoveableEntity Parent) {
-		super(offset, 61, 61, 45, 45, Parent);
+		super(offset, 91, 61, 45, 45, Parent);
 		actorID = 12;
 		texture = "laserDECAL";
 		this.Pcolor = this;
