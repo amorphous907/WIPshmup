@@ -29,6 +29,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class WorldRender {
+	private boolean renderHud;
 	World world;
 	public SpriteBatch batch;
 	OrthographicCamera cam;
@@ -63,7 +64,7 @@ public class WorldRender {
 	public WorldRender(World world, gaemMain game){
 		this.world=world;
 		this.game=game;
-		
+		this.renderHud = this.world.renderHud;
 		world.setRender(this);
 		width = 1000;
 		height = 900;
@@ -207,7 +208,8 @@ public class WorldRender {
 		renderText(world.getText());
 		renderParticles();
 		renderBars();
-		hud.update();
+		if(renderHud)
+			hud.update();
 		batch.end();
 		
 		if(gaemMain.DEBUG)

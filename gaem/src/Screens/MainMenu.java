@@ -96,7 +96,7 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				game.audio.stopMusic();
-				game.setScreen(new GameScreen(game, level));
+				game.setScreen(new ShipSelection(level, game));
 			}
 		});
 		buttonPlay.pad(10, 75, 10, 75);
@@ -131,7 +131,7 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 			public void clicked(InputEvent event, float x, float y) {
 				level = 0;
 				game.audio.stopMusic();
-				game.setScreen(new GameScreen(game, level));
+				game.setScreen(new ShipSelection(level, game));
 			}
 		});
 		buttonEditor.pad(10, 75, 10, 75);

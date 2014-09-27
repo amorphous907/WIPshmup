@@ -32,7 +32,7 @@ public class level_1 extends level
 	public level_1(World world) {
 		super(world);
 		timeLimit = 60*2;
-		currentTime = 140;
+		currentTime = 0;
 	}
 	
 	@Override

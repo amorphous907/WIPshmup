@@ -29,37 +29,6 @@ public class Player4 extends Player{
 			float hitY) {
 		super(position, width, height, hitX, hitY);
 		actorID = 3;
-		int ship = com.badlogic.gdx.math.MathUtils.random(1, 3);
-		if(ship  == 1)
-		{
-			subObjects.add(new VanillaDECAL(new Vector2(), 4, this));
-			texture = "vanilla";
-			setHeight(60);// = 60;
-			setWidth(60);// = 60;
-			bounds.width = 45;
-			bounds.height = 45;
-			gun = new VanillaDEF();
-		}
-		if(ship  == 2)
-		{
-			subObjects.add(new laserDECAL(new Vector2(), 4, this));
-			texture = "laser";
-			setHeight(60);// = 60;
-			setWidth(90);// = 60;
-			bounds.width = 60;
-			bounds.height = 45;
-			gun = new LaserDEF();
-		}
-		if(ship  == 3)
-		{
-			subObjects.add(new spreadDECAL(new Vector2(), 4, this));
-			texture = "spread";
-			setHeight(70);// = 60;
-			setWidth(40);// = 60;
-			bounds.width = 30;
-			bounds.height = 50;
-			gun = new SpreadDEF();
-		}
 		//subObjects.add(new VanillaDECAL(new Vector2(), 4, this));
 		fumes = new ParticleEmitter();
 		try {
@@ -74,6 +43,27 @@ public class Player4 extends Player{
 		fumes.getScale().setHigh(8f);
 		fumes.start();
 		gun = new VanillaDEF();
+	}
+	
+	public Player4(Vector2 position, float width, float height, float hitX,
+			float hitY, SelectShip ship) {
+		super(position, width, height, hitX, hitY, ship);
+		
+		actorID = 0;
+		
+		//subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+		fumes = new ParticleEmitter();
+		try {
+            fumes.load(Gdx.files.internal("data/particle/Player1Fumes").reader(2024));
+		} catch (IOException e) {
+            e.printStackTrace();
+		}
+		fumes.setPosition(position.x, position.y);
+		Texture particle = new Texture("data/particle/particle.png");
+		Sprite particleSprite = new Sprite(particle);
+		fumes.setSprite(particleSprite);
+		fumes.getScale().setHigh(8f);
+		fumes.start();
 	}
 	
 	public void update(World world){

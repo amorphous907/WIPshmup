@@ -21,6 +21,7 @@ public class AudioManager {
 		musics.put("level_2 boss", Gdx.audio.newMusic(Gdx.files.local("data/sound/level_2 boss.mp3")));
 		musics.put("level_3", Gdx.audio.newMusic(Gdx.files.local("data/sound/level_3.mp3")));
 		musics.put("level_3 boss", Gdx.audio.newMusic(Gdx.files.local("data/sound/level_3 boss.mp3")));
+		musics.put("ship_selection", Gdx.audio.newMusic(Gdx.files.local("data/sound/ship_selection.mp3")));
 		
 		sounds.put("PlayerLaser1", Gdx.audio.newSound(Gdx.files.local("data/sound/effects/Player1Laser1.wav")));
 		sounds.put("PlayerLaser2", Gdx.audio.newSound(Gdx.files.local("data/sound/effects/Player1Laser2.wav")));

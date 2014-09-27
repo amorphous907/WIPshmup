@@ -1,19 +1,21 @@
 package Screens;
 
+import Models.Players.SelectShip;
 import View.World;
 import View.WorldRender;
 
 import com.amorphous.gaem.gaemMain;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen{
 	gaemMain game;
 	World world;
 	WorldRender render;
 	
-	public GameScreen(gaemMain game, int level){
+	public GameScreen(gaemMain game, int level, Array<SelectShip> selectedShips){
 		this.game = game;
-		world = new World(game, level);
+		world = new World(game, level, selectedShips);
 		render = new WorldRender(world, game);
 	}
 	

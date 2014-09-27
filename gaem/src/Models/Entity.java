@@ -21,7 +21,7 @@ public class Entity {
 	public int health;
 	public int maxHealth;
 	protected float rotation;
-	protected int AI;
+	public int AI;
 	public int actorID;
 	public Vector2 centerLocation;
 	public int score = 0;

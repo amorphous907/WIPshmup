@@ -76,6 +76,27 @@ public class Player2 extends Player{
 		gun = new VanillaDEF();
 	}
 	
+	public Player2(Vector2 position, float width, float height, float hitX,
+			float hitY, SelectShip ship) {
+		super(position, width, height, hitX, hitY, ship);
+		
+		actorID = 0;
+		
+		//subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+		fumes = new ParticleEmitter();
+		try {
+            fumes.load(Gdx.files.internal("data/particle/Player1Fumes").reader(2024));
+		} catch (IOException e) {
+            e.printStackTrace();
+		}
+		fumes.setPosition(position.x, position.y);
+		Texture particle = new Texture("data/particle/particle.png");
+		Sprite particleSprite = new Sprite(particle);
+		fumes.setSprite(particleSprite);
+		fumes.getScale().setHigh(8f);
+		fumes.start();
+	}
+	
 	public void update(World world){
 		if(health <= 0){
 			//world.getRender().UefExplode(new Vector2((position.x+width/2),(position.y+height/2)));

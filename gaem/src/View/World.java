@@ -12,6 +12,7 @@ import Models.Players.Player1;
 import Models.Players.Player2;
 import Models.Players.Player3;
 import Models.Players.Player4;
+import Models.Players.SelectShip;
 import Screens.MainMenu;
 import View.Levels.levelEditor;
 import View.Levels.level_1;
@@ -41,6 +42,7 @@ public class World {
 	public Timer timer;
 	public int score = 0;
 	public int layers = 15;
+	public boolean moving = false;
 
 	public Array<Array<MoveableEntity>> actors;
 	public Array<MoveableEntity> actors2;
@@ -101,11 +103,12 @@ public class World {
 	public int currentLevel;
 
 	public int lives;
+	public boolean renderHud;
 	//ignore this parker
-	public World(gaemMain game, int level){
+	public World(gaemMain game, int level, Array<SelectShip> selectedShips){
 		this.game = game;
 		timer = new Timer();
-		
+		renderHud = true;
 		mousePos = new Vector3();
 		mouseDown = -1;
 		
@@ -138,6 +141,132 @@ public class World {
 		text = new Array<Text>();
 		
 		spawn = new Vector2(325, 725);
+
+		rnd = new Random();
+
+		Gdx.input.setInputProcessor(new InputHandler(this));
+		//Controllers.addListener(new GamepadHandler(this));
+		gamepads = Controllers.getControllers();
+		
+		player1=new Player1(new Vector2(9999 , 99999),60,60,45,45, selectedShips.get(0));
+		if(gamepads.size >= 1){
+			player2=new Player2(new Vector2(9999 , 99999),60,60,45,45,selectedShips.get(1));
+		} else {
+			player2=new Player2(new Vector2(9999 , 99999),60,60,45,45);
+		}
+		if(gamepads.size >= 2){
+			player3=new Player3(new Vector2(9999 , 99999),60,60,45,45,selectedShips.get(2));
+		} else {
+			player3=new Player3(new Vector2(9999 , 99999),60,60,45,45);
+		}
+		if(gamepads.size >= 3){
+			player4=new Player4(new Vector2(9999 , 99999),60,60,45,45,selectedShips.get(3));
+		} else {
+			player4=new Player4(new Vector2(9999 , 99999),60,60,45,45);
+		}
+		
+		if(gamepads.size < 4){
+			for(int c = 0; c < gamepads.size; c++){
+				switch(c){
+				case 0:
+					player2Gamepad = gamepads.get(c);
+					player2.gamepad = true;
+					player2Gamepad.addListener(new GamepadHandler(this, 2));
+					break;
+				case 1:
+					player3Gamepad = gamepads.get(c);
+					player3.gamepad = true;
+					player3Gamepad.addListener(new GamepadHandler(this, 3));
+					System.out.println(c);
+					break;
+				case 2:
+					player4Gamepad = gamepads.get(c);
+					player4.gamepad = true;
+					player4Gamepad.addListener(new GamepadHandler(this, 4));
+					break;
+				default:
+					break;
+				}
+			}
+		} else{
+			for(int c = 0; c < gamepads.size; c++){
+				switch(c){
+				case 0:
+					player1Gamepad = gamepads.get(c);
+					player1.gamepad = true;
+					player1Gamepad.addListener(new GamepadHandler(this, 1));
+					break;
+				case 1:
+					player2Gamepad = gamepads.get(c);
+					player2.gamepad = true;
+					player2Gamepad.addListener(new GamepadHandler(this, 2));
+					break;
+				case 2:
+					player3Gamepad = gamepads.get(c);
+					player3.gamepad = true;
+					player3Gamepad.addListener(new GamepadHandler(this, 3));
+					break;
+				case 3:
+					player4Gamepad = gamepads.get(c);
+					player4.gamepad = true;
+					player4Gamepad.addListener(new GamepadHandler(this, 4));
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+
+
+		keys = new boolean[255];
+		controllerButtons = new boolean[9*4];
+		controllerAxis = new float[5*4];
+		controllerPOV = new boolean[4*4];
+		Arrays.fill(keys, Boolean.FALSE);
+		Arrays.fill(controllerPOV, Boolean.FALSE);
+		Arrays.fill(controllerButtons, Boolean.FALSE);
+		Arrays.fill(controllerAxis, 0.0f);
+		this.level = levels.get(currentLevel);
+	}
+
+	public World(gaemMain game, int level) {
+		this.game = game;
+		timer = new Timer();
+		renderHud = true;
+		mousePos = new Vector3();
+		mouseDown = -1;
+		
+		edit = new levelEditor(this);//0
+		level1 = new level_1(this);//1
+		level2 = new level_2(this);//2
+		//level3 = new level_3();//3
+		currentLevel = level;
+
+		levels = new Array<View.Levels.level>();
+		levels.add(edit); //0
+		levels.add(level1); //1
+		levels.add(level2); //2
+
+		lives = 110;
+		players = 1;
+
+		actors = new Array<Array<MoveableEntity>>();
+		for(int c = 0; c <= layers; c++){
+			actors.add(new Array<MoveableEntity>());
+		}
+		background = new Array<Array<MoveableEntity>>();
+		for(int c = 0; c <= layers; c++){
+			background.add(new Array<MoveableEntity>());
+		}
+		foreground = new Array<Array<MoveableEntity>>();
+		for(int c = 0; c <= layers; c++){
+			foreground.add(new Array<MoveableEntity>());
+		}
+		text = new Array<Text>();
+		
+		spawn = new Vector2(325, 725);
+		
 		player1=new Player1(new Vector2(9999 , 99999),60,60,45,45);
 		player2=new Player2(new Vector2(9999 , 99999),60,60,45,45);
 		player3=new Player3(new Vector2(9999 , 99999),60,60,45,45);
@@ -414,7 +543,7 @@ public class World {
 		return array;
 	}
 
-	private void handleInputs() {
+	protected void handleInputs() {
 		if(keys[Keys.ESCAPE]){
 			game.audio.stopMusic();
 			game.setScreen(new MainMenu(game));

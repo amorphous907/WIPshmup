@@ -5,6 +5,8 @@ import Models.Enemies.TestTurret;
 import Models.Players.Powerups.PowerupSPD;
 import Models.Players.Powerups.PowerupSTR;
 import Models.Weapons.Gun;
+import Models.Weapons.LaserDEF;
+import Models.Weapons.SpreadDEF;
 import Models.Weapons.VanillaDEF;
 import Models.Weapons.VanillaSPD;
 import Models.Weapons.VanillaSTR;
@@ -38,6 +40,83 @@ public class Player extends MoveableEntity{
 		vanillastr = new VanillaSTR();
 		vanillaspd = new VanillaSPD();
 		render = false;
+		
+		int ship = com.badlogic.gdx.math.MathUtils.random(1, 3);
+		
+		if(ship  == 1)
+		{
+			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+			texture = "vanilla";
+			setHeight(60);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 45;
+			bounds.height = 45;
+			gun = new VanillaDEF();
+		}
+		if(ship  == 2)
+		{
+			subObjects.add(new laserDECAL(new Vector2(), 1, this));
+			texture = "laser";
+			setHeight(60);// = 60;
+			setWidth(90);// = 60;
+			bounds.width = 60;
+			bounds.height = 45;
+			gun = new LaserDEF();
+		}
+		if(ship  == 3)
+		{
+			subObjects.add(new spreadDECAL(new Vector2(), 1, this));
+			texture = "spread";
+			setHeight(70);// = 60;
+			setWidth(40);// = 60;
+			bounds.width = 30;
+			bounds.height = 50;
+			gun = new SpreadDEF();
+		}
+	}
+	
+	public Player(Vector2 position, float width, float height, float hitX,
+			float hitY, SelectShip ship) {
+		super(position, width, height, hitX, hitY);
+		health = 500;
+		isPlaying = false;
+		maxHealth = 500;
+		gun = new Gun();
+		vanilladef = new VanillaDEF();
+		vanillastr = new VanillaSTR();
+		vanillaspd = new VanillaSPD();
+		render = false;
+		System.out.println(ship.AI);
+		if(ship.AI  == 0)
+		{
+			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+			texture = "vanilla";
+			setHeight(60);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 45;
+			bounds.height = 45;
+			gun = new VanillaDEF();
+		}
+		if(ship.AI  == 1)
+		{
+			subObjects.add(new laserDECAL(new Vector2(), 1, this));
+			texture = "laser";
+			setHeight(60);// = 60;
+			setWidth(90);// = 60;
+			bounds.width = 60;
+			bounds.height = 45;
+			gun = new LaserDEF();
+		}
+		if(ship.AI  == 2)
+		{
+			subObjects.add(new spreadDECAL(new Vector2(), 1, this));
+			texture = "spread";
+			setHeight(70);// = 60;
+			setWidth(40);// = 60;
+			bounds.width = 30;
+			bounds.height = 50;
+			gun = new SpreadDEF();
+		}
 	}
 	public Player(Vector2 position, float width, float height,
 			float hitX, float hitY, Vector2 velocity, float rotation){
