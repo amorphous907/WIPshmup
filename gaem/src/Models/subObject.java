@@ -30,7 +30,7 @@ public class subObject extends MoveableEntity{
 		bounds.y = position.y+height/2-bounds.getHeight()/2;
 		
 		if(subFade){
-			color.lerp(Color.WHITE, Gdx.graphics.getDeltaTime()*4);
+			color.lerp(baseColor, Gdx.graphics.getDeltaTime()*4);
 			if(color.r >= 0.95f && color.g >= 0.95f && color.b >= 0.95f)
 				fadeToBase = false;
 		}

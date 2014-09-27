@@ -2,7 +2,6 @@ package Models.Weapons;
 
 import Models.MoveableEntity;
 import Models.Weapons.Projectiles.Bullet;
-import Models.Weapons.Projectiles.LaserBullet;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;

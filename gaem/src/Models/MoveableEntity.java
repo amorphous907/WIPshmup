@@ -79,8 +79,8 @@ public class MoveableEntity extends Entity{
 		}
 		
 		if(fadeToBase){
-			color.lerp(baseColor, Gdx.graphics.getDeltaTime()*fadeRate);
-			if(color.r >= 0.95f && color.g >= 0.95f && color.b >= 0.95f)
+			color.lerp(baseColor.cpy(), Gdx.graphics.getDeltaTime()*fadeRate);
+			if(color.r == baseColor.r && color.g == baseColor.g && color.b == baseColor.b)
 				fadeToBase = false;
 		}
 		
