@@ -25,7 +25,7 @@ public class level_1 extends level
 	int x;
 	int y;
 	int z;
-	float time = 45;
+	float time = 120;
 	boolean NOVA = true;
 	boolean tile = true;
 	boolean halfway = false;
@@ -111,6 +111,7 @@ public class level_1 extends level
 			if(time >= 60 && !minibosssummon)
 			{
 				world.actors.get(0).add(new GunshipBasic(new Vector2(350,-200)));
+				minibosssummon = true;
 				halfway = true;
 			}
 			

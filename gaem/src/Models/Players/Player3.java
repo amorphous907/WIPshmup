@@ -2,6 +2,8 @@ package Models.Players;
 
 import java.io.IOException;
 
+import Models.Weapons.LaserDEF;
+import Models.Weapons.SpreadDEF;
 import Models.Weapons.VanillaDEF;
 import Models.Weapons.VanillaSPD;
 import Models.Weapons.VanillaSTR;
@@ -27,8 +29,37 @@ public class Player3 extends Player{
 			float hitY) {
 		super(position, width, height, hitX, hitY);
 		actorID = 2;
-		subObjects.add(new VanillaDECAL(new Vector2(), 3, this));
-		texture = "vanilla";
+		int ship = com.badlogic.gdx.math.MathUtils.random(1, 3);
+		if(ship  == 1)
+		{
+			subObjects.add(new VanillaDECAL(new Vector2(), 3, this));
+			texture = "vanilla";
+			setHeight(60);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 45;
+			bounds.height = 45;
+			gun = new VanillaDEF();
+		}
+		if(ship  == 2)
+		{
+			subObjects.add(new laserDECAL(new Vector2(), 3, this));
+			texture = "laser";
+			setHeight(60);// = 60;
+			setWidth(90);// = 60;
+			bounds.width = 60;
+			bounds.height = 45;
+			gun = new LaserDEF();
+		}
+		if(ship  == 3)
+		{
+			subObjects.add(new spreadDECAL(new Vector2(), 3, this));
+			texture = "spread";
+			setHeight(70);// = 60;
+			setWidth(40);// = 60;
+			bounds.width = 30;
+			bounds.height = 50;
+			gun = new SpreadDEF();
+		}
 		//subObjects.add(new VanillaDECAL(new Vector2(), 3, this));
 		fumes = new ParticleEmitter();
 		try {
