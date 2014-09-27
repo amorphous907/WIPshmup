@@ -20,12 +20,6 @@ public abstract class level {
 	public abstract void start();
 	
 	public abstract void update();
-	{
-		if(minibossded)
-		{
-			System.out.println("DEAD DEAD DEAD");
-		}
-	}
 	
 	protected abstract void HandleWaves(int wave);
 	
@@ -43,6 +37,30 @@ public abstract class level {
 
 	public void setTimeLimit(float timeLimit) {
 		this.timeLimit = timeLimit;
+	}
+
+	public boolean isBossDead() {
+		return bossDead;
+	}
+
+	public void setBossDead(boolean bossDead) {
+		this.bossDead = bossDead;
+	}
+
+	public boolean isWaveDone() {
+		return waveDone;
+	}
+
+	public void setWaveDone(boolean waveDone) {
+		this.waveDone = waveDone;
+	}
+
+	public boolean isMinibossded() {
+		return minibossded;
+	}
+
+	public void setMinibossded(boolean minibossded) {
+		this.minibossded = minibossded;
 	}
 	
 }

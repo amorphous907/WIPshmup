@@ -38,7 +38,7 @@ public class BOSS1 extends Enemy
 	public BOSS1(Vector2 position) 
 	{
 		super(position, 300, 180, 290, 170);
-		health = 15000;
+		health = 1;//5000;
 		score = 15000;
 		tick = 0;
 		velocity = new Vector2(0,150);
@@ -51,6 +51,8 @@ public class BOSS1 extends Enemy
 	public void update(final World world)
 	{
 		super.update(world);
+		if(health <= 0)
+        	world.level.bossDead = true;
 		if(wait)
 		{
 			if(ready_4_battle == 1)
@@ -215,9 +217,6 @@ public class BOSS1 extends Enemy
 	        {
 	            velocity.x = Xvel;
 	        }
-	        
-	        if(health <= 0)
-	        	world.levels.get(world.currentLevel).bossDead = true;
 	     
 			world.timer.scheduleTask(new Task(){
 

@@ -25,7 +25,6 @@ public class level_1 extends level
 	int x;
 	int y;
 	int z;
-	float time = 120;
 	boolean NOVA = true;
 	boolean tile = true;
 	boolean halfway = false;
@@ -33,10 +32,14 @@ public class level_1 extends level
 	public level_1(World world) {
 		super(world);
 		timeLimit = 60*2;
+		currentTime = 140;
 	}
 	
 	@Override
 	public void update() {
+		if(bossDead){
+			System.out.println("DEAD");
+		}
 		if(star){
 			world.timer.scheduleTask(new Task(){
 				@Override
@@ -96,26 +99,26 @@ public class level_1 extends level
 			musicstart = false;
 		}
 		
-		if(waveDone && time < timeLimit)
+		if(waveDone && currentTime < timeLimit)
 		{
-			if(time < 30)
+			if(currentTime < 30)
 			{
 				System.out.println("tier 1");
 				x = com.badlogic.gdx.math.MathUtils.random(1, 10);
 			}
-			if(time >= 30 && time < 60)
+			if(currentTime >= 30 && currentTime < 60)
 			{
 				System.out.println("tier 2");
 				y = com.badlogic.gdx.math.MathUtils.random(1, 5);
 			}
-			if(time >= 60 && !minibosssummon)
+			if(currentTime >= 60 && !minibosssummon)
 			{
 				world.actors.get(0).add(new GunshipBasic(new Vector2(350,-200)));
 				minibosssummon = true;
 				halfway = true;
 			}
 			
-			if(time >= 60 && minibossded)
+			if((currentTime >= 60) && minibossded)
 			{
 				
 				System.out.println("tier 3");
@@ -126,7 +129,7 @@ public class level_1 extends level
 			HandleWaves(x);
 		}
 		
-		if(time >= timeLimit && boss_here == 0)
+		if(currentTime >= timeLimit && boss_here == 0)
 		{
 			world.game.audio.stopMusic("level_1");
 			boss_here = 1;
@@ -219,7 +222,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 5.2f;
+					currentTime = currentTime + 5.2f;
 					waveDone = true;
 				}
 			} , 5.2f);
@@ -304,7 +307,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.6f;
+					currentTime = currentTime + 3.6f;
 					waveDone = true;
 				}
 			} , 3.6f);
@@ -397,7 +400,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 5.0f;
+					currentTime = currentTime + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -473,7 +476,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.4f;
+					currentTime = currentTime + 3.4f;
 					waveDone = true;
 				}
 			} , 3.4f);
@@ -556,7 +559,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 4.7f;
+					currentTime = currentTime + 4.7f;
 					waveDone = true;
 				}
 			} , 4.7f);
@@ -634,7 +637,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.9f;
+					currentTime = currentTime + 3.9f;
 					waveDone = true;
 				}
 			} , 3.9f);
@@ -709,7 +712,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.8f;
+					currentTime = currentTime + 2.8f;
 					waveDone = true;
 				}
 			} , 2.8f);
@@ -773,7 +776,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.6f;
+					currentTime = currentTime + 3.6f;
 					waveDone = true;
 				}
 			} , 3.6f);
@@ -862,7 +865,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 4.8f;
+					currentTime = currentTime + 4.8f;
 					waveDone = true;
 				}
 			} , 4.8f);
@@ -982,7 +985,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 7.5f;
+					currentTime = currentTime + 7.5f;
 					waveDone = true;
 				}
 			} , 7.5f);
@@ -1055,7 +1058,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.0f;
+					currentTime = currentTime + 2.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -1148,7 +1151,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 6.5f;
+					currentTime = currentTime + 6.5f;
 					waveDone = true;
 				}
 			} , 6.5f);
@@ -1215,7 +1218,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 5.5f;
+					currentTime = currentTime + 5.5f;
 					waveDone = true;
 				}
 			} , 5.5f);
@@ -1366,7 +1369,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 9.0f;
+					currentTime = currentTime + 9.0f;
 					waveDone = true;
 				}
 			} , 9.0f);
@@ -1439,7 +1442,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 6.0f;
+					currentTime = currentTime + 6.0f;
 					waveDone = true;
 				}
 			} , 6.0f);
@@ -1464,7 +1467,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + #.#f;
+					currentTime = currentTime + #.#f;
 					waveDone = true;
 				}
 			} , #.#f);
@@ -1510,7 +1513,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.5f;
+					currentTime = currentTime + 3.5f;
 					waveDone = true;
 				}
 			} , 3.5f);
@@ -1554,7 +1557,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.2f;
+					currentTime = currentTime + 3.2f;
 					waveDone = true;
 				}
 			} , 3.2f);
@@ -1627,7 +1630,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.0f;
+					currentTime = currentTime + 3.0f;
 					waveDone = true;
 				}
 			} , 3.0f);
@@ -1671,7 +1674,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.2f;
+					currentTime = currentTime + 2.2f;
 					waveDone = true;
 				}
 			} , 2.2f);
@@ -1725,7 +1728,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.9f;
+					currentTime = currentTime + 3.9f;
 					waveDone = true;
 				}
 			} , 3.9f);
@@ -1795,7 +1798,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.0f;
+					currentTime = currentTime + 3.0f;
 					waveDone = true;
 				}
 			} , 3.0f);
@@ -1867,7 +1870,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 5.0f;
+					currentTime = currentTime + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -1910,7 +1913,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 5.0f;
+					currentTime = currentTime + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -1954,7 +1957,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 5.0f;
+					currentTime = currentTime + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -2018,7 +2021,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 8.0f;
+					currentTime = currentTime + 8.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -2056,7 +2059,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.6f;
+					currentTime = currentTime + 2.6f;
 					waveDone = true;
 				}
 			} , 2.8f);
@@ -2099,7 +2102,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.8f;
+					currentTime = currentTime + 3.8f;
 					waveDone = true;
 				}
 			} , 3.8f);
@@ -2169,7 +2172,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.0f;
+					currentTime = currentTime + 3.0f;
 					waveDone = true;
 				}
 			} , 3.0f);
@@ -2223,7 +2226,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 4.0f;
+					currentTime = currentTime + 4.0f;
 					waveDone = true;
 				}
 			} , 4.0f);
@@ -2267,7 +2270,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.7f;
+					currentTime = currentTime + 2.7f;
 					waveDone = true;
 				}
 			} , 2.7f);
@@ -2330,7 +2333,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.6f;
+					currentTime = currentTime + 2.6f;
 					waveDone = true;
 				}
 			} , 2.6f);
@@ -2389,7 +2392,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.0f;
+					currentTime = currentTime + 2.0f;
 					waveDone = true;
 				}
 			} , 2.0f);
@@ -2451,7 +2454,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 5.0f;
+					currentTime = currentTime + 5.0f;
 					waveDone = true;
 				}
 			} , 5.0f);
@@ -2495,7 +2498,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 3.8f;
+					currentTime = currentTime + 3.8f;
 					waveDone = true;
 				}
 			} , 3.8f);
@@ -2533,7 +2536,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 2.5f;
+					currentTime = currentTime + 2.5f;
 					waveDone = true;
 				}
 			} , 2.5f);
@@ -2558,7 +2561,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					time = time + 0.0f;
+					currentTime = currentTime + 0.0f;
 					waveDone = true;
 				}
 			} , 3.0f);

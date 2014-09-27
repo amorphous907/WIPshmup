@@ -27,10 +27,10 @@ public class GunshipBasic extends Enemy
 	public void update(World world)
 	{
 		super.update(world);
-		if(health <= 0)
+		if(health <= 1)
 		{
 	        world.level.minibossded = true;
-			System.out.println("DEAD DEAD DEAD WHY");
+	        world.level.setWaveDone(true);
 		}
 
 		
