@@ -11,11 +11,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
-public class ghettolaser extends MoveableEntity
+public class PlayerLaser extends MoveableEntity
 {
 	public boolean explode = false;
 
-public ghettolaser(Vector2 position, Vector2 velocity){
+public PlayerLaser(Vector2 position, Vector2 velocity){
 		super(position, 10, 50, 5, 45);
 		this.velocity = velocity;
 		actorID = 28;

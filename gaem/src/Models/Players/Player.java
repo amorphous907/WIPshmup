@@ -91,6 +91,7 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
+			maxHealth = 500;
 			setHeight(60);// = 60;
 			setWidth(60);// = 60;
 			bounds.width = 45;
@@ -101,6 +102,7 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new laserDECAL(new Vector2(), 1, this));
 			texture = "laser";
+			maxHealth = 800;
 			setHeight(60);// = 60;
 			setWidth(90);// = 60;
 			bounds.width = 60;
@@ -111,6 +113,7 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new spreadDECAL(new Vector2(), 1, this));
 			texture = "spread";
+			maxHealth = 300;
 			setHeight(70);// = 60;
 			setWidth(40);// = 60;
 			bounds.width = 30;

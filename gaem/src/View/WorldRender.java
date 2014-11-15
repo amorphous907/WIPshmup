@@ -118,10 +118,16 @@ public class WorldRender {
 		textures.put("spaceMine1", new Texture(Gdx.files.internal("data/texture/spaceMine1.png")));
 		textures.put("enemyMissile", new Texture(Gdx.files.internal("data/texture/EnemyMissile.png")));
 		textures.put("eTurret1", new Texture(Gdx.files.internal("data/texture/eTurret1.png"))); //turrets
+		textures.put("EnemyMine", new Texture(Gdx.files.internal("data/texture/EnemyMine.png")));//mines
+		textures.put("FLAKMine", new Texture(Gdx.files.internal("data/texture/FLAKMine.png")));
 		
 		textures.put("boss1", new Texture(Gdx.files.internal("data/texture/BOSS1.png"))); //BOSSES, THE BEST PART OF THE GAME, starting with boss1
 		textures.put("boss1turret", new Texture(Gdx.files.internal("data/texture/BOSS1turret.png")));
 		textures.put("boss2", new Texture(Gdx.files.internal("data/texture/BOSS2.png"))); //BOSS2
+		textures.put("boss3INVIS", new Texture(Gdx.files.internal("data/texture/BOSS3INVIS.png"))); //BOSS3INVIS
+		textures.put("invisMine", new Texture(Gdx.files.internal("data/texture/InvisMine.png")));
+		//textures.put("boss3EMP", new Texture(Gdx.files.internal("data/texture/BOSS3EMP.png"))); //BOSS3EMP
+		//textures.put("empMine", new Texture(Gdx.files.internal("data/texture/EmpMine.png")));
 		textures.put("boss4", new Texture(Gdx.files.internal("data/texture/BOSS4.png"))); //BOSS4
 		textures.put("boss4armL", new Texture(Gdx.files.internal("data/texture/BOSS4armL.png")));
 		textures.put("boss4armR", new Texture(Gdx.files.internal("data/texture/BOSS4armR.png")));

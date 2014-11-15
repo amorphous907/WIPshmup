@@ -68,7 +68,7 @@ public class level_2 extends level
 					{
 						starttier2 = true;
 					}
-				} , 5.0f);
+				} , 3.0f);
 			}
 			
 			if(time >= 30 && starttier2)

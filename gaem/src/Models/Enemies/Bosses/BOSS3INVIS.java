@@ -4,6 +4,8 @@ package Models.Enemies.Bosses;
 import Models.MoveableEntity;
 import Models.Enemies.Enemy;
 import Models.Enemies.EnemyHurtmark;
+import Models.Enemies.EnemyMines;
+import Models.Enemies.LightTiny;
 import Models.Weapons.Projectiles.EnemyBullet;
 import Models.Weapons.Projectiles.EnemyWide;
 import Models.Enemies.EnemyMissile;
@@ -14,11 +16,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer.Task;
 
-public class BOSS1 extends Enemy
+public class BOSS3INVIS extends Enemy
 {
 	Vector2 aim;
 	boolean vertmove = false;
 	boolean stopper = true;
+	boolean fireside  = true;
 	boolean hurt1 = true;
 	boolean hurt2 = true;
 	boolean hurt3 = true;
@@ -35,16 +38,14 @@ public class BOSS1 extends Enemy
     int ready_4_battle = 1;
     private boolean wait = true;
 	
-	public BOSS1(Vector2 position) 
+	public BOSS3INVIS(Vector2 position) 
 	{
-		super(position, 300, 180, 290, 170);
-		health = 15000;
-		score = 15000;
+		super(position, 360, 169, 350, 159);
+		health = 35000;
+		score = 35000;
 		tick = 0;
 		velocity = new Vector2(0,150);
-		texture = "boss1";
-		subObjects.add(new BOSS1turret(new Vector2(100,-10), 75, 75, 0, 0, this));
-		subObjects.add(new BOSS1turret(new Vector2(-100,-10), 75, 75, 0, 0, this));
+		texture = "boss3INVIS";
 	}
 	
 	@Override
@@ -57,35 +58,38 @@ public class BOSS1 extends Enemy
 		{
 			if(ready_4_battle == 1)
 			{
-			if(pingA > 200 || pingB > 10)
-	        {
-				world.timer.scheduleTask(new Task() 
+				if(pingA > 200 || pingB > 10)
 				{
-					@Override
-					public void run()
+					world.timer.scheduleTask(new Task() 
 					{
-						x = com.badlogic.gdx.math.MathUtils.random(1, 4);
-					}
-				} , 2.0f);
+						@Override
+						public void run()
+						{
+							x = com.badlogic.gdx.math.MathUtils.random(1, 4);
+						}
+					} , 2.0f);
 	            
-	            pingA = 0;
-	            pingB = 0;
-	        }
+					pingA = 0;
+	            	pingB = 0;
+				}	
 	        if(x == 1)
 	        {
-	        	if(velocity.x < 0)
-	        	{
-		        	velocity.x = -33;
-	        	}
-	        	else
-	        	{
-		        	velocity.x = 33;
-	        	}
-
 	            if(fired>firerateA)
 	            {
-	            	world.actors.get(0).add(new EnemyWide(new Vector2(position.x+width/2+100,position.y+height),50,25,45,20));
-	            	world.actors.get(0).add(new EnemyWide(new Vector2(position.x+width/2-100,position.y+height),50,25,45,20));
+	            	if(fireside)
+	            	{
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(125,600)));
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25));
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-125,600)));
+	            		fireside = false;
+	            	}
+	            	else
+	            	{
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(125,600)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-125,600)));
+		            	fireside = true;
+	            	}
 	            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 	                fired=0;
 	                pingA++;
@@ -95,25 +99,11 @@ public class BOSS1 extends Enemy
 	                fired++;
 	            }
 	        }
-	        else
-	        {
-	        	Xvel = 100;
-	        	if(velocity.x < 0)
-	        	{
-		        	velocity.x = -100;
-	        	}
-	        	else
-	        	{
-		        	velocity.x = 100;
-	        	}
-	        }
 	        if(x == 2)
 	        {
 	        	if(fired>firerateB)
 	            {
-	            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(125,600)));
-	            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25));
-	            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-125,600)));
+	        		world.actors.get(0).add(new EnemyMines(new Vector2(0,-100), 1));
 	            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 	                fired=0;
 	                pingB++;
@@ -257,3 +247,4 @@ public class BOSS1 extends Enemy
 		}
 	}
 }
+

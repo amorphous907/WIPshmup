@@ -9,7 +9,7 @@ import Models.Enemies.GunshipBasic;
 import Models.Enemies.LightBasic;
 import Models.Enemies.LightSpread;
 import Models.Enemies.LightTiny;
-import Models.Enemies.Bosses.BOSS1;
+import Models.Enemies.Bosses.BOSS3INVIS;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
@@ -143,7 +143,7 @@ public class level_1 extends level
 				@Override
 				public void run()
 				{
-					world.actors.get(0).add(new BOSS1(new Vector2(350,200)));
+					world.actors.get(0).add(new BOSS3INVIS(new Vector2(350,-200)));
 				}
 			} , 3.0f);
 		}

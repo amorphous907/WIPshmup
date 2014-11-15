@@ -2,7 +2,7 @@ package Models.Weapons;
 
 import Models.MoveableEntity;
 import Models.Weapons.Projectiles.Bullet;
-import Models.Weapons.Projectiles.ghettolaser;
+import Models.Weapons.Projectiles.PlayerLaser;
 //import Models.Weapons.Projectiles.LaserBullet;
 import View.World;
 
@@ -33,8 +33,8 @@ public class LaserDEF extends Gun{
 	
 	@Override
 	protected void fire(World world, MoveableEntity entity){
-		projectiles.add(new ghettolaser(new Vector2(entity.centerLocation.x-12, entity.centerLocation.y), new Vector2(0,-900)));
-		projectiles.add(new ghettolaser(new Vector2(entity.centerLocation.x+12, entity.centerLocation.y), new Vector2(0,-900)));
+		projectiles.add(new PlayerLaser(new Vector2(entity.centerLocation.x-12, entity.centerLocation.y), new Vector2(0,-900)));
+		projectiles.add(new PlayerLaser(new Vector2(entity.centerLocation.x+12, entity.centerLocation.y), new Vector2(0,-900)));
 		
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x-10, entity.centerLocation.y-10));
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x+10, entity.centerLocation.y-10));
