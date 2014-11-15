@@ -187,6 +187,9 @@ public class editorGrid extends MoveableEntity{
 		case "BOSS4":
 			texture = "boss4";
 			break;
+		case "":
+			texture = "edit";
+			break;
 		default:
 			texture = "NONE";
 			break;
