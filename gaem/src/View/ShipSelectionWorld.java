@@ -125,7 +125,7 @@ public class ShipSelectionWorld extends World{
 				selectedShips.add(ships2.get(ship2select));
 			}
 			if(gamepads.size >= 2){
-				selectedShips.add(ships3.get(ship4select));
+				selectedShips.add(ships3.get(ship3select));
 			}
 			if(gamepads.size >= 3){
 				selectedShips.add(ships4.get(ship4select));
