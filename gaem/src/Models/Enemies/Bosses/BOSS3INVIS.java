@@ -4,7 +4,7 @@ package Models.Enemies.Bosses;
 import Models.MoveableEntity;
 import Models.Enemies.Enemy;
 import Models.Enemies.EnemyHurtmark;
-import Models.Enemies.EnemyMines;
+import Models.Enemies.EnemyMine;
 import Models.Enemies.LightTiny;
 import Models.Weapons.Projectiles.EnemyBullet;
 import Models.Weapons.Projectiles.EnemyWide;
@@ -103,7 +103,7 @@ public class BOSS3INVIS extends Enemy
 	        {
 	        	if(fired>firerateB)
 	            {
-	        		world.actors.get(0).add(new EnemyMines(new Vector2(0,-100), 1));
+	        		world.actors.get(0).add(new EnemyMine(new Vector2(0,-100), 1));
 	            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 	                fired=0;
 	                pingB++;
