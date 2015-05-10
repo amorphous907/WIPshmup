@@ -16,17 +16,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.bitfire.postprocessing.PostProcessor;
+import com.bitfire.postprocessing.effects.Bloom;
+import com.bitfire.postprocessing.filters.Blur.BlurType;
+import com.bitfire.utils.ShaderLoader;
 
 public class WorldRender {
 	private boolean renderHud;
@@ -34,7 +43,7 @@ public class WorldRender {
 	public SpriteBatch batch;
 	OrthographicCamera cam;
 	FPSLogger logger = new FPSLogger();
-	float width, height;
+	int width, height;
 	ShapeRenderer sr;
 	gaemMain game;
 	ShapeRenderer shapeRender;
@@ -56,10 +65,21 @@ public class WorldRender {
 	//public Array<Texture> textures;
 	private HashMap<String, Texture> textures;
 	private HashMap<String, animation> animations;
+	private HashMap<String, Texture> lightMaps;
+	
+	private FrameBuffer lightMap;
 	
 	Sprite particleSprite;
 	
 	public Hud hud;
+	
+	private ShaderProgram ShakeShader;
+	private ShaderProgram PassthroughShader;
+	private ShaderProgram EmbossShader;
+	private ShaderProgram ShakeLightShader;
+	
+	private PostProcessor postProcessor;
+	
 	
 	public WorldRender(World world, gaemMain game){
 		this.world=world;
@@ -94,10 +114,13 @@ public class WorldRender {
 		animations.put("eb", new animation("eb", 3));
 		
 		textures = new HashMap<String, Texture>();
+		lightMaps = new HashMap<String, Texture>();
 		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));//RED SUN OVER PARADICE
 		
 		textures.put("vanilla", new Texture(Gdx.files.internal("data/texture/vanilla.png")));//player ships
+		lightMaps.put("vanilla", new Texture(Gdx.files.internal("data/texture/lightMap/vanilla_L.png")));//player ships
 		textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
+		lightMaps.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
 		textures.put("laser", new Texture(Gdx.files.internal("data/texture/Laser.png")));
 		textures.put("laserDECAL", new Texture(Gdx.files.internal("data/texture/Laser DECAL.png")));
 		textures.put("spread", new Texture(Gdx.files.internal("data/texture/Spread.png")));
@@ -138,9 +161,11 @@ public class WorldRender {
 		
 		textures.put("enemyBullet", new Texture(Gdx.files.internal("data/texture/enemyBullet.png"))); //projectiles and stuff, starting with enemy bullet
 		textures.put("enemyBulletTiny", new Texture(Gdx.files.internal("data/texture/enemybullettiny.png")));
+		lightMaps.put("enemyBulletTiny_L", new Texture(Gdx.files.internal("data/texture/lightMap/enemybullettiny_L.png")));
 		textures.put("enemyLaser", new Texture(Gdx.files.internal("data/texture/enemylaser.png"))); 
 		textures.put("enemyBeam", new Texture(Gdx.files.internal("data/texture/enemyBeam.png"))); 
 		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png")));
+		lightMaps.put("vanillaBullet_L", new Texture(Gdx.files.internal("data/texture//lightmap/vanillabullet_L.png")));
 		textures.put("vulcanBullet", new Texture(Gdx.files.internal("data/texture/vulcanbullet.png")));
 		textures.put("LaserBullet", new Texture(Gdx.files.internal("data/texture/LaserBullet.png")));
 		
@@ -203,23 +228,82 @@ public class WorldRender {
 		fonts.add(new BitmapFont(Gdx.files.internal("data/font/Zero.fnt"), true)); //2
 		
 		hud = new Hud(new Vector2(700,0), 300, 900, this);
+		
+		ShaderLoader.BasePath = "data/postProcess/";
+		postProcessor = new PostProcessor(false, false, true);
+		Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 0.25f), (int)(Gdx.graphics.getHeight() * 0.25f) );
+        postProcessor.addEffect( bloom );
+        
+		handelShaders();
+		
+		lightMap = new FrameBuffer(Format.RGBA8888, width, height, false);
 	}
 	
 	public void render(){
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
+		if(world.getShakeAmmount() < 0)
+			world.ShakeAmmount = 0;
+		float shake1 = MathUtils.random(world.getShakeAmmount());
+		float shake2 = MathUtils.random(world.getShakeAmmount());
+		float shake3 = MathUtils.random(world.getShakeAmmount());
+		
+		ShakeShader.begin();
+		ShakeShader.setUniformf("u_distort", shake1, shake2, shake3);
+		ShakeShader.end();
+		ShakeLightShader.begin();
+		ShakeLightShader.setUniformf("u_distort", shake1, shake2, shake3);
+		ShakeLightShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		ShakeLightShader.setUniformf("ambientColor", world.ambientLightColor.x, world.ambientLightColor.y, world.ambientLightColor.z, world.ambientLightIntensity);
+		ShakeLightShader.setUniformi("u_lightmap", 1);
+		ShakeLightShader.end();
+		
+		lightMap.begin();
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.setShader(ShakeShader);
 		batch.begin();
+		renderActorsLight(world.getActors());
+		batch.end();
+		lightMap.end();
+		
+
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		postProcessor.capture();
+		batch.begin();
+		batch.setShader(ShakeLightShader);
+		lightMap.getColorBufferTexture().bind(1);
+		textures.get("NONE").bind(0);
 		renderActors(world.getActors());
 		renderText(world.getText());
 		renderParticles();
 		renderBars();
+		postProcessor.render();
+		
+		batch.setShader(PassthroughShader);
 		if(renderHud)
 			hud.update();
 		batch.end();
 		
 		if(gaemMain.DEBUG)
 			debug();
+
+	}
+	
+	private void handelShaders(){
+		ShaderProgram.pedantic = false;
+		ShakeShader = new ShaderProgram(Gdx.files.internal("data/shaders/shake.vsh"), Gdx.files.internal("data/shaders/shake.fsh"));
+		System.out.println(ShakeShader.isCompiled() ? "ShakeShader is compiled" : ShakeShader.getLog());
+		
+		PassthroughShader = new ShaderProgram(Gdx.files.internal("data/shaders/passthrough.vsh"), Gdx.files.internal("data/shaders/passthrough.fsh"));
+		System.out.println(PassthroughShader.isCompiled() ? "PassthroughShader is compiled" : PassthroughShader.getLog());
+		
+		EmbossShader = new ShaderProgram(Gdx.files.internal("data/shaders/emboss.vsh"), Gdx.files.internal("data/shaders/emboss.fsh"));
+		System.out.println(EmbossShader.isCompiled() ? "EmbossShader is compiled" : EmbossShader.getLog());
+		
+		ShakeLightShader = new ShaderProgram(Gdx.files.internal("data/shaders/shakeLight.vsh"), Gdx.files.internal("data/shaders/shakeLight.fsh"));
+		System.out.println(ShakeLightShader.isCompiled() ? "ShakeShaderLight is compiled" : ShakeLightShader.getLog());
 	}
 
 	private void renderBars() {
@@ -354,6 +438,14 @@ public class WorldRender {
 				entity.animate(this, world);
 		}
 	}
+	
+	private void renderActorsLight(Array<MoveableEntity> actors) {
+		eIter = actors.iterator();
+		while(eIter.hasNext()){
+			entity = eIter.next();
+			entity.light(this);
+		}
+	}
 
 	public void draw(Entity actor, Texture texture) {
 		batch.draw(texture, actor.getPosition().x, actor.getPosition().y, actor.getWidth()/2, actor.getHeight()/2, 
@@ -374,6 +466,12 @@ public class WorldRender {
 		batch.draw(textures.get(texture), actor.getPosition().x, actor.getPosition().y, actor.getWidth()/2, actor.getHeight()/2, 
 				actor.getWidth(), actor.getHeight(), 1, 1, actor.getRotation(), 0, 0, 
 				textures.get(texture).getWidth(), textures.get(texture).getHeight(), false, false);
+	}
+	
+	public void light(Entity actor, String texture) {
+		batch.draw(lightMaps.get(texture), actor.getPosition().x, actor.getPosition().y, actor.getWidth()/2, actor.getHeight()/2, 
+				actor.getWidth(), actor.getHeight(), actor.lightMapScale, actor.lightMapScale, actor.getRotation(), 0, 0, 
+				lightMaps.get(texture).getWidth(), lightMaps.get(texture).getHeight(), false, false);
 	}
 	
 	public void draw(Entity actor, String texture, Color color) {

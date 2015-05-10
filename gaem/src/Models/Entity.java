@@ -17,6 +17,7 @@ public class Entity {
 	protected Rectangle bounds;
 	protected Circle bounds2;
 	protected String texture;
+	protected String lightMap;
 	public boolean render;
 	public int health;
 	public int maxHealth;
@@ -38,7 +39,10 @@ public class Entity {
 	protected boolean animationAdvance = true;
 	protected float animationDelay;
 	
+	public boolean hasLight = false;
 	public boolean animate = false;
+	public float lightMapScale = 1;
+	
 	public int animationNum;
 	public int currentFrame;
 	public boolean circle;
@@ -126,6 +130,13 @@ public class Entity {
 	
 	public void render(WorldRender world){
 		world.draw(this, texture, color);
+	}
+	
+	public void light(WorldRender world){
+		if(hasLight){
+			System.out.println("LIGHTING");
+			world.light(this, lightMap);
+		}
 	}
 
 	

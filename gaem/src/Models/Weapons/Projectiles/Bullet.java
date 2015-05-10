@@ -20,6 +20,9 @@ public class Bullet extends MoveableEntity
 		this.velocity = velocity;
 		actorID = 28;
 		texture = "vanillaBullet";
+		hasLight = true;
+		lightMap = "vanillaBullet_L";
+		lightMapScale = 10;
 		rotation = velocity.angle()-90;
 	}
 	

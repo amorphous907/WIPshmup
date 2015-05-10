@@ -105,6 +105,16 @@ public class MoveableEntity extends Entity{
 		}
 	}
 	
+	@Override
+	public void light(WorldRender render){
+		super.light(render);
+		if(subObjects.size != 0){
+			for(int c = 0; c < subObjects.size; c++){
+				subObjects.get(c).light(render);
+			}
+		}
+	}
+	
 	protected void spawn(World world){
 		this.world = world;
 		spawned = true;

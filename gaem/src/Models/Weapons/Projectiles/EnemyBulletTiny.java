@@ -18,12 +18,18 @@ public class EnemyBulletTiny extends MoveableEntity{
 		currentFrame = 0;
 		velocity = new Vector2(0,400);
 		texture = "enemyBulletTiny";
+		hasLight=true;
+		lightMap="enemyBulletTiny_L";
+		lightMapScale = 7;
 	}
 	
 	public EnemyBulletTiny(Vector2 position, float width, float height, float hitX,
 			float hitY, Vector2 velocity) {
 			super(position, width, height, hitX, hitY);
 			texture = "enemyBulletTiny";
+			hasLight = true;
+			lightMap = "enemyBulletTiny_L";
+			lightMapScale = 7;
 			animate = true;
 			animationNum = 1;
 			currentFrame = 0;

@@ -163,6 +163,7 @@ public class Player extends MoveableEntity{
 				render = false;
 				powerupID = 0;
 				hasPowerup = true;
+				world.ShakeAmmount += 5;
 			}
 
 			if(hasPowerup)
@@ -173,6 +174,8 @@ public class Player extends MoveableEntity{
 			}
 			super.update(world);
 			fixPosition();
+			hasLight = true;
+			lightMap = "vanilla";
 	}
 	
 	protected void handleGamepad(World world) {
@@ -231,6 +234,7 @@ public class Player extends MoveableEntity{
 	{
 		super.damage(i);
 		world.game.audio.playSound("Player1Hurt"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
+		world.ShakeAmmount += 2;
 	}
 	
 	@Override

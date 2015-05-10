@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 import Models.Explosion;
 import Models.MoveableEntity;
 import Models.level1hanger;
-import Models.Enemies.EnemyMines;
+import Models.Enemies.EnemyMine;
 import Models.Enemies.GunshipBasic;
 import Models.Enemies.HeavyBasic;
 import Models.Enemies.HeavyLaser;
