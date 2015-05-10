@@ -12,12 +12,11 @@ public class Main {
 		cfg.title = "StarShmup Alpha"+gaemMain.version;
 		cfg.useGL20 = true;
 		//res, obviously
-		//blams
 		cfg.width = 1000; //1000
 		cfg.height = (int) 900; //900
 		cfg.vSyncEnabled = false;
-		cfg.resizable = true;
-		cfg.foregroundFPS = 0;
+		cfg.resizable = false;
+		cfg.foregroundFPS = 60;
 		cfg.fullscreen = false;
 		
 		new LwjglApplication(new gaemMain(), cfg);

@@ -43,6 +43,7 @@ public class World {
 	public int score = 0;
 	public int layers = 15;
 	public boolean moving = false;
+	public float ShakeAmmount;
 
 	public Array<Array<MoveableEntity>> actors;
 	public Array<MoveableEntity> actors2;
@@ -101,11 +102,15 @@ public class World {
 	public Array<View.Levels.level> levels;
 	public View.Levels.level level;
 	public int currentLevel;
+	
+	public Vector3 ambientLightColor = new Vector3(0.8f, 0.8f, 0.8f);;
+	public float ambientLightIntensity = 0.7f;
 
 	public int lives;
 	public boolean renderHud;
 	//ignore this parker
 	public World(gaemMain game, int level, Array<SelectShip> selectedShips){
+		
 		this.game = game;
 		timer = new Timer();
 		renderHud = true;
@@ -215,6 +220,7 @@ public class World {
 					break;
 				}
 			}
+			ShakeAmmount = 0;
 		}
 
 
@@ -444,6 +450,9 @@ public class World {
 			}
 		}
 		collideActors(getCollisionActors());
+		if(ShakeAmmount > 0){
+			ShakeAmmount -= (3 * Gdx.graphics.getDeltaTime());
+		}
 	}
 
 
@@ -548,6 +557,12 @@ public class World {
 			game.audio.stopMusic();
 			game.setScreen(new MainMenu(game));
 		}
+		if(keys[Keys.PLUS]){
+			ambientLightIntensity += 0.03;
+		}
+		if(keys[Keys.MINUS]){
+			ambientLightIntensity -= 0.03;
+		}
 	}
 
 	public void dispose(){
@@ -573,6 +588,10 @@ public class World {
 		temp.addAll(text);
 		text.clear();
 		return temp;
+	}
+
+	public float getShakeAmmount() {
+		return ShakeAmmount;
 	}
 
 

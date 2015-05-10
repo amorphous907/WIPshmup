@@ -16,6 +16,8 @@ public class VanillaDECAL extends subObject{
 		super(offset, 61, 61, 45, 45, Parent);
 		actorID = 12;
 		texture = "vanillaDECAL";
+		hasLight = true;
+		lightMap = "vanillaDECAL";
 		
 		if(Pcolor == 1)
 		{

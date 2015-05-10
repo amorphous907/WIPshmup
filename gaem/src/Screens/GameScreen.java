@@ -5,7 +5,10 @@ import View.World;
 import View.WorldRender;
 
 import com.amorphous.gaem.gaemMain;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen{
@@ -17,12 +20,14 @@ public class GameScreen implements Screen{
 		this.game = game;
 		world = new World(game, level, selectedShips);
 		render = new WorldRender(world, game);
+		
 	}
 	
 	
 	@Override
 	public void render(float delta) {
 		world.update();
+		
 		render.render();
 	}
 
