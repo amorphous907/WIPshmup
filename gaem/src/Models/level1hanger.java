@@ -13,6 +13,7 @@ public class level1hanger extends MoveableEntity{
 		velocity = speed;
 		actorID = 14;
 		texture = "level1hanger";
+		render=false;
 	}
 	
 

@@ -6,6 +6,7 @@ import View.World;
 import View.WorldRender;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -20,6 +21,7 @@ public class EnemyBulletTiny extends MoveableEntity{
 		texture = "enemyBulletTiny";
 		hasLight=true;
 		lightMap="enemyBulletTiny_L";
+		lightColor = new Color(1, 0.2f, 0.3f, 1);
 		lightMapScale = 7;
 	}
 	
@@ -29,7 +31,7 @@ public class EnemyBulletTiny extends MoveableEntity{
 			texture = "enemyBulletTiny";
 			hasLight = true;
 			lightMap = "enemyBulletTiny_L";
-			lightMapScale = 7;
+			lightMapScale = 3;
 			animate = true;
 			animationNum = 1;
 			currentFrame = 0;
@@ -53,6 +55,7 @@ public class EnemyBulletTiny extends MoveableEntity{
 	@Override
 	public void update(World world){
 		super.update(world);
+		world.render.addParticles(7, 2, 0.5f, this.centerLocation);
 		if(position.y >= 900 || position.y < 0 || position.x < 0 || position.x > 700)
 			remove = true;
 	}

@@ -12,6 +12,7 @@ import Models.Weapons.VanillaSPD;
 import Models.Weapons.VanillaSTR;
 import View.World;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends MoveableEntity{
@@ -175,7 +176,8 @@ public class Player extends MoveableEntity{
 			super.update(world);
 			fixPosition();
 			hasLight = true;
-			lightMap = "vanilla";
+			lightMap = "vanilla_L";
+			lightColor = new Color(0,0,1,1);
 	}
 	
 	protected void handleGamepad(World world) {

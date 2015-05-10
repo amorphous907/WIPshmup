@@ -117,86 +117,82 @@ public class WorldRender {
 		lightMaps = new HashMap<String, Texture>();
 		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));//RED SUN OVER PARADICE
 		
-		textures.put("vanilla", new Texture(Gdx.files.internal("data/texture/vanilla.png")));//player ships
-		lightMaps.put("vanilla", new Texture(Gdx.files.internal("data/texture/lightMap/vanilla_L.png")));//player ships
-		textures.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
-		lightMaps.put("vanillaDECAL", new Texture(Gdx.files.internal("data/texture/vanilla DECAL.png")));
-		textures.put("laser", new Texture(Gdx.files.internal("data/texture/Laser.png")));
-		textures.put("laserDECAL", new Texture(Gdx.files.internal("data/texture/Laser DECAL.png")));
-		textures.put("spread", new Texture(Gdx.files.internal("data/texture/Spread.png")));
-		textures.put("spreadDECAL", new Texture(Gdx.files.internal("data/texture/Spread DECAL.png")));
+		addTexture("vanilla", "vanilla", true);
+		addTexture("vanillaDECAL", "vanilla DECAL", true);
+		addTexture("laser", "Laser", false);
+		addTexture("laserDECAL", "laser DECAL", false);
+		addTexture("spread", "Spread", false);
+		addTexture("spreadDECAL", "spread DECAL", false);
 		
-		textures.put("powerupSTR", new Texture(Gdx.files.internal("data/texture/PowerupSTR.png"))); //Power ups
-		textures.put("powerupSPD", new Texture(Gdx.files.internal("data/texture/PowerupSPD.png")));
+		addTexture("powerupSTR", "PowerupSTR", false);
+		addTexture("powerupSPD", "PowerupSPD", false);
 		
-		textures.put("lightBasic", new Texture(Gdx.files.internal("data/texture/lightBasic.png"))); //enemy textures, starting with light
-		textures.put("lightSpread", new Texture(Gdx.files.internal("data/texture/lightSpread.png")));
-		textures.put("lightLaser", new Texture(Gdx.files.internal("data/texture/lightLaser.png")));
-		textures.put("lightTiny", new Texture(Gdx.files.internal("data/texture/lightTiny.png")));
-		textures.put("heavyBasic", new Texture(Gdx.files.internal("data/texture/heavyBasic.png"))); //heavy enemies
-		textures.put("heavySpread", new Texture(Gdx.files.internal("data/texture/heavySpread.png"))); 
-		textures.put("heavyLaser", new Texture(Gdx.files.internal("data/texture/heavyLaser.png")));
-		textures.put("gunshipBasic", new Texture(Gdx.files.internal("data/texture/gunshipBasic.png")));//gunship & unique enemies enemies, starting with gunships
-		textures.put("MINIBOSSL1", new Texture(Gdx.files.internal("data/texture/MINIBOSSL1.png")));
-		textures.put("spaceMine1", new Texture(Gdx.files.internal("data/texture/spaceMine1.png")));
-		textures.put("enemyMissile", new Texture(Gdx.files.internal("data/texture/EnemyMissile.png")));
-		textures.put("eTurret1", new Texture(Gdx.files.internal("data/texture/eTurret1.png"))); //turrets
-		textures.put("EnemyMine", new Texture(Gdx.files.internal("data/texture/EnemyMine.png")));//mines
-		textures.put("FLAKMine", new Texture(Gdx.files.internal("data/texture/FLAKMine.png")));
+		addTexture("lightBasic", "lightBasic", true);
+		addTexture("lightSpread", "lightSpread", true);
+		addTexture("lightLaser", "lightLaser", false);
+		addTexture("lightTiny", "lightTiny", true);
+		addTexture("heavyBasic", "heavyBasic", false);
+		addTexture("heavySpread", "heavySpread", false); 
+		addTexture("heavyLaser", "heavyLaser", false);
+		addTexture("gunshipBasic", "gunshipBasic", false);
+		addTexture("MINIBOSSL1", "MINIBOSSL1", false);
+		addTexture("spaceMine1", "spaceMine1", false);
+		addTexture("enemyMissile", "EnemyMissile", false);
+		addTexture("eTurret1", "eTurret1", true);
+		addTexture("EnemyMine", "EnemyMine", false);
+		addTexture("FLAKMine", "FLAKMine", false);
 		
-		textures.put("boss1", new Texture(Gdx.files.internal("data/texture/BOSS1.png"))); //BOSSES, THE BEST PART OF THE GAME, starting with boss1
-		textures.put("boss1turret", new Texture(Gdx.files.internal("data/texture/BOSS1turret.png")));
-		textures.put("boss2", new Texture(Gdx.files.internal("data/texture/BOSS2.png"))); //BOSS2
-		textures.put("boss3INVIS", new Texture(Gdx.files.internal("data/texture/BOSS3INVIS.png"))); //BOSS3INVIS
-		textures.put("invisMine", new Texture(Gdx.files.internal("data/texture/InvisMine.png")));
-		//textures.put("boss3EMP", new Texture(Gdx.files.internal("data/texture/BOSS3EMP.png"))); //BOSS3EMP
-		//textures.put("empMine", new Texture(Gdx.files.internal("data/texture/EmpMine.png")));
-		textures.put("boss4", new Texture(Gdx.files.internal("data/texture/BOSS4.png"))); //BOSS4
-		textures.put("boss4armL", new Texture(Gdx.files.internal("data/texture/BOSS4armL.png")));
-		textures.put("boss4armR", new Texture(Gdx.files.internal("data/texture/BOSS4armR.png")));
-		textures.put("boss4Shield", new Texture(Gdx.files.internal("data/texture/BOSS4shield.png")));
-		textures.put("boss4turret", new Texture(Gdx.files.internal("data/texture/BOSS4turret.png")));
-		textures.put("boss4turretB", new Texture(Gdx.files.internal("data/texture/BOSS4turretB.png")));
+		addTexture("boss1", "BOSS1", false);
+		addTexture("boss1turret", "BOSS1turret", false);
+		addTexture("boss2", "BOSS2", true);
+		addTexture("boss3INVIS", "BOSS3INVIS", false);
+		addTexture("invisMine", "InvisMine", false);
+		//addTexture("boss3EMP", "BOSS3EMP", false);
+		//addTexture("empMine", "EmpMine", false);
+		addTexture("boss4", "BOSS4", false); //BOSS4
+		addTexture("boss4armL", "BOSS4armL", false);
+		addTexture("boss4armR", "BOSS4armR", false);
+		addTexture("boss4Shield", "BOSS4shield", false);
+		addTexture("boss4turret", "BOSS4turret", false);
+		addTexture("boss4turretB", "BOSS4turretB", false);
 		
 		
-		textures.put("enemyBullet", new Texture(Gdx.files.internal("data/texture/enemyBullet.png"))); //projectiles and stuff, starting with enemy bullet
-		textures.put("enemyBulletTiny", new Texture(Gdx.files.internal("data/texture/enemybullettiny.png")));
-		lightMaps.put("enemyBulletTiny_L", new Texture(Gdx.files.internal("data/texture/lightMap/enemybullettiny_L.png")));
-		textures.put("enemyLaser", new Texture(Gdx.files.internal("data/texture/enemylaser.png"))); 
-		textures.put("enemyBeam", new Texture(Gdx.files.internal("data/texture/enemyBeam.png"))); 
-		textures.put("vanillaBullet", new Texture(Gdx.files.internal("data/texture/vanillabullet.png")));
-		lightMaps.put("vanillaBullet_L", new Texture(Gdx.files.internal("data/texture//lightmap/vanillabullet_L.png")));
-		textures.put("vulcanBullet", new Texture(Gdx.files.internal("data/texture/vulcanbullet.png")));
-		textures.put("LaserBullet", new Texture(Gdx.files.internal("data/texture/LaserBullet.png")));
+		addTexture("enemyBullet", "enemyBullet", true);
+		addTexture("enemyBulletTiny", "enemybullettiny", true);
+		addTexture("enemyLaser", "enemylaser", false); 
+		addTexture("enemyBeam", "enemyBeam", false); 
+		addTexture("vanillaBullet", "vanillabullet", true);
+		addTexture("vulcanBullet", "vulcanbullet", false);
+		addTexture("LaserBullet", "LaserBullet", false);
 		
 		
-		textures.put("star", new Texture(Gdx.files.internal("data/texture/star.png"))); //scenery and other background stuff, starting with everyone's favorite ball of death, a star
-		textures.put("level1hanger", new Texture(Gdx.files.internal("data/texture/level1 hanger.png")));
-		textures.put("level1floor", new Texture(Gdx.files.internal("data/texture/level1floor.png")));
-		textures.put("level1beam", new Texture(Gdx.files.internal("data/texture/level1beam.png")));
-		textures.put("a1", new Texture(Gdx.files.internal("data/texture/a1.png"))); 
-		textures.put("a2", new Texture(Gdx.files.internal("data/texture/a2.png")));
-		textures.put("a3", new Texture(Gdx.files.internal("data/texture/a3.png")));
-		textures.put("a4", new Texture(Gdx.files.internal("data/texture/a4.png")));
-		textures.put("a5", new Texture(Gdx.files.internal("data/texture/a5.png")));
-		textures.put("a6", new Texture(Gdx.files.internal("data/texture/a6.png")));
-		textures.put("a7", new Texture(Gdx.files.internal("data/texture/a7.png")));
-		textures.put("a8", new Texture(Gdx.files.internal("data/texture/a8.png")));
-		textures.put("Hurtmark1", new Texture(Gdx.files.internal("data/texture/Hurtmark1.png")));//enemy hurt marks
-		textures.put("debuffCrack1", new Texture(Gdx.files.internal("data/texture/debuffCrack1.png")));//enemy armor broken!
-		textures.put("debuffCrack2", new Texture(Gdx.files.internal("data/texture/debuffCrack2.png")));
-		textures.put("debuffCrack3", new Texture(Gdx.files.internal("data/texture/debuffCrack3.png")));
+		addTexture("star", "star", false);
+		addTexture("level1hanger", "level1 hanger", false);
+		addTexture("level1floor", "level1floor", false);
+		addTexture("level1beam", "level1beam", false);
+		addTexture("a1", "a1", false); 
+		addTexture("a2", "a2", false);
+		addTexture("a3", "a3", false);
+		addTexture("a4", "a4", false);
+		addTexture("a5", "a5", false);
+		addTexture("a6", "a6", false);
+		addTexture("a7", "a7", false);
+		addTexture("a8", "a8", false);
+		addTexture("Hurtmark1", "Hurtmark1", false);
+		addTexture("debuffCrack1", "debuffCrack1", false);
+		addTexture("debuffCrack2", "debuffCrack2", false);
+		addTexture("debuffCrack3", "debuffCrack3", false);
 		
 		
-		textures.put("edit", new Texture(Gdx.files.internal("data/edit.png"))); //editor grid
+		textures.put("edit", new Texture(Gdx.files.internal("data/edit.png")));
 		
 		
 		
-		textures.put("UEFHealth", new Texture(Gdx.files.internal("data/texture/UEFHealth.png"))); //Other things, like UI bits and shit
-		textures.put("blue background", new Texture(Gdx.files.internal("data/texture/blue_background.png"))); //33
+		addTexture("UEFHealth", "UEFHealth", false);
+		addTexture("blue background", "blue_background", false);
 		
 
-		textures.put("missile", new Texture(Gdx.files.internal("data/texture/missile.png"))); //41
+		addTexture("missile", "missile", false);
 		
 		particlePath = new Array<String>();
 		particlePath.add("data/particle/UefMetal"); //0
@@ -206,6 +202,7 @@ public class WorldRender {
 		particlePath.add("data/particle/Player1Fire"); //4
 		particlePath.add("data/particle/powerupSTR"); //5
 		particlePath.add("data/particle/powerupSPD"); //6
+		particlePath.add("data/particle/EnemyBulletTrail"); //7
 		
 		
 		Texture particle = new Texture("data/particle/particle.png");
@@ -231,7 +228,7 @@ public class WorldRender {
 		
 		ShaderLoader.BasePath = "data/postProcess/";
 		postProcessor = new PostProcessor(false, false, true);
-		Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 0.25f), (int)(Gdx.graphics.getHeight() * 0.25f) );
+		Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f) );
         postProcessor.addEffect( bloom );
         
 		handelShaders();
@@ -469,9 +466,18 @@ public class WorldRender {
 	}
 	
 	public void light(Entity actor, String texture) {
+		System.out.println(texture);
 		batch.draw(lightMaps.get(texture), actor.getPosition().x, actor.getPosition().y, actor.getWidth()/2, actor.getHeight()/2, 
 				actor.getWidth(), actor.getHeight(), actor.lightMapScale, actor.lightMapScale, actor.getRotation(), 0, 0, 
 				lightMaps.get(texture).getWidth(), lightMaps.get(texture).getHeight(), false, false);
+	}
+	
+	public void light(Entity actor, String texture, Color color) {
+		batch.setColor(new Color(color));
+		batch.draw(lightMaps.get(texture), actor.getPosition().x, actor.getPosition().y, actor.getWidth()/2, actor.getHeight()/2, 
+				actor.getWidth(), actor.getHeight(), actor.lightMapScale, actor.lightMapScale, actor.getRotation(), 0, 0, 
+				lightMaps.get(texture).getWidth(), lightMaps.get(texture).getHeight(), false, false);
+		batch.setColor(new Color(1,1,1,1));
 	}
 	
 	public void draw(Entity actor, String texture, Color color) {
@@ -480,6 +486,17 @@ public class WorldRender {
 				actor.getWidth(), actor.getHeight(), 1, 1, actor.getRotation(), 0, 0, 
 				textures.get(texture).getWidth(), textures.get(texture).getHeight(), false, false);
 		batch.setColor(new Color(1,1,1,1));
+	}
+	
+	public void addTexture(String key, String texture, boolean lightmap){
+		textures.put(key, new Texture(Gdx.files.internal("data/texture/" + texture + ".png")));
+		if(lightmap){
+			addLightMap(key, texture);
+		}
+	}
+	
+	public void addLightMap(String key, String texture){
+		lightMaps.put(key + "_L", new Texture(Gdx.files.internal("data/texture/lightmap/" + texture + "_L.png")));
 	}
 	
 	public void addParticles(int particleIndex, int spriteIndex, float scale, Vector2 position){

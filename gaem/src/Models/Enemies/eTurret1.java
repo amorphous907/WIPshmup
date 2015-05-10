@@ -20,6 +20,9 @@ public class eTurret1 extends subObject{
 		super(offset, width, height, hitX, hitY, Parent);
 		actorID = 12;
 		texture = "eTurret1";
+		
+		hasLight = true;
+		lightMap = "eTurret1_L";
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import Models.Weapons.Projectiles.EnemyBullet;
 import View.World;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,11 @@ public class LightSpread extends Enemy
 		super(position, 60, 60, 50, 50);
 		actorID = 4;
 		texture = "lightSpread";
+		
+		hasLight = true;
+		lightMap = texture +"_L";
+		lightColor = new Color(1, 0.1f, 0.1f, 1);
+		
 		health = 200;
 		score = 300;
 		this.AI = AI;

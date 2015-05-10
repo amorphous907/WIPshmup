@@ -6,6 +6,7 @@ import View.World;
 import View.WorldRender;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -19,6 +20,10 @@ public class EnemyBullet extends MoveableEntity{
 		currentFrame = 0;
 		velocity = new Vector2(0,600);
 		texture = "enemyBullet";
+		
+		hasLight = true;
+		lightMap = "enemyBullet_L";
+		lightColor = new Color(1, 0.2f, 0.3f, 1);
 	}
 	
 	public EnemyBullet(Vector2 position, float width, float height, float hitX,

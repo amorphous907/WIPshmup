@@ -25,6 +25,9 @@ public class BOSS2drone_buddy extends subObjectEnemy {
 		health = 200;
 		actorID = 30;
 		texture = "boss2";
+		hasLight = true;
+		lightMap = "boss2_L";
+		
 		int BAM = com.badlogic.gdx.math.MathUtils.random(1, 4);
 		if(BAM == 1)
 			angle = 0;

@@ -4,6 +4,7 @@ import Models.Weapons.Projectiles.EnemyBullet;
 import View.World;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +19,13 @@ public class LightBasic extends Enemy
 	{
 		super(position, 60, 60, 50, 50);
 		texture = "lightBasic";
+		
+		lightMap = "lightBasic_L";
+		hasLight = true;
+		lightMapScale = 1f;
+		lightColor = new Color(0.5f, 0.25f, 0.258f, 1);
+		
+		
 		health = 200;
 		score = 200;
 		this.AI = AI;
@@ -44,6 +52,7 @@ public class LightBasic extends Enemy
 			}, 1.66f);
 			loaded = false;
 		}
+		lightColor = new Color(1f, 0.25f, 0.3f, 1);
 	}
 	
 	/*this code will be the new update code for objects that use the AI parameters. use switch(AI) to do the proper AI methods */

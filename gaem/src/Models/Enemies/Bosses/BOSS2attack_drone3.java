@@ -25,6 +25,9 @@ public class BOSS2attack_drone3 extends subObjectEnemy {
 		actorID = 30;
 		angle = 180;
 		texture = "boss2";
+		hasLight = true;
+		lightMap = "boss2_L";
+		
 		radian = angle*(com.badlogic.gdx.math.MathUtils.PI/180);
 		offset.x = com.badlogic.gdx.math.MathUtils.cos(radian)*distance;
 		offset.y = com.badlogic.gdx.math.MathUtils.sin(radian)*distance;

@@ -7,6 +7,7 @@ import View.World;
 import View.WorldRender;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +24,7 @@ public class Bullet extends MoveableEntity
 		hasLight = true;
 		lightMap = "vanillaBullet_L";
 		lightMapScale = 10;
+		lightColor = new Color(0,0,1,1);
 		rotation = velocity.angle()-90;
 	}
 	

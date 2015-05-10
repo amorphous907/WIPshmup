@@ -5,6 +5,7 @@ import Models.Weapons.Projectiles.EnemyLaser;
 import View.World;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -19,6 +20,11 @@ public class LightTiny extends Enemy
 	{
 		super(position, 30, 30, 30, 30);
 		texture = "lightTiny";
+		
+		hasLight = true;
+		lightMap = "lightTiny_L";
+		lightColor = new Color(1f, 0.2f, 0.4f, 1);
+		
 		health = 48;
 		score = 10;
 		this.AI = AI;

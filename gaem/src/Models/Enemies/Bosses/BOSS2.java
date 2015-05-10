@@ -38,6 +38,10 @@ public class BOSS2 extends Enemy
 		velocity = new Vector2(0,100);
 		actorID = 30;
 		texture = "boss2";
+		
+		hasLight = true;
+		lightMap = "boss2_L";
+		
 		circle = true;
 		bounds2 = new Circle(position, 130);
 		score = 20000;

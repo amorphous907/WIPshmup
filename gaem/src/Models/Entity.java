@@ -42,6 +42,7 @@ public class Entity {
 	public boolean hasLight = false;
 	public boolean animate = false;
 	public float lightMapScale = 1;
+	public Color lightColor = new Color(1,1,1,1);;
 	
 	public int animationNum;
 	public int currentFrame;
@@ -134,8 +135,7 @@ public class Entity {
 	
 	public void light(WorldRender world){
 		if(hasLight){
-			System.out.println("LIGHTING");
-			world.light(this, lightMap);
+			world.light(this, lightMap, lightColor);
 		}
 	}
 

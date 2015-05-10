@@ -38,6 +38,7 @@ public class level_TEST extends level_1
 		{
 			world.actors.get(0).add(new PowerupSPD(new Vector2(350,50), 30,30,30,30));
 			world.actors.get(0).add(new PowerupSTR(new Vector2(350,200), 30,30,30,30));
+			world.actors.get(0).add(new BOSS2(new Vector2(350,50)));
 		}
 	}
 }
