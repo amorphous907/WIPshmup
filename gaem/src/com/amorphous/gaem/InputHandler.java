@@ -93,6 +93,7 @@ public class InputHandler implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		world.mouseDown = button;
+		
 		System.out.println(world.mouseDown);
 		return true;
 	}
@@ -105,8 +106,10 @@ public class InputHandler implements InputProcessor{
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
+		Vector3 mouseTemp = new Vector3(screenX, screenY, 0);
+		world.getRender().getCamera().unproject(mouseTemp);
+		world.mousePos = new Vector3(mouseTemp);
+		return true;
 	}
 
 	@Override

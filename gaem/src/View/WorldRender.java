@@ -34,7 +34,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.postprocessing.effects.Bloom;
+import com.bitfire.postprocessing.effects.MotionBlur;
+import com.bitfire.postprocessing.effects.CrtMonitor;
+import com.bitfire.postprocessing.effects.Curvature;
+import com.bitfire.postprocessing.effects.LensFlare2;
 import com.bitfire.postprocessing.filters.Blur.BlurType;
+import com.bitfire.postprocessing.filters.CrtScreen.RgbMode;
 import com.bitfire.utils.ShaderLoader;
 
 public class WorldRender {
@@ -186,7 +191,7 @@ public class WorldRender {
 		
 		textures.put("edit", new Texture(Gdx.files.internal("data/edit.png")));
 		
-		
+		addLightMap("pointLight", "pointLight");
 		
 		addTexture("UEFHealth", "UEFHealth", false);
 		addTexture("blue background", "blue_background", false);
@@ -228,8 +233,21 @@ public class WorldRender {
 		
 		ShaderLoader.BasePath = "data/postProcess/";
 		postProcessor = new PostProcessor(false, false, true);
+		
+		//LensFlare2 lensFlare = new LensFlare2((int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f));
+        //postProcessor.addEffect(lensFlare);
+		
 		Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f) );
+		bloom.setBloomIntesity(1);
         postProcessor.addEffect( bloom );
+        
+        MotionBlur motionBlur = new MotionBlur();
+        motionBlur.setBlurOpacity(0.8f);
+        //postProcessor.addEffect(motionBlur);
+        
+        //CrtMonitor crt = new CrtMonitor((int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f), true, false, RgbMode.ChromaticAberrations, 1);
+        //postProcessor.addEffect(crt);
+        
         
 		handelShaders();
 		
@@ -264,8 +282,8 @@ public class WorldRender {
 		batch.end();
 		lightMap.end();
 		
-
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		
 		postProcessor.capture();
 		batch.begin();

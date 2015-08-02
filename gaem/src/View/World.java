@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import Models.MoveableEntity;
+import Models.PointLight;
 import Models.Text;
 import Models.subObject;
 import Models.Players.Player;
@@ -104,8 +105,9 @@ public class World {
 	public int currentLevel;
 	
 	public Vector3 ambientLightColor = new Vector3(0.8f, 0.8f, 0.8f);;
-	public float ambientLightIntensity = 0.7f;
-
+	public float ambientLightIntensity = .6f;
+	public PointLight light;
+	
 	public int lives;
 	public boolean renderHud;
 	//ignore this parker
@@ -223,7 +225,9 @@ public class World {
 			ShakeAmmount = 0;
 		}
 
-
+		light = new PointLight(new Vector2(0,0), 300, 300, 0, 0);
+		light.hasLight = false;
+		actors.get(0).add(light);
 
 		keys = new boolean[255];
 		controllerButtons = new boolean[9*4];
@@ -336,6 +340,9 @@ public class World {
 		}
 
 
+		light = new PointLight(new Vector2(0,0), 300, 300, 0, 0);
+		light.hasLight = false;
+		actors.get(0).add(light);
 
 		keys = new boolean[255];
 		controllerButtons = new boolean[9*4];
@@ -360,6 +367,8 @@ public class World {
 			level = levels.get(currentLevel);
 		}
 		level.update();
+		light.position.x = mousePos.x-light.width/2;
+		light.position.y = mousePos.y-light.height/2;
 	}
 
 	//updates everything
@@ -562,6 +571,12 @@ public class World {
 		}
 		if(keys[Keys.MINUS]){
 			ambientLightIntensity -= 0.03;
+		}
+		
+		if(mouseDown == 0){
+			light.hasLight = true;
+		} else{
+			light.hasLight = false;
 		}
 	}
 
