@@ -44,6 +44,18 @@ public class editorGrid extends MoveableEntity{
 		System.out.println("EDITOR: " + this.position);
 	}
 	
+	public editorGrid(Vector2 position, int aI, float waveLength, String className, float xOffset) {
+		super(position, 50, 50, 50, 50);
+		this.xOffset = xOffset;
+		originalPosition = new Vector2(this.position);
+		done = false;
+		waveTime = waveLength;
+		texture = "edit";
+		this.className = className;
+		stepFour();
+		System.out.println("EDITOR: " + this.position);
+	}
+	
 	@Override
 	public void update(World world){
 		super.update(world);

@@ -48,7 +48,7 @@ public class Entity {
 	public int currentFrame;
 	public boolean circle;
 	
-	public float scale = 0.5f;
+	public float scale = 0.8f;
 	
 	public Entity(Vector2 position, float width, float height, float hitX, float hitY){
 		

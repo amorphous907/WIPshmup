@@ -109,9 +109,7 @@ public class levelEditor extends level{
 				offset = Float.parseFloat(loadWave.get(line+2));
 				classname = loadWave.get(line+3);
 				ai = Integer.parseInt(loadWave.get(line+4));
-				editorGrid bob = new editorGrid(new Vector2(posX+25, posY+25), ai, waveLength);
-				bob.setxOffset(offset);
-				bob.setClassName(classname);
+				editorGrid bob = new editorGrid(new Vector2(posX+25, posY+25), ai, waveLength, classname, offset);
 				world.actors.get(0).add(bob);
 				line += 5;
 				

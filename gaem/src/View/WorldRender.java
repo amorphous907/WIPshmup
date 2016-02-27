@@ -127,7 +127,7 @@ public class WorldRender {
 		addTexture("laser", "Laser", false);
 		addTexture("laserDECAL", "laser DECAL", false);
 		addTexture("spread", "Spread", false);
-		addTexture("spreadDECAL", "spread DECAL", false);
+		addTexture("spreadDECAL", "Spread DECAL", false);
 		
 		addTexture("powerupSTR", "PowerupSTR", false);
 		addTexture("powerupSPD", "PowerupSPD", false);

@@ -13,7 +13,7 @@ public class gaemMain extends Game{
 	public static final String version = "STARSHMUP V0.6.1 alt ships working, level1 still not Edition";
 	public static final String LOG = "SpaceGame";
 	public static final String TITLE = "shmup";
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	public Preferences saves;
 	public static float VOLUME = 1f;
 	public int score = 0;
