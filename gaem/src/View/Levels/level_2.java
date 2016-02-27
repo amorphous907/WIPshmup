@@ -42,7 +42,7 @@ public class level_2 extends level
 		{
 			world.game.audio.loopMusic("level_2", 0.45f);
 			musicstart = false;
-			world.actors.get(0).add(new BOSS2(new Vector2(350,-200)));
+			//world.actors.get(0).add(new BOSS2(new Vector2(350,-200)));
 		}
 		
 		if(waveDone && time < timeLimit)

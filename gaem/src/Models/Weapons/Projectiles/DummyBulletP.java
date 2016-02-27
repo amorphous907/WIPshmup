@@ -10,29 +10,29 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class EnemyBullet extends MoveableEntity{
+public class DummyBulletP extends MoveableEntity{
 
-	public EnemyBullet(Vector2 position, float width, float height, float hitX,
+	public DummyBulletP(Vector2 position, float width, float height, float hitX,
 			float hitY) {
 		super(position, width, height, hitX, hitY);
-		animate = true;
+		animate = false;
 		animationNum = 1;
 		currentFrame = 0;
-		velocity = new Vector2(0,600);
-		texture = "enemyBullet";
+		velocity = new Vector2(0,-600);
+		texture = "vanillaBullet";
 		
-		hasLight = true;
-		lightMap = "enemyBullet_L";
+		hasLight = false;
+		lightMap = "vanillaBullet_L";
 		lightColor = new Color(1, 0.2f, 0.3f, 1);
 	}
 	
-	public EnemyBullet(Vector2 position, float width, float height, float hitX,
+	public DummyBulletP(Vector2 position, float width, float height, float hitX,
 			float hitY, Vector2 velocity) {
 			super(position, width, height, hitX, hitY);
 			animate = true;
 			animationNum = 1;
 			currentFrame = 0;
-			texture = "enemyBullet";
+			texture = "vanillaBullet";
 			this.velocity = velocity;
 			}
 	@Override
