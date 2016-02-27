@@ -11,9 +11,10 @@ import com.badlogic.gdx.utils.Array;
 public class AudioManager {
 	private HashMap<String, Music> musics = new HashMap<String, Music>();
 	private HashMap<String, Sound> sounds = new HashMap<String, Sound>();
+	private float volume;
 	
 	public AudioManager(){
-		
+		volume = 1;
 		musics.put("menu", Gdx.audio.newMusic(Gdx.files.local("data/sound/menu.mp3")));
 		musics.put("level_1", Gdx.audio.newMusic(Gdx.files.local("data/sound/level_1.mp3")));
 		musics.put("level_1 boss", Gdx.audio.newMusic(Gdx.files.local("data/sound/level_1 boss.mp3")));
@@ -48,7 +49,7 @@ public class AudioManager {
 	}
 	
 	public void playSound(String x, float volume){
-		sounds.get(x).play(volume);
+		sounds.get(x).play(volume*this.volume);
 	}
 	
 	public void loopSound(String x){
@@ -120,6 +121,13 @@ public class AudioManager {
 		for(Sound s : sounds.values()){
 			s.dispose();
 		}
+	}
+	
+	public void setVolume(int X){
+		for(Music m : musics.values()){
+			m.setVolume(X/100f);
+		}
+		volume = X/100f;
 	}
 
 }

@@ -23,14 +23,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import View.MenuWorld;
 import View.WorldRender;
 
-public class MainMenu extends ApplicationAdapter implements Screen{
+public class SettingsScreen extends ApplicationAdapter implements Screen{
 	private Table table;
-	private TextButton buttonExit, buttonPlay, buttonLevels, buttonEditor, buttonSettings;
+	private TextButton ShakeAdd, ShakeMinus, LightToggle, AudioAdd, AudioMinus, Apply, Exit;
 	private Skin skin;
 	private Stage stage;
 	private gaemMain game;
@@ -39,16 +40,20 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 	
 	private BitmapFont Zero;
 	private LabelStyle ls;
-	private Label title;
+	private Label title, audioLevel, shakeLevel, lightLevel, audioLabel, shakeLabel, lightLabel;
+	private int audioSetting, shakeSetting, lightSetting;
 	private TextureAtlas atlas;
 	WorldRender render;
 	MenuWorld world;
 	
-	public MainMenu(gaemMain game){
+	public SettingsScreen(gaemMain game){
 		this.game = game;
 		world = new MenuWorld(game, 0);
 		render = new WorldRender(world, game);
 		level = 1;
+		audioSetting = 100;
+		shakeSetting = 100;
+		lightSetting = 100;
 	}
 
 	@Override
@@ -57,7 +62,7 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 		render.render();
         stage.act(delta);
         stage.draw();
-		tweenManager.update(delta);
+		//tweenManager.update(delta);
 		level = game.saves.getInteger("level");
         
 	}
@@ -71,8 +76,6 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 
 	@Override
 	public void show() {
-		game.audio.stopMusic();
-		game.audio.playMusic("menu", 1);
 		stage = new Stage();
 		
 		Gdx.input.setInputProcessor(stage);
@@ -92,72 +95,122 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 		textButtonStyle.font = Zero;
 		textButtonStyle.fontColor = Color.BLACK;
 				
-		buttonExit = new TextButton("QUIT", textButtonStyle);
-		buttonExit.addListener(new ClickListener(){
+		ShakeAdd = new TextButton("+", textButtonStyle);
+		ShakeAdd.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.app.exit();
+				//ADD SHAKE
 			};
 		});
-		buttonExit.pad(10, 75, 10, 75);
+		ShakeAdd.pad(0, 10, 0, 10);
 		
-		buttonPlay = new TextButton("PLAY", textButtonStyle);
-		buttonPlay.addListener(new ClickListener(){
+		ShakeMinus = new TextButton("-", textButtonStyle);
+		ShakeMinus.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.audio.stopMusic();
-				game.setScreen(new ShipSelection(level, game));
+				//MINUS SHAKE
 			}
 		});
-		buttonPlay.pad(10, 75, 10, 75);
+		ShakeMinus.pad(0, 10, 0, 10);
 		
-		buttonLevels = new TextButton("LEVEL SELECT", textButtonStyle);
-		buttonLevels.addListener(new ClickListener(){
+		AudioAdd = new TextButton("+", textButtonStyle);
+		AudioAdd.addListener(new ClickListener(){
+			public void clicked(InputEvent event, float x, float y) {
+				audioSetting++;
+				audioLevel.setText(""+audioSetting);
+				game.audio.setVolume(audioSetting);
+			};
+		});
+		AudioAdd.pad(0, 10, 0, 10);
+		
+		AudioMinus = new TextButton("-", textButtonStyle);
+		AudioMinus.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				audioSetting--;
+				audioLevel.setText(""+audioSetting);
+				game.audio.setVolume(audioSetting);
+			}
+		});
+		AudioMinus.pad(0, 10, 0, 10);
+		
+		LightToggle = new TextButton("", textButtonStyle);
+		LightToggle.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				
-				Gdx.input.getTextInput(new TextInputListener(){
-
-					@Override
-					public void input(String text) {
-						level = Integer.parseInt(text);
-						game.saves.putInteger("level", level);
-						game.saves.flush();
-					}
-
-					@Override
-					public void canceled() {
-						
-					}
-					
-				}, "Enter Level Number", "1");
+				//TOGGLE LIGHT
 			}
 		});
-		buttonLevels.pad(10, 75, 10, 75);
+		LightToggle.pad(20, 20, 20, 20);
 		
-		buttonEditor = new TextButton("LEVEL EDITOR", textButtonStyle);
-		buttonEditor.addListener(new ClickListener(){
+		Apply = new TextButton("APPLY", textButtonStyle);
+		Apply.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				level = 0;
-				game.audio.stopMusic();
-				game.setScreen(new ShipSelection(level, game));
+				//APPLY
 			}
 		});
-		buttonEditor.pad(10, 75, 10, 75);
+		Apply.pad(10, 10, 10, 10);
 		
-		buttonSettings = new TextButton("SETTINGS", textButtonStyle);
-		buttonSettings.addListener(new ClickListener(){
+		Exit = new TextButton("EXIT", textButtonStyle);
+		Exit.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(new SettingsScreen(game));
+				game.setScreen(new MainMenu(game));
 			}
 		});
-		buttonSettings.pad(10, 75, 10, 75);
+		Exit.pad(10, 75, 10, 75);
 		
 		ls = new LabelStyle(Zero, Color.WHITE);
-		title = new Label(gaemMain.TITLE, ls);
+		title = new Label("SETTINGS", ls);
 		title.setFontScale(2.5f);
-		table.add(title);
+		audioLevel = new Label(""+audioSetting, ls);
+		shakeLevel = new Label(""+shakeSetting, ls);
+		lightLevel = new Label("YES", ls);
+		audioLabel = new Label("AUDIO VOLUME", ls);
+		shakeLabel = new Label("SHAKE AMMOUNT", ls);
+		lightLabel = new Label("LIGHTING", ls);
+		table.align(Align.center);
+		table.add();
+		table.add(audioLabel);
+		table.add();
+		table.row();
+		table.add(AudioMinus);
+		//table.getCell(AudioMinus).spaceRight(100);
+		table.getCell(AudioMinus).spaceBottom(20);
+		table.add(audioLevel);
+		//table.getCell(audioLevel).spaceRight(100);
+		table.getCell(audioLevel).spaceBottom(20);
+		table.add(AudioAdd);
+		table.getCell(AudioAdd).spaceBottom(20);
+		table.row();
+		table.add();
+		table.add(shakeLabel);
+		table.add();
+		table.row();
+		table.add(ShakeMinus);
+		//table.getCell(ShakeMinus).spaceRight(100);
+		table.getCell(ShakeMinus).spaceBottom(20);
+		table.add(shakeLevel);
+		//table.getCell(shakeLevel).spaceRight(100);
+		table.getCell(shakeLevel).spaceBottom(20);
+		table.add(ShakeAdd);
+		table.getCell(ShakeAdd).spaceBottom(20);
+		table.row();
+		table.add();
+		table.add(lightLabel);
+		table.add();
+		table.row();
+		table.add(LightToggle);
+		table.getCell(LightToggle).spaceBottom(200);
+		table.add(lightLevel);
+		table.getCell(lightLevel).spaceBottom(200);
+		table.row();
+		table.add(Apply);
+		table.add();
+		table.add(Exit);
+		
+		/*table.add(title);
 		table.getCell(title).spaceBottom(150);
 		table.row();
 		table.add(buttonPlay);
@@ -169,13 +222,11 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 		table.add(buttonEditor);
 		table.getCell(buttonEditor).spaceBottom(15);
 		table.row();
-		table.add(buttonSettings);
-		table.getCell(buttonSettings).spaceBottom(15);
-		table.row();
 		table.add(buttonExit);
 		table.debug();
+		*/
 		stage.addActor(table);
-		
+		/*
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Actor.class, new ActorAccessor());
 		
@@ -183,18 +234,16 @@ public class MainMenu extends ApplicationAdapter implements Screen{
 			.push(Tween.set(buttonPlay, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(buttonLevels, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(buttonEditor, ActorAccessor.ALPHA).target(0))
-			.push(Tween.set(buttonSettings, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(buttonExit, ActorAccessor.ALPHA).target(0))
 			.push(Tween.from(title, ActorAccessor.ALPHA, .5f).target(0))
 			.push(Tween.to(buttonPlay, ActorAccessor.ALPHA, .25f).target(1))
 			.push(Tween.to(buttonLevels, ActorAccessor.ALPHA, .25f).target(1))
 			.push(Tween.to(buttonEditor, ActorAccessor.ALPHA, .25f).target(1))
-			.push(Tween.to(buttonSettings, ActorAccessor.ALPHA, .25f).target(1))
 			.push(Tween.to(buttonExit, ActorAccessor.ALPHA, .25f).target(1))
 			.end().start(tweenManager);
 		
 		Tween.from(table, ActorAccessor.ALPHA, 0.5f).target(0).start(tweenManager);
-		Tween.from(table, ActorAccessor.Y, 0.5f).target(Gdx.graphics.getHeight() / -8).start(tweenManager);
+		Tween.from(table, ActorAccessor.Y, 0.5f).target(Gdx.graphics.getHeight() / -8).start(tweenManager);*/
 	}
 
 	@Override

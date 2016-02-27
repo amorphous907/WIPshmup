@@ -372,7 +372,7 @@ public class World {
 	}
 
 	//updates everything
-	private void updateActors() {
+	protected void updateActors() {
 		//ignore all this parker
 
 		if(player1.isPlaying()){
