@@ -48,11 +48,14 @@ public class Entity {
 	public int currentFrame;
 	public boolean circle;
 	
+	public float scale = 0.5f;
+	
 	public Entity(Vector2 position, float width, float height, float hitX, float hitY){
+		
 		this.position = new Vector2(position.x-width/2, position.y-height/2);
-		this.width = width;
-		this.height = height;
-		this.bounds = new Rectangle(position.x, position.y, hitX, hitY);
+		this.width = width * scale;
+		this.height = height * scale;
+		this.bounds = new Rectangle(position.x, position.y, hitX * scale, hitY * scale);
 		this.render = true;
 		this.texture = null;
 		this.centerLocation = new Vector2((this.getPosition().x+this.getWidth()/2), (this.getPosition().y+this.getHeight()/2));
@@ -150,5 +153,9 @@ public class Entity {
 
 	public float getRotation() {
 		return rotation;
+	}
+	
+	protected  float getScale(){
+		return scale;
 	}
 }

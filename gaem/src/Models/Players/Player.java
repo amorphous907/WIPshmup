@@ -48,10 +48,10 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
-			setHeight(60);// = 60;
-			setWidth(60);// = 60;
-			bounds.width = 45;
-			bounds.height = 45;
+			setHeight(60 * getScale());// = 60;
+			setWidth(60 * getScale());// = 60;
+			bounds.width = 45 * getScale();
+			bounds.height = 45 * getScale();
 			gun = new VanillaDEF();
 		}
 		if(ship  == 2)
@@ -93,10 +93,10 @@ public class Player extends MoveableEntity{
 			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
 			maxHealth = 500;
-			setHeight(60);// = 60;
-			setWidth(60);// = 60;
-			bounds.width = 45;
-			bounds.height = 45;
+			setHeight(60 * getScale());// = 60;
+			setWidth(60 * getScale());// = 60;
+			bounds.width = 45 * getScale();
+			bounds.height = 45 * getScale();
 			gun = new VanillaDEF();
 		}
 		if(ship.AI  == 1)

@@ -32,7 +32,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.bitfire.postprocessing.PostProcessor;
+/*import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.postprocessing.effects.Bloom;
 import com.bitfire.postprocessing.effects.MotionBlur;
 import com.bitfire.postprocessing.effects.CrtMonitor;
@@ -40,7 +40,7 @@ import com.bitfire.postprocessing.effects.Curvature;
 import com.bitfire.postprocessing.effects.LensFlare2;
 import com.bitfire.postprocessing.filters.Blur.BlurType;
 import com.bitfire.postprocessing.filters.CrtScreen.RgbMode;
-import com.bitfire.utils.ShaderLoader;
+import com.bitfire.utils.ShaderLoader;*/
 
 public class WorldRender {
 	private boolean renderHud;
@@ -83,7 +83,7 @@ public class WorldRender {
 	private ShaderProgram EmbossShader;
 	private ShaderProgram ShakeLightShader;
 	
-	private PostProcessor postProcessor;
+	//private PostProcessor postProcessor;
 	
 	
 	public WorldRender(World world, gaemMain game){
@@ -231,18 +231,18 @@ public class WorldRender {
 		
 		hud = new Hud(new Vector2(700,0), 300, 900, this);
 		
-		ShaderLoader.BasePath = "data/postProcess/";
-		postProcessor = new PostProcessor(false, false, true);
+		//ShaderLoader.BasePath = "data/postProcess/";
+		//postProcessor = new PostProcessor(false, false, true);
 		
 		//LensFlare2 lensFlare = new LensFlare2((int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f));
         //postProcessor.addEffect(lensFlare);
 		
-		Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f) );
-		bloom.setBloomIntesity(1);
-        postProcessor.addEffect( bloom );
+		//Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f) );
+		//bloom.setBloomIntesity(1);
+       // postProcessor.addEffect( bloom );
         
-        MotionBlur motionBlur = new MotionBlur();
-        motionBlur.setBlurOpacity(0.8f);
+        //MotionBlur motionBlur = new MotionBlur();
+        //motionBlur.setBlurOpacity(0.8f);
         //postProcessor.addEffect(motionBlur);
         
         //CrtMonitor crt = new CrtMonitor((int)(Gdx.graphics.getWidth() * 1f), (int)(Gdx.graphics.getHeight() * 1f), true, false, RgbMode.ChromaticAberrations, 1);
@@ -285,7 +285,7 @@ public class WorldRender {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		
-		postProcessor.capture();
+		//postProcessor.capture();
 		batch.begin();
 		batch.setShader(ShakeLightShader);
 		lightMap.getColorBufferTexture().bind(1);
@@ -294,7 +294,7 @@ public class WorldRender {
 		renderText(world.getText());
 		renderParticles();
 		renderBars();
-		postProcessor.render();
+		//postProcessor.render();
 		
 		batch.setShader(PassthroughShader);
 		if(renderHud)
