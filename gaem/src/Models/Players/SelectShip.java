@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import Models.MoveableEntity;
 import Models.Weapons.LaserDEF;
+import Models.Weapons.SpreadDEF;
 import Models.Weapons.VanillaDEF;
 import View.World;
 
@@ -42,8 +43,24 @@ public class SelectShip extends MoveableEntity{
 			bounds.height = 50;
 			break;
 		case 3:
+			subObjects.add(new medicDECAL(new Vector2(), 1, this));
+			texture = "medic";
+			setHeight(70);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 60;
+			bounds.height = 50;
 			break;
 		case 4:
+			subObjects.add(new DroneBodyDECAL(new Vector2(), 1, this));
+			//subObjects.add(new DroneArm(new Vector2(25,-25), 1, 0, 0, 0, 1, this));
+			//subObjects.add(new DroneArm(new Vector2(-25,-25), 1, 0, 0, 0, 2, this));
+			//subObjects.add(new DroneArm(new Vector2(25,25), 1, 0, 0, 0, 3, this));
+			//subObjects.add(new DroneArm(new Vector2(-25,25), 1, 0, 0, 0, 4, this));
+			texture = "DroneBody";
+			setHeight(30);// = 60;
+			setWidth(45);// = 60;
+			bounds.width = 60;
+			bounds.height = 50;
 			break;
 		case 5:
 			break;

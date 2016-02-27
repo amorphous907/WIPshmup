@@ -128,6 +128,18 @@ public class WorldRender {
 		addTexture("laserDECAL", "laser DECAL", false);
 		addTexture("spread", "Spread", false);
 		addTexture("spreadDECAL", "Spread DECAL", false);
+		addTexture("medic", "Medic", true);
+		addTexture("medicDECAL", "Medic DECAL", true);
+		addTexture("DroneBody", "Drone Body", false);
+		addTexture("DroneBodyDECAL", "Drone Body DECAL", false);
+		addTexture("Drone arm1", "Drone arm1", false);
+		addTexture("Drone arm1 DECAL", "Drone arm1 DECAL", false);
+		addTexture("Drone arm2", "Drone arm2", false);
+		addTexture("Drone arm2 DECAL", "Drone arm2 DECAL", false);
+		addTexture("Drone arm3", "Drone arm3", false);
+		addTexture("Drone arm3 DECAL", "Drone arm3 DECAL", false);
+		addTexture("Drone arm4", "Drone arm4", false);
+		addTexture("Drone arm4 DECAL", "Drone arm4 DECAL", false);
 		
 		addTexture("powerupSTR", "PowerupSTR", false);
 		addTexture("powerupSPD", "PowerupSPD", false);
@@ -166,9 +178,13 @@ public class WorldRender {
 		addTexture("enemyBulletTiny", "enemybullettiny", true);
 		addTexture("enemyLaser", "enemylaser", false); 
 		addTexture("enemyBeam", "enemyBeam", false); 
+		
 		addTexture("vanillaBullet", "vanillabullet", true);
-		addTexture("vulcanBullet", "vulcanbullet", false);
+		addTexture("medicBullet", "medicbullet", false);
 		addTexture("LaserBullet", "LaserBullet", false);
+		addTexture("MedicBullet", "MedicBullet", false);
+		addTexture("medi pellet", "medi pellet", false);
+		addTexture("DroneBullet", "DroneBullet", false);
 		
 		
 		addTexture("star", "star", false);

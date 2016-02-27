@@ -16,7 +16,7 @@ public class PowerupSPD extends Powerups {
 		super(position, width, height, hitX, hitY);
 		velocity = new Vector2(0,200);
 		actorID = 36;
-		texture = "powerupSPD";
+		//texture = "powerupSPD";
 	}
 	
 	@Override

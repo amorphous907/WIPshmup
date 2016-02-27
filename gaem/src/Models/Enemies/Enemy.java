@@ -44,11 +44,11 @@ public class Enemy extends MoveableEntity{
 			PUchance = com.badlogic.gdx.math.MathUtils.random(1, 20);
 			if(PUchance == 19)
 			{
-				world.actors.get(0).add(new PowerupSTR(centerLocation,20,20,20,20));
+				//world.actors.get(0).add(new PowerupSTR(centerLocation,20,20,20,20));
 			}
 			if(PUchance == 20)
 			{
-				world.actors.get(0).add(new PowerupSPD(centerLocation,20,20,20,20));
+				//world.actors.get(0).add(new PowerupSPD(centerLocation,20,20,20,20));
 			}
 			
 		}

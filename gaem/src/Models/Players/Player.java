@@ -4,8 +4,11 @@ import Models.MoveableEntity;
 import Models.Enemies.TestTurret;
 import Models.Players.Powerups.PowerupSPD;
 import Models.Players.Powerups.PowerupSTR;
+import Models.Players.Powerups.medi_pellet;
+import Models.Weapons.DroneDEF;
 import Models.Weapons.Gun;
 import Models.Weapons.LaserDEF;
+import Models.Weapons.MedicDEF;
 import Models.Weapons.SpreadDEF;
 import Models.Weapons.VanillaDEF;
 import Models.Weapons.VanillaSPD;
@@ -74,6 +77,26 @@ public class Player extends MoveableEntity{
 			bounds.height = 50;
 			gun = new SpreadDEF();
 		}
+		if(ship  == 4)
+		{
+			subObjects.add(new medicDECAL(new Vector2(), 1, this));
+			texture = "medic";
+			setHeight(70);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 60;
+			bounds.height = 50;
+			gun = new MedicDEF();
+		}
+		if(ship  == 5)
+		{
+			subObjects.add(new DroneBodyDECAL(new Vector2(), 1, this));
+			texture = "DroneBody";
+			setHeight(70);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 60;
+			bounds.height = 50;
+			gun = new DroneDEF();
+		}
 	}
 	
 	public Player(Vector2 position, float width, float height, float hitX,
@@ -121,6 +144,32 @@ public class Player extends MoveableEntity{
 			bounds.height = 50;
 			gun = new SpreadDEF();
 		}
+		if(ship.AI  == 3)
+		{
+			subObjects.add(new medicDECAL(new Vector2(), 1, this));
+			texture = "medic";
+			maxHealth = 500;
+			setHeight(70);// = 60;
+			setWidth(60);// = 60;
+			bounds.width = 60;
+			bounds.height = 50;
+			gun = new MedicDEF();
+		}
+		if(ship.AI  == 4)
+		{
+			subObjects.add(new DroneBodyDECAL(new Vector2(), 1, this));
+			subObjects.add(new DroneArm(new Vector2(25,-25), 1, 0, 0, 0, 1, this));
+			subObjects.add(new DroneArm(new Vector2(-25,-25), 1, 0, 0, 0, 2, this));
+			subObjects.add(new DroneArm(new Vector2(25,25), 1, 0, 0, 0, 3, this));
+			subObjects.add(new DroneArm(new Vector2(-25,25), 1, 0, 0, 0, 4, this));
+			texture = "DroneBody";
+			maxHealth = 500;
+			setHeight(30);// = 60;
+			setWidth(45);// = 60;
+			bounds.width = 50;
+			bounds.height = 35;
+			gun = new DroneDEF();
+		}
 	}
 	public Player(Vector2 position, float width, float height,
 			float hitX, float hitY, Vector2 velocity, float rotation){
@@ -157,6 +206,10 @@ public class Player extends MoveableEntity{
 			super.update(world);
 			gun.update(world, this);
 			
+			if(health > maxHealth)
+			{
+				health = maxHealth;
+			}
 			if(health <= 0)
 			{
 				isPlaying = false;
@@ -251,6 +304,10 @@ public class Player extends MoveableEntity{
 		{
 			powerupID = 2;
 			hasPowerup = true;
+		}
+		if(e instanceof medi_pellet)
+		{
+			health = health + 5;
 		}
 		
 	}
