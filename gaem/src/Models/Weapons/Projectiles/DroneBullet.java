@@ -18,8 +18,10 @@ public class DroneBullet extends MoveableEntity
 {
 	public boolean explode = false;
 	int zig = 1;
+	int side = com.badlogic.gdx.math.MathUtils.random(1, 2);
 
-	public DroneBullet(Vector2 position, Vector2 velocity){
+	public DroneBullet(Vector2 position, Vector2 velocity)
+	{
 		super(position, 10, 10, 5, 5);
 		this.velocity = velocity;
 		actorID = 28;
@@ -29,6 +31,10 @@ public class DroneBullet extends MoveableEntity
 		lightMapScale = 10;
 		lightColor = new Color(0,0,1,1);
 		rotation = velocity.angle()-90;
+		if(side == 1)
+		{
+			zig = 0;
+		}
 	}
 	
 	@Override
@@ -41,46 +47,7 @@ public class DroneBullet extends MoveableEntity
 		{
 			if(zig == 1)
 			{
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;//GUD CODURRRRRR
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
-			velocity.x++;
+				velocity.x = velocity.x + 40;
 				world.timer.scheduleTask(new Task() 
 				{
 					@Override
@@ -88,51 +55,12 @@ public class DroneBullet extends MoveableEntity
 					{
 						zig = 0;
 					}	
-				} , 0.2f);
+				} , 0.025f);
 			}
 			
 			if(zig == 0)
 			{
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;//GUD CODURRRRRR
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
-			velocity.x--;
+				velocity.x = velocity.x - 40;
 				world.timer.scheduleTask(new Task() 
 				{
 					@Override
@@ -140,7 +68,7 @@ public class DroneBullet extends MoveableEntity
 					{
 						zig = 1;
 					}	
-				} , 0.4f);
+				} , 0.025f);
 			}
 		}
 		//if(remove)
