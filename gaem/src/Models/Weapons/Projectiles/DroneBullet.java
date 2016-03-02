@@ -47,7 +47,7 @@ public class DroneBullet extends MoveableEntity
 		{
 			if(zig == 1)
 			{
-				velocity.x = velocity.x + 40;
+				velocity.x = velocity.x + 10;
 				world.timer.scheduleTask(new Task() 
 				{
 					@Override
@@ -55,12 +55,12 @@ public class DroneBullet extends MoveableEntity
 					{
 						zig = 0;
 					}	
-				} , 0.025f);
+				} , 0.5f);
 			}
 			
 			if(zig == 0)
 			{
-				velocity.x = velocity.x - 40;
+				velocity.x = velocity.x - 10;
 				world.timer.scheduleTask(new Task() 
 				{
 					@Override
@@ -68,7 +68,7 @@ public class DroneBullet extends MoveableEntity
 					{
 						zig = 1;
 					}	
-				} , 0.025f);
+				} , 1.0f);
 			}
 		}
 		//if(remove)
@@ -82,7 +82,7 @@ public class DroneBullet extends MoveableEntity
 		//damage enemy
 		if(e instanceof Enemy || e instanceof subObjectEnemy)
 		{
-			e.damage(2);
+			e.damage(3);
 			explode = true;
 			//kill itself
 			remove = true;
@@ -94,7 +94,6 @@ public class DroneBullet extends MoveableEntity
 			remove = true;
 		}
 	}
-	
 	@Override
 	public void render(WorldRender render){
 		if(explode){

@@ -32,8 +32,12 @@ public class DroneDEF extends Gun{
 	
 	@Override
 	protected void fire(World world, MoveableEntity entity){
-		projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x-12, entity.centerLocation.y), new Vector2(0,-900)));
-		projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x+12, entity.centerLocation.y), new Vector2(0,-900)));
+		//projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x-12, entity.centerLocation.y), new Vector2(0,-900)));
+		//projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x+12, entity.centerLocation.y), new Vector2(0,-900)));
+		projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x-22, entity.centerLocation.y+10), new Vector2(0,-450)));
+		//projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x+22, entity.centerLocation.y+10), new Vector2(0,-900)));
+		//projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x-22, entity.centerLocation.y-10), new Vector2(0,-900)));
+		//projectiles.add(new DroneBullet(new Vector2(entity.centerLocation.x+22, entity.centerLocation.y-10), new Vector2(0,-900)));
 		
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x-10, entity.centerLocation.y-10));
 		world.getRender().addParticles(4, 2, 2, new Vector2(entity.centerLocation.x+10, entity.centerLocation.y-10));
