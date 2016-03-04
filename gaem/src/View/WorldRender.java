@@ -187,7 +187,6 @@ public class WorldRender {
 		addTexture("enemyBeam", "enemyBeam", false); 
 		
 		addTexture("vanillaBullet", "vanillabullet", true);
-		addTexture("medicBullet", "medicbullet", false);
 		addTexture("LaserBullet", "LaserBullet", false);
 		addTexture("MedicBullet", "MedicBullet", false);
 		addTexture("medi pellet", "medi pellet", false);
