@@ -122,6 +122,13 @@ public class WorldRender {
 		lightMaps = new HashMap<String, Texture>();
 		textures.put("NONE", new Texture(Gdx.files.internal("data/texture/NONE.jpg")));//RED SUN OVER PARADICE
 		
+		addTexture("menuBG", "menuBG", false);
+		addTexture("Title Splash vanilla", "Title Splash vanilla", false);
+		addTexture("Title Splash laser", "Title Splash laser", false);
+		addTexture("Title Splash spread", "Title Splash spread", false);
+		addTexture("Title Splash medic", "Title Splash medic", false);
+		addTexture("Title Splash drone", "Title Splash drone", false);
+		
 		addTexture("vanilla", "vanilla", true);
 		addTexture("vanillaDECAL", "vanilla DECAL", true);
 		addTexture("laser", "Laser", false);
