@@ -3,6 +3,7 @@ package Models.Enemies;
 
 import Models.Weapons.Projectiles.EnemyBullet;
 import Models.Weapons.Projectiles.EnemyLaser;
+import Models.Weapons.Projectiles.EnemyWide;
 import View.World;
 
 import com.badlogic.gdx.Gdx;
@@ -36,7 +37,10 @@ public class GunshipBasic extends Enemy
 		
 		if(loaded)
 		{
-			world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-10,position.y+height/2-10),25,25,25,25));
+			world.actors.get(0).add(new EnemyWide(new Vector2(position.x+width/2+25,position.y+height),50,25,45,20));
+        	world.actors.get(0).add(new EnemyWide(new Vector2(position.x+width/2-25,position.y+height),50,25,45,20));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(200,600)));
+        	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-200,600)));
 			world.getRender().addParticles(3, 2, 2, new Vector2(position.x+width/2-10,position.y+height/2-10));
 			world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 			
