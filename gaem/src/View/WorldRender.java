@@ -195,7 +195,7 @@ public class WorldRender {
 		
 		
 		addTexture("star", "star", false);
-		addTexture("level1hanger", "level1 hanger", false);
+		addTexture("level1hanger", "level1hanger", false);
 		addTexture("level1floor", "level1floor", false);
 		addTexture("level1beam", "level1beam", false);
 		addTexture("a1", "a1", false); 

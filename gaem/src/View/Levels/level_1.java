@@ -3,6 +3,7 @@ package View.Levels;
 import java.util.Random;
 
 import Models.Star;
+import Models.genericBG;
 //import Models.genericBG;
 import Models.level1hanger;
 import Models.Enemies.GunshipBasic;
@@ -40,7 +41,8 @@ public class level_1 extends level
 		if(bossDead){
 			System.out.println("DEAD");
 		}
-		if(star){
+		if(star)
+		{
 			world.timer.scheduleTask(new Task(){
 				@Override
 				public void run()
@@ -54,31 +56,20 @@ public class level_1 extends level
 			star = false; 
 		}
 		
-		if(NOVA && !halfway){
-			world.timer.scheduleTask(new Task(){
+		if(NOVA && !halfway)
+		{
+			world.timer.scheduleTask(new Task()
+			{
 				@Override
 				public void run()
 				{
-					world.background.get(2).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
-					//world.background.get(0).insert(0, new genericBG(new Vector2(350,0), 700,200, new Vector2(0,100)));
-					//world.foreground.get(0).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
+					world.background.get(0).insert(0, new genericBG(new Vector2(350,0), 700,200, new Vector2(0,100), 1));
 					NOVA = true;
 				}
 			} , 8f);
 			NOVA = false;
 		}
-		if(tile && !halfway){ //thank you mason
-			world.timer.scheduleTask(new Task(){
-				@Override
-				public void run()
-				{
-					//world.background.get(0).insert(0, new genericBG(new Vector2(350,-100), 700f,150f, new Vector2(0,100),("level1floor")));
-					//world.foreground.get(0).insert(0, new level1hanger(new Vector2(350,0), 700,2000, new Vector2(0,100)));
-					tile = true;
-				}
-			} , 2f);
-			tile = false;
-		}
+		
 		if(tile && !halfway){ //thank you mason
 			world.timer.scheduleTask(new Task(){
 				@Override
