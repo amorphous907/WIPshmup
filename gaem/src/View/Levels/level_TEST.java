@@ -13,6 +13,7 @@ import Models.Enemies.HeavyLaser;
 import Models.Enemies.GunshipBasic;
 import Models.Enemies.EnemyMine;
 import Models.Enemies.Bosses.BOSS4;
+import Models.Enemies.Bosses.BOSS1;
 import Models.Enemies.Bosses.BOSS2;
 import Models.Enemies.Bosses.BOSS5;
 import Models.Players.Powerups.PowerupSPD;
@@ -36,9 +37,9 @@ public class level_TEST extends level_1
 		
 		if(tic == 100)
 		{
-			world.actors.get(0).add(new PowerupSPD(new Vector2(350,50), 30,30,30,30));
-			world.actors.get(0).add(new PowerupSTR(new Vector2(350,200), 30,30,30,30));
-			world.actors.get(0).add(new BOSS2(new Vector2(350,50)));
+			//world.actors.get(0).add(new PowerupSPD(new Vector2(350,50), 30,30,30,30));
+			//world.actors.get(0).add(new PowerupSTR(new Vector2(350,200), 30,30,30,30));
+			world.actors.get(0).add(new BOSS1(new Vector2(350,50)));
 		}
 	}
 }

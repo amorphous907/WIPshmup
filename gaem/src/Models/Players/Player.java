@@ -13,6 +13,7 @@ import Models.Weapons.SpreadDEF;
 import Models.Weapons.VanillaDEF;
 import Models.Weapons.VanillaSPD;
 import Models.Weapons.VanillaSTR;
+import Models.Weapons.Projectiles.EnemyBullet;
 import View.World;
 
 import com.badlogic.gdx.graphics.Color;
@@ -206,7 +207,7 @@ public class Player extends MoveableEntity{
 			super.update(world);
 			gun.update(world, this);
 			
-			if(health > maxHealth)
+			if(health >= maxHealth)
 			{
 				health = maxHealth;
 			}
@@ -218,6 +219,7 @@ public class Player extends MoveableEntity{
 				powerupID = 0;
 				hasPowerup = true;
 				world.ShakeAmmount += 5;
+				world.actors.get(0).add(new corpse(new Vector2(centerLocation.x,centerLocation.y),width,height));
 			}
 
 			if(hasPowerup)
@@ -307,7 +309,11 @@ public class Player extends MoveableEntity{
 		}
 		if(e instanceof medi_pellet)
 		{
-			health = health + 5;
+			if(health < maxHealth)
+			{
+				health = health + 5;
+			}
+			
 		}
 		
 	}

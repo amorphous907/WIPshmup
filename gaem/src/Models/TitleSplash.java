@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class TitleSplash extends MoveableEntity{
 	boolean fuckimbad = true;
-	int ransplash = com.badlogic.gdx.math.MathUtils.random(5,5);
+	int ransplash = com.badlogic.gdx.math.MathUtils.random(1,5);
 	
 	public TitleSplash(Vector2 position)
 	{
