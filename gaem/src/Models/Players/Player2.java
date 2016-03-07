@@ -32,7 +32,7 @@ public class Player2 extends Player{
 		int ship = com.badlogic.gdx.math.MathUtils.random(1, 3);
 		if(ship  == 1)
 		{
-			subObjects.add(new VanillaDECAL(new Vector2(), 2, this));
+			subObjects.add(new vanillaDECAL(new Vector2(), 2, this));
 			texture = "vanilla";
 			setHeight(60);// = 60;
 			setWidth(60);// = 60;

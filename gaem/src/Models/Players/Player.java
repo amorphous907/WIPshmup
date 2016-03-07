@@ -13,6 +13,7 @@ import Models.Weapons.SpreadDEF;
 import Models.Weapons.VanillaDEF;
 import Models.Weapons.VanillaSPD;
 import Models.Weapons.VanillaSTR;
+import Models.Weapons.Projectiles.EnemyBullet;
 import View.World;
 
 import com.badlogic.gdx.graphics.Color;
@@ -49,7 +50,7 @@ public class Player extends MoveableEntity{
 		
 		if(ship  == 1)
 		{
-			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+			subObjects.add(new vanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
 			setHeight(60 * getScale());// = 60;
 			setWidth(60 * getScale());// = 60;
@@ -113,7 +114,7 @@ public class Player extends MoveableEntity{
 		System.out.println(ship.AI);
 		if(ship.AI  == 0)
 		{
-			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+			subObjects.add(new vanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
 			maxHealth = 500;
 			setHeight(60 * getScale());// = 60;
@@ -206,7 +207,7 @@ public class Player extends MoveableEntity{
 			super.update(world);
 			gun.update(world, this);
 			
-			if(health > maxHealth)
+			if(health >= maxHealth)
 			{
 				health = maxHealth;
 			}
@@ -218,6 +219,7 @@ public class Player extends MoveableEntity{
 				powerupID = 0;
 				hasPowerup = true;
 				world.ShakeAmmount += 5;
+				world.actors.get(0).add(new corpse(new Vector2(centerLocation.x,centerLocation.y),width,height));
 			}
 
 			if(hasPowerup)
@@ -245,7 +247,8 @@ public class Player extends MoveableEntity{
 	protected void HandleInput(World world) {
 		
 	}
-	private void fixPosition() {
+	private void fixPosition() 
+	{
 		if(position.x < 0)
 			position.x = 0;
 		if(position.x > 700-width)
@@ -307,7 +310,11 @@ public class Player extends MoveableEntity{
 		}
 		if(e instanceof medi_pellet)
 		{
-			health = health + 5;
+			if(health < maxHealth)
+			{
+				health = health + 5;
+			}
+			
 		}
 		
 	}

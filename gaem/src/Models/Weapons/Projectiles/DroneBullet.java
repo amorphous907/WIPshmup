@@ -19,6 +19,7 @@ public class DroneBullet extends MoveableEntity
 	public boolean explode = false;
 	int zig = 1;
 	int side = com.badlogic.gdx.math.MathUtils.random(1, 2);
+	int trag = com.badlogic.gdx.math.MathUtils.random(25, 35);
 
 	public DroneBullet(Vector2 position, Vector2 velocity)
 	{
@@ -34,6 +35,11 @@ public class DroneBullet extends MoveableEntity
 		if(side == 1)
 		{
 			zig = 0;
+			velocity.x = 275;
+		}
+		else
+		{
+			velocity.x = -275;
 		}
 	}
 	
@@ -47,7 +53,7 @@ public class DroneBullet extends MoveableEntity
 		{
 			if(zig == 1)
 			{
-				velocity.x = velocity.x + 10;
+				velocity.x = velocity.x + trag;
 				world.timer.scheduleTask(new Task() 
 				{
 					@Override
@@ -55,12 +61,12 @@ public class DroneBullet extends MoveableEntity
 					{
 						zig = 0;
 					}	
-				} , 0.5f);
+				} , 0.25f);
 			}
 			
 			if(zig == 0)
 			{
-				velocity.x = velocity.x - 10;
+				velocity.x = velocity.x - trag;
 				world.timer.scheduleTask(new Task() 
 				{
 					@Override
@@ -68,7 +74,7 @@ public class DroneBullet extends MoveableEntity
 					{
 						zig = 1;
 					}	
-				} , 1.0f);
+				} , 0.25f);
 			}
 		}
 		//if(remove)
@@ -88,7 +94,7 @@ public class DroneBullet extends MoveableEntity
 			remove = true;
 		}
 		if(e instanceof subObjectEnemy){
-			((Models.subObject) e).subDamage(2);
+			((Models.subObject) e).subDamage(3);
 			explode = true;
 			//kill itself
 			remove = true;
