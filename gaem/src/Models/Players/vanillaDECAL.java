@@ -9,17 +9,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class VanillaDECAL extends subObject{
+public class vanillaDECAL extends subObject{
 	public Vector2 aim;
 	
-	public VanillaDECAL(Vector2 offset, int Pcolor,  MoveableEntity Parent) {
+	public vanillaDECAL(Vector2 offset, int Pcolor,  MoveableEntity Parent) {
 		super(offset, 61, 61, 45, 45, Parent);
 		actorID = 12;
-		texture = "vanillaDECAL";
 		hasLight = true;
+		texture = "vanillaDECAL";
 		lightMap = "vanillaDECAL_L";
 		lightColor = new Color(0,0,1,1);
-		
+			
 		if(Pcolor == 1)
 		{
 			baseColor = Color.BLUE;

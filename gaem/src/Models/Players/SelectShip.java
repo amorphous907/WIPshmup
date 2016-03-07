@@ -19,7 +19,7 @@ public class SelectShip extends MoveableEntity{
 		this.AI = aI;
 		switch(aI){
 		case 0:
-			subObjects.add(new VanillaDECAL(new Vector2(), 1, this));
+			subObjects.add(new vanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
 			setHeight(60);// = 60;
 			setWidth(60);// = 60;
