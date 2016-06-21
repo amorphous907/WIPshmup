@@ -15,11 +15,8 @@ public class vanillaDECAL extends subObject{
 	public vanillaDECAL(Vector2 offset, int Pcolor,  MoveableEntity Parent) {
 		super(offset, 61, 61, 45, 45, Parent);
 		actorID = 12;
-		hasLight = true;
 		texture = "vanillaDECAL";
-		lightMap = "vanillaDECAL_L";
-		lightColor = new Color(0,0,1,1);
-			
+		
 		if(Pcolor == 1)
 		{
 			baseColor = Color.BLUE;

@@ -28,6 +28,7 @@ public class Player extends MoveableEntity{
 	public VanillaSTR vanillastr;
 	public VanillaSPD vanillaspd;
 	public static int SPEED = 240;
+	int corpseType;
 	public float spawnTime = 5; //in seconds
 	public float spawnTic = 5;
 	private boolean test = false;
@@ -116,6 +117,7 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new vanillaDECAL(new Vector2(), 1, this));
 			texture = "vanilla";
+			corpseType = 1;
 			maxHealth = 500;
 			setHeight(60 * getScale());// = 60;
 			setWidth(60 * getScale());// = 60;
@@ -127,6 +129,7 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new laserDECAL(new Vector2(), 1, this));
 			texture = "laser";
+			corpseType = 2;
 			maxHealth = 800;
 			setHeight(60);// = 60;
 			setWidth(90);// = 60;
@@ -138,6 +141,7 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new spreadDECAL(new Vector2(), 1, this));
 			texture = "spread";
+			corpseType = 3;
 			maxHealth = 300;
 			setHeight(70);// = 60;
 			setWidth(40);// = 60;
@@ -149,6 +153,7 @@ public class Player extends MoveableEntity{
 		{
 			subObjects.add(new medicDECAL(new Vector2(), 1, this));
 			texture = "medic";
+			corpseType = 4;
 			maxHealth = 500;
 			setHeight(70);// = 60;
 			setWidth(60);// = 60;
@@ -164,6 +169,7 @@ public class Player extends MoveableEntity{
 			subObjects.add(new DroneArm(new Vector2(25,25), 1, 0, 0, 0, 3, this));
 			subObjects.add(new DroneArm(new Vector2(-25,25), 1, 0, 0, 0, 4, this));
 			texture = "DroneBody";
+			corpseType = 5;
 			maxHealth = 500;
 			setHeight(30);// = 60;
 			setWidth(45);// = 60;
@@ -219,7 +225,7 @@ public class Player extends MoveableEntity{
 				powerupID = 0;
 				hasPowerup = true;
 				world.ShakeAmmount += 5;
-				world.actors.get(0).add(new corpse(new Vector2(centerLocation.x,centerLocation.y),width,height));
+				world.actors.get(0).add(new corpse(new Vector2(centerLocation.x,centerLocation.y),width,height,corpseType));
 			}
 
 			if(hasPowerup)

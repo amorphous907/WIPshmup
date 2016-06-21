@@ -14,11 +14,21 @@ public class corpse extends MoveableEntity{
 	int spin = com.badlogic.gdx.math.MathUtils.random(-5, 5);
 	int spinMega = 0;
 	
-	public corpse(Vector2 position, float width, float height) 
+	public corpse(Vector2 position, float width, float height, int corpseType) 
 	{
 		super(position, width, height, 0, 0);
 		actorID = 14;
-		texture = "vanilla";
+		int corpse = corpseType;
+		if(corpse == 1)
+			texture = "vanilla";
+		if(corpse == 2)
+			texture = "laser";
+		if(corpse == 3)
+			texture = "spread";
+		if(corpse == 4)
+			texture = "medic";
+		if(corpse == 5)
+			texture = "DroneBody";
 		boolean timeCheck = true;
 		velocity.x = com.badlogic.gdx.math.MathUtils.random(-300, 300);
 		velocity.y = com.badlogic.gdx.math.MathUtils.random(-300, 300);
