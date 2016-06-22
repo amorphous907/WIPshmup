@@ -158,7 +158,24 @@ public class World {
 		edit = new levelEditor(this);//0
 		level1 = new level_1(this);//1
 		level2 = new level_2(this);//2
-		//level3 = new level_3();//3
+		level3 = new level_3(this);//2
+		level4 = new level_4(this);//2
+		level5 = new level_5(this);//2
+		level6 = new level_6(this);//2
+		level7 = new level_7(this);//2
+		level8 = new level_8(this);//2
+		level9 = new level_9(this);//2
+		level10 = new level_10(this);//2
+		level11 = new level_11(this);//2
+		level12 = new level_12(this);//2
+		level13 = new level_13(this);//2
+		level14 = new level_14(this);//2
+		level15 = new level_15(this);//2
+		level16 = new level_16(this);//2
+		level17 = new level_17(this);//2
+		level18 = new level_18(this);//2
+		level19 = new level_19(this);//2
+		level20 = new level_20(this);//2
 		currentLevel = level;
 
 		levels = new Array<View.Levels.level>();
@@ -303,13 +320,49 @@ public class World {
 		edit = new levelEditor(this);//0
 		level1 = new level_1(this);//1
 		level2 = new level_2(this);//2
-		//level3 = new level_3();//3
+		level3 = new level_3(this);//2
+		level4 = new level_4(this);//2
+		level5 = new level_5(this);//2
+		level6 = new level_6(this);//2
+		level7 = new level_7(this);//2
+		level8 = new level_8(this);//2
+		level9 = new level_9(this);//2
+		level10 = new level_10(this);//2
+		level11 = new level_11(this);//2
+		level12 = new level_12(this);//2
+		level13 = new level_13(this);//2
+		level14 = new level_14(this);//2
+		level15 = new level_15(this);//2
+		level16 = new level_16(this);//2
+		level17 = new level_17(this);//2
+		level18 = new level_18(this);//2
+		level19 = new level_19(this);//2
+		level20 = new level_20(this);//2
+		
 		currentLevel = level;
 
 		levels = new Array<View.Levels.level>();
 		levels.add(edit); //0
 		levels.add(level1); //1
 		levels.add(level2); //2
+		levels.add(level3);
+		levels.add(level4);
+		levels.add(level5);
+		levels.add(level6);
+		levels.add(level7);
+		levels.add(level8);
+		levels.add(level9);
+		levels.add(level10);
+		levels.add(level11);
+		levels.add(level12);
+		levels.add(level13);
+		levels.add(level14);
+		levels.add(level15);
+		levels.add(level16);
+		levels.add(level17);
+		levels.add(level18);
+		levels.add(level19);
+		levels.add(level20);
 
 		lives = 110;
 		players = 1;
