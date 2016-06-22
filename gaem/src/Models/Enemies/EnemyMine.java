@@ -54,7 +54,7 @@ public class EnemyMine extends Enemy
 	{
 		if(e instanceof Player)
 		{
-			((Player) e).damage(5);
+			((Player) e).damage(300);
 			
 			health = 0;
 		}

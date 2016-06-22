@@ -7,6 +7,7 @@ import Models.Enemies.EnemyHurtmark;
 import Models.Enemies.EnemyMine;
 import Models.Enemies.LightTiny;
 import Models.Weapons.Projectiles.EnemyBullet;
+import Models.Weapons.Projectiles.EnemyLaser;
 import Models.Weapons.Projectiles.EnemyWide;
 import Models.Enemies.EnemyMissile;
 import View.World;
@@ -31,10 +32,12 @@ public class BOSS3INVIS extends Enemy
     int firerateA = 15;
     int firerateB = 10;
     int firerateC = 5;
+    int firerateD = 5;
     int fired = 0;
     int pingA = 26;
     int pingB = 0;
     int pingC = 0;
+    int pingD = 0;
     int x = 0;
     int z = 0;
     int ready_4_battle = 1;
@@ -69,7 +72,7 @@ public class BOSS3INVIS extends Enemy
 						{
 							x = com.badlogic.gdx.math.MathUtils.random(1,4);
 						}
-					} , 0.2f);
+					} , 2.0f);
 	            
 					pingA = 0;
 	            	pingB = 0;
@@ -81,18 +84,18 @@ public class BOSS3INVIS extends Enemy
 	            {
 	            	if(fireside)
 	            	{
-	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-200,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-75,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(200,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(75,600)));
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-200,500)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-75,500)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(200,500)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(75,500)));
 	            		fireside = false;
 	            	}
 	            	else
 	            	{
-	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-200,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-75,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(200,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(75,600)));
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-200,500)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-75,500)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(200,500)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(75,500)));
 		            	fireside = true;
 	            	}
 	            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
@@ -120,15 +123,21 @@ public class BOSS3INVIS extends Enemy
 	                fired++;
 	            }
 	        }
-	        if(x == 3)///////////////////QUAD SHOT PLEASE REPLACE////////////////////////////
+	        if(x == 3)///////////////////AIM BURST////////////////////////////
 	        {
-	        	 if(fired>firerateB)
+	        	updateAim(world);
+	        	
+	        	 if(fired>firerateD)
 		            {
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-200,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(-75,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(200,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2,position.y+height),25,25,25,25, new Vector2(75,600)));
-		            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
+	        		 	//rev up noise
+	        		 	if(aim != null)
+	        		 	{
+	        		 		EnemyLaser temp = new EnemyLaser(new Vector2(position.x+width/2,position.y+height/2),25,50,25,50);
+	        		 		temp.setVelocity(new Vector2(aim.cpy().sub(this.getPosition()).nor().scl(1200)));
+	        		 		world.actors.get(0).add(temp);
+	        		 		world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
+	        		 	}
+	        		 	
 		                fired=0;
 		                pingB++;
 		            }
@@ -138,7 +147,11 @@ public class BOSS3INVIS extends Enemy
 		            }
 	        }
 			else
+			{
 				tick++;
+				
+			}
+				
 			}
 			if(x == 4)
 			{
@@ -253,5 +266,28 @@ public class BOSS3INVIS extends Enemy
 			}
 		}
 	}
+
+	private void updateAim(World world)
+    {
+    	aim = null;
+    	if(world.player1.isPlaying)
+   			aim = world.player1.getPosition();
+   		if(world.player2.isPlaying)
+   			if(aim == null)
+   				aim = world.player2.getPosition();
+   		else if(this.getPosition().dst(aim)>this.getPosition().dst(world.player2.getPosition()))
+    			aim = world.player2.getPosition();
+   		if(world.player4.isPlaying)
+    		if(aim == null)
+   				aim = world.player4.getPosition();
+   			else if(this.getPosition().dst(aim)>this.getPosition().dst(world.player4.getPosition()))
+    			aim = world.player4.getPosition();
+    	if(world.player3.isPlaying)
+   			if(aim == null)
+    			aim = world.player3.getPosition();
+    		else if(this.getPosition().dst(aim)>this.getPosition().dst(world.player3.getPosition()))
+   				aim = world.player3.getPosition();
+    }
+
 }
 
