@@ -28,11 +28,13 @@ public class BOSS3INVIS extends Enemy
 	int Xvel = 100;
 	int move=1;
 	int tic = 0;
-    int firerateA = 0;
-    int firerateB = 35;
+    int firerateA = 15;
+    int firerateB = 10;
+    int firerateC = 5;
     int fired = 0;
-    int pingA = 201;
+    int pingA = 26;
     int pingB = 0;
+    int pingC = 0;
     int x = 0;
     int z = 0;
     int ready_4_battle = 1;
@@ -58,36 +60,39 @@ public class BOSS3INVIS extends Enemy
 		{
 			if(ready_4_battle == 1)
 			{
-				if(pingA > 200 || pingB > 10)
+				if(pingA > 25 || pingB > 10 || pingC > 1)
 				{
 					world.timer.scheduleTask(new Task() 
 					{
 						@Override
 						public void run()
 						{
-							x = com.badlogic.gdx.math.MathUtils.random(1, 4);
+							x = com.badlogic.gdx.math.MathUtils.random(1,4);
 						}
-					} , 2.0f);
+					} , 0.2f);
 	            
 					pingA = 0;
 	            	pingB = 0;
+	            	pingC = 0;
 				}	
 	        if(x == 1)
 	        {
-	            if(fired>firerateA)
+	            if(fired>firerateA)///////////////swapfire spreader//////////////////////////////////////
 	            {
 	            	if(fireside)
 	            	{
-	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(125,600)));
-	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25));
-	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-125,600)));
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-200,600)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(-75,600)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(200,600)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2-50,position.y+height),25,25,25,25, new Vector2(75,600)));
 	            		fireside = false;
 	            	}
 	            	else
 	            	{
-	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(125,600)));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25));
-		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-125,600)));
+	            		world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-200,600)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(-75,600)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(200,600)));
+		            	world.actors.get(0).add(new EnemyBullet(new Vector2(position.x+width/2+50,position.y+height),25,25,25,25, new Vector2(75,600)));
 		            	fireside = true;
 	            	}
 	            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
@@ -99,21 +104,23 @@ public class BOSS3INVIS extends Enemy
 	                fired++;
 	            }
 	        }
-	        if(x == 2)
+	        if(x == 2)///////////////////mines//////////////////////
 	        {
-	        	if(fired>firerateB)
+	        	if(fired>firerateC)
 	            {
-	        		world.actors.get(0).add(new EnemyMine(new Vector2(0,-100), 1));
+	        		world.actors.get(0).add(new EnemyMine(new Vector2(position.x+width/2+25,position.y+height),new Vector2(com.badlogic.gdx.math.MathUtils.random(-75,75),-200)));
+	        		world.actors.get(0).add(new EnemyMine(new Vector2(position.x+width/2-25,position.y+height),new Vector2(com.badlogic.gdx.math.MathUtils.random(-75,75),-200)));
+	        		
 	            	world.game.audio.playSound("EnemyLaser"+com.badlogic.gdx.math.MathUtils.random(1, 4), 0.8f);
 	                fired=0;
-	                pingB++;
+	                pingC++;
 	            }
 	            else
 	            {
 	                fired++;
 	            }
 	        }
-	        if(x == 3)
+	        if(x == 3)///////////////////QUAD SHOT PLEASE REPLACE////////////////////////////
 	        {
 	        	 if(fired>firerateB)
 		            {
@@ -135,7 +142,7 @@ public class BOSS3INVIS extends Enemy
 			}
 			if(x == 4)
 			{
-				if(fired>firerateB)
+				if(fired>firerateB)/////////////////////WIP PLEASE UPDATE/////////////////
 	            {
 	            	z = com.badlogic.gdx.math.MathUtils.random(0, 3);
 	            	if(z == 0)
