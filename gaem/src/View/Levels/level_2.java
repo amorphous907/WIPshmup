@@ -18,14 +18,14 @@ import com.badlogic.gdx.utils.Timer.Task;
 public class level_2 extends level
 {
 	Random rnd = new Random();
-	boolean starttier2 = true;
+	boolean starttier2 = false;
 	boolean PREPARE_TO_DIE = false;
 	boolean musicstart = true;
 	int boss_here = 0;
 	int x;
 	int y;
 	int z;
-	float time = 110;
+	float time = 0;
 	
 	public level_2(World world) {
 		super(world);
@@ -50,6 +50,7 @@ public class level_2 extends level
 			if(time < 30)
 			{
 				System.out.println("tier 1");
+				System.out.println(time);
 				y = com.badlogic.gdx.math.MathUtils.random(1, 10);
 			}
 			if(time >= 30 && !starttier2)
@@ -60,22 +61,17 @@ public class level_2 extends level
 					public void run()
 					{
 						world.actors.get(0).add(new HeavyBasic(new Vector2(350,-200), 0));
-					}
-				} , 3.0f);
-				world.timer.scheduleTask(new Task() 
-				{
-					@Override
-					public void run()
-					{
 						starttier2 = true;
+						System.out.println(time);
 					}
 				} , 3.0f);
 			}
 			
 			if(time >= 30 && starttier2)
 			{
-				System.out.println("tier 2");
-				z = com.badlogic.gdx.math.MathUtils.random(4, 4);
+				System.out.println("tier 2 SONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+				System.out.println(time);
+				z = com.badlogic.gdx.math.MathUtils.random(1, 4);
 			}
 				
 			waveDone = false;
