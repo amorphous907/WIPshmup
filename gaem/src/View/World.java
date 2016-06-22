@@ -17,7 +17,25 @@ import Models.Players.SelectShip;
 import Screens.MainMenu;
 import View.Levels.levelEditor;
 import View.Levels.level_1;
+import View.Levels.level_10;
+import View.Levels.level_11;
+import View.Levels.level_12;
+import View.Levels.level_13;
+import View.Levels.level_14;
+import View.Levels.level_15;
+import View.Levels.level_16;
+import View.Levels.level_17;
+import View.Levels.level_18;
+import View.Levels.level_19;
 import View.Levels.level_2;
+import View.Levels.level_20;
+import View.Levels.level_3;
+import View.Levels.level_4;
+import View.Levels.level_5;
+import View.Levels.level_6;
+import View.Levels.level_7;
+import View.Levels.level_8;
+import View.Levels.level_9;
 import View.Levels.level_TEST;
 
 import com.amorphous.gaem.GamepadHandler;
@@ -99,6 +117,24 @@ public class World {
 	level_TEST levelT;
 	level_1 level1;
 	level_2 level2;
+	level_3 level3;
+	level_4 level4;
+	level_5 level5;
+	level_6 level6;
+	level_7 level7;
+	level_8 level8;
+	level_9 level9;
+	level_10 level10;
+	level_11 level11;
+	level_12 level12;
+	level_13 level13;
+	level_14 level14;
+	level_15 level15;
+	level_16 level16;
+	level_17 level17;
+	level_18 level18;
+	level_19 level19;
+	level_20 level20;
 	levelEditor edit;
 	public Array<View.Levels.level> levels;
 	public View.Levels.level level;
@@ -129,6 +165,23 @@ public class World {
 		levels.add(edit); //0
 		levels.add(level1); //1
 		levels.add(level2); //2
+		levels.add(level3);
+		levels.add(level4);
+		levels.add(level5);
+		levels.add(level6);
+		levels.add(level7);
+		levels.add(level8);
+		levels.add(level9);
+		levels.add(level10);
+		levels.add(level12);
+		levels.add(level13);
+		levels.add(level14);
+		levels.add(level15);
+		levels.add(level16);
+		levels.add(level17);
+		levels.add(level18);
+		levels.add(level19);
+		levels.add(level20);
 
 		lives = 110;
 		players = 1;
