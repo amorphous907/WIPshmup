@@ -10,7 +10,9 @@ import Models.Enemies.GunshipBasic;
 import Models.Enemies.LightBasic;
 import Models.Enemies.LightSpread;
 import Models.Enemies.LightTiny;
+import Models.Enemies.Bosses.BOSS1;
 import Models.Enemies.Bosses.BOSS3INVIS;
+import Models.Enemies.Bosses.BOSS4;
 import View.World;
 
 import com.badlogic.gdx.math.Vector2;
@@ -48,7 +50,7 @@ public class level_1 extends level
 				public void run()
 				{
 					float size = rnd.nextFloat()*20; 
-					if(size <= 12.5) //25
+					if(size <= 25) //25
 						world.background.get(9).insert(0, new Star(new Vector2(rnd.nextInt(700),0), size,size, new Vector2(0,size*4)));
 					star = true;
 				}
@@ -128,13 +130,13 @@ public class level_1 extends level
 		if(boss_here == 1)
 		{
 			boss_here = 2;
-			world.game.audio.loopMusic("level_1 boss", 0.45f);
+			world.game.audio.loopMusic("level_1 boss", 0.45f);/////////////////////BOSS STUFF/////////////////////
 			world.timer.scheduleTask(new Task() 
 			{
 				@Override
 				public void run()
 				{
-					world.actors.get(0).add(new BOSS3INVIS(new Vector2(350,-200)));
+					world.actors.get(0).add(new BOSS1(new Vector2(350,-200)));
 				}
 			} , 3.0f);
 		}
