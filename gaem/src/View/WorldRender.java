@@ -194,6 +194,16 @@ public class WorldRender {
 		
 		
 		addTexture("star", "star", false);
+		addTexture("star1", "star1", false);
+		addTexture("star2", "star2", false);
+		addTexture("star3", "star3", false);
+		addTexture("star4", "star4", false);
+		addTexture("star5", "star5", false);
+		addTexture("star6", "star6", false);
+		addTexture("star7", "star7", false);
+		addTexture("star8", "star8", false);
+		addTexture("star9", "star9", false);
+		addTexture("star10", "star10", false);
 		addTexture("level1hanger", "level1hanger", false);
 		addTexture("level1floor", "level1floor", false);
 		addTexture("level1beam", "level1beam", false);
