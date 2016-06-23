@@ -245,7 +245,7 @@ public class levelEditor extends level{
 				writer.println("				@Override");
 				writer.println("				public void run()");
 				writer.println("				{");
-				writer.println("					time = time + "+(waveLength+5f)+";");
+				writer.println("					time = time + "+(waveLength+5f)+"f;");
 				writer.println("					waveDone = true;");
 				writer.println("				}");
 				writer.println("			} , "+(waveLength+5f)+");");
