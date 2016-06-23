@@ -87,7 +87,7 @@ public class SelectShip extends MoveableEntity{
 	
 	private void leaving(World world){
 		if(position.y >= -100){
-			velocity.y = -500;
+			velocity.y = -1000;
 		} else{
 			leave = false;
 			velocity.y = 0;
@@ -98,7 +98,7 @@ public class SelectShip extends MoveableEntity{
 	
 	private void entering(World world){
 		if(position.y >= 320){
-			velocity.y = -500;
+			velocity.y = -1000;
 		} else {
 			enter = false;
 			velocity.y = 0;
